@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="pandoc">
+    <title>Introduction to Data Science using R</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <link rel="alternate" type="application/rss+xml" title="Software Carpentry Blog" href="http://software-carpentry.org/feed.xml"/>
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      <div class="banner">
+        <a href="http://citi.clemson.edu" title="Software Carpentry">
+          <img alt="Software Carpentry banner" src="img/paw.gif" width="100px" height="auto" />
+        </a>
+      </div>
+      <article>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+                    <a href="index.html"><h1 class="title">Introduction to Data Science using R</h1></a>
+          <h2 class="subtitle">Making Choices</h2>
+          <section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="learning-objectives"><span class="glyphicon glyphicon-certificate"></span>Learning objectives</h2>
+</div>
+<div class="panel-body">
+<ul>
+<li>Save plot(s) in a PDF file</li>
+<li>Write conditional statements with <code>if</code> and <code>else</code></li>
+<li>Correctly evaluate expressions containing <code>&amp;</code> (‘and’) and <code>|</code> (‘or’)</li>
+</ul>
+</div>
+</section>
+<p>Our previous lessons have shown us how to manipulate data, define our own functions, and repeat things. However, the programs we have written so far always do the same things, regardless of what data they’re given. We want programs to make choices based on the values they are manipulating.</p>
+<h3 id="saving-plots-to-a-file">Saving Plots to a File</h3>
+<p>So far, we have built a function <code>analyze</code> to plot summary statistics of the inflammation data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&quot;/home/lngo/intro-data-science/&quot;</span>)
+analyze &lt;-<span class="st"> </span>function(filename) {
+  <span class="co"># Plots the average, min, and max inflammation over time.</span>
+  <span class="co"># Input is character string of a csv file.</span>
+  dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> filename, <span class="dt">header =</span> <span class="ot">FALSE</span>)
+  avg_day_inflammation &lt;-<span class="st"> </span><span class="kw">apply</span>(dat, <span class="dv">2</span>, mean)
+  <span class="kw">plot</span>(avg_day_inflammation)
+  max_day_inflammation &lt;-<span class="st"> </span><span class="kw">apply</span>(dat, <span class="dv">2</span>, max)
+  <span class="kw">plot</span>(max_day_inflammation)
+  min_day_inflammation &lt;-<span class="st"> </span><span class="kw">apply</span>(dat, <span class="dv">2</span>, min)
+  <span class="kw">plot</span>(min_day_inflammation)
+}</code></pre></div>
+<p>And also built the function <code>analyze_all</code> to automate the processing of each data file:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">analyze_all &lt;-<span class="st"> </span>function(pattern) {
+  <span class="co"># Runs the function analyze for each file in the current working directory</span>
+  <span class="co"># that contains the given pattern.</span>
+  filenames &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="dt">path =</span> <span class="st">&quot;data&quot;</span>, <span class="dt">pattern =</span> pattern, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)
+  for (f in filenames) {
+    <span class="kw">analyze</span>(f)
+  }
+}</code></pre></div>
+<p>While these are useful in an interactive R session, what if we want to send our results to our collaborators? Since we currently have 12 data sets, running <code>analyze_all</code> creates 36 plots. Saving each of these individually would be tedious and error-prone. And in the likely situation that we want to change how the data is processed or the look of the plots, we would have to once again save all 36 before sharing the updated results with our collaborators.</p>
+<p>Here’s how we can save all three plots of the first inflammation data set in a pdf file:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pdf</span>(<span class="st">&quot;inflammation-01.pdf&quot;</span>)
+<span class="kw">analyze</span>(<span class="st">&quot;data/inflammation-01.csv&quot;</span>)
+<span class="kw">dev.off</span>()</code></pre></div>
+<p>The function <code>pdf</code> redirects all the plots generated by R into a pdf file, which in this case we have named “inflammation-01.pdf”. After we are done generating the plots to be saved in the pdf file, we stop R from redirecting plots with the function <code>dev.off</code>.</p>
+<blockquote>
+<h2 id="overwriting-plots">Overwriting Plots</h2>
+<p>If you run <code>pdf</code> multiple times without running <code>dev.off</code>, you will save plots to the most recently opened file. However, you won’t be able to open the previous pdf files because the connections were not closed. In order to get out of this situation, you’ll need to run <code>dev.off</code> until all the pdf connections are closed. You can check your current status using the function <code>dev.cur</code>. If it says “pdf”, all your plots are being saved in the last pdf specified. If it says “null device” or “RStudioGD”, the plots will be visualized normally.</p>
+</blockquote>
+<p>We can update the <code>analyze</code> function so that it always saves the plots in a pdf. But that would make it more difficult to interactively test out new changes. It would be ideal if <code>analyze</code> would either save or not save the plots based on its input.</p>
+<h3 id="conditionals">Conditionals</h3>
+<p>In order to update our function to decide between saving or not, we need to write code that automatically decides between multiple options. The tool R gives us for doing this is called a conditional statement, and looks like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">num &lt;-<span class="st"> </span><span class="dv">37</span>
+if (num &gt;<span class="st"> </span><span class="dv">100</span>) {
+  <span class="kw">print</span>(<span class="st">&quot;greater&quot;</span>)
+} else {
+  <span class="kw">print</span>(<span class="st">&quot;not greater&quot;</span>)
+}
+<span class="kw">print</span>(<span class="st">&quot;done&quot;</span>)</code></pre></div>
+<p>The second line of this code uses an <code>if</code> statement to tell R that we want to make a choice. If the following test is true, the body of the <code>if</code> (i.e., the lines in the curly braces underneath it) are executed. If the test is false, the body of the <code>else</code> is executed instead. Only one or the other is ever executed.</p>
+<p>In the example above, the test <code>num &gt; 100</code> returns the value <code>FALSE</code>, which is why the code inside the <code>if</code> block was skipped and the code inside the <code>else</code> statement was run instead.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">num &gt;<span class="st"> </span><span class="dv">100</span></code></pre></div>
+<p>And as you likely guessed, the opposite of <code>FALSE</code> is <code>TRUE</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">num &lt;<span class="st"> </span><span class="dv">100</span></code></pre></div>
+<p>Conditional statements don’t have to include an <code>else</code>. If there isn’t one, R simply does nothing if the test is false:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">num &lt;-<span class="st"> </span><span class="dv">53</span>
+if (num &gt;<span class="st"> </span><span class="dv">100</span>) {
+  <span class="kw">print</span>(<span class="st">&quot;num is greater than 100&quot;</span>)
+}</code></pre></div>
+<p>We can also chain several tests together when there are more than two options. This makes it simple to write a function that returns the sign of a number:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sign &lt;-<span class="st"> </span>function(num) {
+  if (num &gt;<span class="st"> </span><span class="dv">0</span>) {
+    <span class="kw">return</span>(<span class="dv">1</span>)
+  } else if (num ==<span class="st"> </span><span class="dv">0</span>) {
+    <span class="kw">return</span>(<span class="dv">0</span>)
+  } else {
+    <span class="kw">return</span>(-<span class="dv">1</span>)
+  }
+}
+
+<span class="kw">sign</span>(-<span class="dv">3</span>)
+
+<span class="kw">sign</span>(<span class="dv">0</span>)
+
+<span class="kw">sign</span>(<span class="dv">2</span>/<span class="dv">3</span>)</code></pre></div>
+<p>Note that when combining <code>else</code> and <code>if</code> in an <code>else if</code> statement (similar to <code>elif</code> in Python), the <code>if</code> portion still requires a direct input condition. This is never the case for the <code>else</code> statement alone, which is only executed if all other conditions go unsatisfied. Note that the test for equality uses two equal signs, <code>==</code>.</p>
+<blockquote>
+<h2 id="other-comparisons">Other Comparisons</h2>
+<p>Other tests include greater than or equal to (<code>&gt;=</code>), less than or equal to (<code>&lt;=</code>), and not equal to (<code>!=</code>).</p>
+</blockquote>
+<p>We can also combine tests. An ampersand, <code>&amp;</code>, symbolizes “and”. A vertical bar, <code>|</code>, symbolizes “or”. <code>&amp;</code> is only true if both parts are true:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if (<span class="dv">1</span> &gt;<span class="st"> </span><span class="dv">0</span> &amp;<span class="st"> </span>-<span class="dv">1</span> &gt;<span class="st"> </span><span class="dv">0</span>) {
+    <span class="kw">print</span>(<span class="st">&quot;both parts are true&quot;</span>)
+} else {
+  <span class="kw">print</span>(<span class="st">&quot;at least one part is not true&quot;</span>)
+}</code></pre></div>
+<p>while <code>|</code> is true if either part is true:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if (<span class="dv">1</span> &gt;<span class="st"> </span><span class="dv">0</span> |<span class="st"> </span>-<span class="dv">1</span> &gt;<span class="st"> </span><span class="dv">0</span>) {
+    <span class="kw">print</span>(<span class="st">&quot;at least one part is true&quot;</span>)
+} else {
+  <span class="kw">print</span>(<span class="st">&quot;neither part is true&quot;</span>)
+}</code></pre></div>
+<p>In this case, “either” means “either or both”, not “either one or the other but not both”.</p>
+<blockquote>
+<h2 id="choosing-plots-based-on-data">Choosing Plots Based on Data</h2>
+<p>Write a function <code>plot_dist</code> that plots a boxplot if the length of the vector is greater than a specified threshold and a stripchart otherwise. To do this you’ll use the R functions <code>boxplot</code> and <code>stripchart</code>.</p>
+</blockquote>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/inflammation-01.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">FALSE</span>)
+<span class="kw">plot_dist</span>(dat[, <span class="dv">10</span>], <span class="dt">threshold =</span> <span class="dv">10</span>)     <span class="co"># day (column) 10</span>
+
+<span class="kw">plot_dist</span>(dat[<span class="dv">1</span>:<span class="dv">5</span>, <span class="dv">10</span>], <span class="dt">threshold =</span> <span class="dv">10</span>)  <span class="co"># samples (rows) 1-5 on day (column) 10</span></code></pre></div>
+<blockquote>
+<h2 id="histograms-instead">Histograms Instead</h2>
+<p>One of your collaborators prefers to see the distributions of the larger vectors as a histogram instead of as a boxplot. In order to choose between a histogram and a boxplot we will edit the function <code>plot_dist</code> and add an additional argument <code>use_boxplot</code>. By default we will set <code>use_boxplot</code> to <code>TRUE</code> which will create a boxplot when the vector is longer than <code>threshold</code>. When <code>use_boxplot</code> is set to <code>FALSE</code>, <code>plot_dist</code> will instead plot a histogram for the larger vectors. As before, if the length of the vector is shorter than <code>threshold</code>, <code>plot_dist</code> will create a stripchart. A histogram is made with the <code>hist</code> command in R.</p>
+</blockquote>
+<blockquote>
+<h2 id="find-the-maximum-inflammation-score">Find the Maximum Inflammation Score</h2>
+<p>Find the file containing the patient with the highest average inflammation score. Print the file name, the patient number (row number) and the value of the maximum average inflammation score.</p>
+<p>Tips:</p>
+<ol style="list-style-type: decimal">
+<li>Use variables to store the maximum average and update it as you go through files and patients.</li>
+<li>You can use nested loops (one loop is inside the other) to go through the files as well as through the patients in each file (every row).</li>
+</ol>
+<p>Complete the code below:</p>
+<p>filenames &lt;- list.files(path = “data”, pattern = “inflammation.*csv“, full.names = TRUE) filename_max &lt;-”&quot; # filename where the maximum average inflammation patient is found patient_max &lt;- 0 # index (row number) for this patient in this file average_inf_max &lt;- 0 # value of the average inflammation score for this patient for (f in filenames) { dat &lt;- read.csv(file = f, header = FALSE) dat.means = apply(dat, 1, mean) for (patient_index in length(dat.means)){ patient_average_inf = dat.means[patient_index] # Add your code here … } } print(filename_max) print(patient_max) print(average_inf_max)</p>
+</blockquote>
+<h3 id="saving-automatically-generated-figures">Saving Automatically Generated Figures</h3>
+<p>Now that we know how to have R make decisions based on input values, let’s update <code>analyze</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">analyze &lt;-<span class="st"> </span>function(filename, <span class="dt">output =</span> <span class="ot">NULL</span>) {
+  <span class="co"># Plots the average, min, and max inflammation over time.</span>
+  <span class="co"># Input:</span>
+  <span class="co">#    filename: character string of a csv file</span>
+  <span class="co">#    output: character string of pdf file for saving</span>
+  if (!<span class="kw">is.null</span>(output)) {
+    <span class="kw">pdf</span>(output)
+  }
+  dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> filename, <span class="dt">header =</span> <span class="ot">FALSE</span>)
+  avg_day_inflammation &lt;-<span class="st"> </span><span class="kw">apply</span>(dat, <span class="dv">2</span>, mean)
+  <span class="kw">plot</span>(avg_day_inflammation)
+  max_day_inflammation &lt;-<span class="st"> </span><span class="kw">apply</span>(dat, <span class="dv">2</span>, max)
+  <span class="kw">plot</span>(max_day_inflammation)
+  min_day_inflammation &lt;-<span class="st"> </span><span class="kw">apply</span>(dat, <span class="dv">2</span>, min)
+  <span class="kw">plot</span>(min_day_inflammation)
+  if (!<span class="kw">is.null</span>(output)) {
+    <span class="kw">dev.off</span>()
+  }
+}</code></pre></div>
+<p>We added an argument, <code>output</code>, that by default is set to <code>NULL</code>. An <code>if</code> statement at the beginning checks the argument <code>output</code> to decide whether or not to save the plots to a pdf. Let’s break it down. The function <code>is.null</code> returns <code>TRUE</code> if a variable is <code>NULL</code> and <code>FALSE</code> otherwise. The exclamation mark, <code>!</code>, stands for “not”. Therefore the line in the <code>if</code> block is only executed if <code>output</code> is “not null”.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">output &lt;-<span class="st"> </span><span class="ot">NULL</span>
+<span class="kw">is.null</span>(output)
+!<span class="kw">is.null</span>(output)</code></pre></div>
+<p>Now we can use <code>analyze</code> interactively, as before,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">analyze</span>(<span class="st">&quot;data/inflammation-01.csv&quot;</span>)</code></pre></div>
+<p>but also use it to save plots,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">analyze</span>(<span class="st">&quot;data/inflammation-01.csv&quot;</span>, <span class="dt">output =</span> <span class="st">&quot;inflammation-01.pdf&quot;</span>)</code></pre></div>
+<p>Before going further, we will create a directory <code>results</code> for saving our plots. It is good practice in data analysis projects to save all output to a directory separate from the data and analysis code. You can create this directory using the shell command <code>mkdir</code>, or the R function <code>dir.create()</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dir.create</span>(<span class="st">&quot;results&quot;</span>)</code></pre></div>
+<p>Now run <code>analyze</code> and save the plot in the <code>results</code> directory,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">analyze</span>(<span class="st">&quot;data/inflammation-01.csv&quot;</span>, <span class="dt">output =</span> <span class="st">&quot;results/inflammation-01.pdf&quot;</span>)</code></pre></div>
+<p>This now works well when we want to process one data file at a time, but how can we specify the output file in <code>analyze_all</code>? We need to do two things:</p>
+<ol style="list-style-type: decimal">
+<li>Substitute the filename ending “csv” with “pdf”.</li>
+<li>Save the plot to the <code>results</code> directory.</li>
+</ol>
+<p>To change the extension to “pdf”, we will use the function <code>sub</code>,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> &quot;inflammation-01.csv&quot;</span>
+<span class="kw">sub</span>(<span class="st">&quot;csv&quot;</span>, <span class="st">&quot;pdf&quot;</span>, f)</code></pre></div>
+<p>‘inflammation-01.pdf’</p>
+<p>To add the “data” directory to the filename use the function <code>file.path</code>,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">file.path</span>(<span class="st">&quot;results&quot;</span>, <span class="kw">sub</span>(<span class="st">&quot;csv&quot;</span>, <span class="st">&quot;pdf&quot;</span>, f))</code></pre></div>
+<p>‘results/inflammation-01.pdf’</p>
+<p>Now let’s update <code>analyze_all</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">analyze_all &lt;-<span class="st"> </span>function(pattern) {
+  <span class="co"># Directory name containing the data</span>
+  data_dir &lt;-<span class="st"> &quot;data&quot;</span>
+  <span class="co"># Directory name for results</span>
+  results_dir &lt;-<span class="st"> &quot;results&quot;</span>
+  <span class="co"># Runs the function analyze for each file in the current working directory</span>
+  <span class="co"># that contains the given pattern.</span>
+  filenames &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="dt">path =</span> data_dir, <span class="dt">pattern =</span> pattern)
+  for (f in filenames) {
+    pdf_name &lt;-<span class="st"> </span><span class="kw">file.path</span>(results_dir, <span class="kw">sub</span>(<span class="st">&quot;csv&quot;</span>, <span class="st">&quot;pdf&quot;</span>, f))
+    <span class="kw">analyze</span>(<span class="kw">file.path</span>(data_dir, f), <span class="dt">output =</span> pdf_name)
+  }
+}
+
+<span class="kw">analyze_all</span>(<span class="st">&quot;inflammation*.csv&quot;</span>)</code></pre></div>
+<p>Now if we need to make any changes to our analysis, we can edit the <code>analyze</code> function and quickly regenerate all the figures with <code>analyze_all</code>.</p>
+<blockquote>
+<h2 id="changing-the-behavior-of-the-plot-command">Changing the Behavior of the Plot Command</h2>
+<p>One of your collaborators asks if you can recreate the figures with lines instead of points. Find the relevant argument to <code>plot</code> by reading the documentation (<code>?plot</code>), update <code>analyze</code>, and then recreate all the figures with <code>analyze_all</code>.</p>
+</blockquote>
+        </div>
+      </div>
+      </article>
+      <div class="footer">
+        <a class="label clemson-orange" href="http://citi.clemson.edu">CITI</a>
+        <a class="label clemson-orange" href="https://github.com/clemsoncoe/hpc-workshop">Source</a>
+        <a class="label clemson-orange" href="mailto:atrikut@clemson.edu">Contact</a>
+        <a class="label clemson-orange" href="LICENSE.html">License</a>
+      </div>
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+  </body>
+</html>

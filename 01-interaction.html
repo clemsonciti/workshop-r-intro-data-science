@@ -115,15 +115,6 @@ weight_lb</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;data/inflammation-01.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p>This statement doesn’t produce any output because assignment doesn’t display anything. If we want to check that our data has been loaded, we can print the variable’s value. However, for large data sets it is convenient to use the function <code>head</code> to display only the first few rows of data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(dat)</code></pre></div>
-<blockquote>
-<h2 id="assigning-values-to-variables">Assigning Values to Variables</h2>
-<p>Draw diagrams showing what variables refer to what values after each statement in the following program:</p>
-<pre><code>mass &lt;- 47.5
-age &lt;- 122
-mass &lt;- mass * 2.0
-age &lt;- age - 20</code></pre>
-<p>{: .r} {: .challenge}</p>
-</blockquote>
 <h3 id="manipulating-data">Manipulating Data</h3>
 <p>Now that our data is loaded in memory, we can start doing things with it. First, let’s ask what type of thing <code>dat</code> is:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(dat)</code></pre></div>
@@ -199,7 +190,7 @@ animal[<span class="dv">1</span>:<span class="dv">3</span>]</code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>If the first four characters are selected using the slice <code>animal[1:4]</code>, how can we obtain the first four characters in reverse order?</p></li>
 <li><p>What is <code>animal[-1]</code>? What is <code>animal[-4]</code>? Given those answers, explain what <code>animal[-1:-4]</code> does.</p></li>
-<li><p>Use a slice of <code>animal</code> to create a new character vector that spells the word “eon”, i.e. <code>c(&quot;e&quot;, &quot;o&quot;, &quot;n&quot;)</code>. {: .challenge}</p></li>
+<li><p>Use a slice of <code>animal</code> to create a new character vector that spells the word “eon”, i.e. <code>c(&quot;e&quot;, &quot;o&quot;, &quot;n&quot;)</code>.</p></li>
 </ol>
 </blockquote>
 <blockquote>
@@ -209,7 +200,7 @@ animal[<span class="dv">1</span>:<span class="dv">3</span>]</code></pre></div>
 <li><code>max(dat[5, ])</code></li>
 <li><code>max(dat[3:7, 5])</code></li>
 <li><code>max(dat[5, 3:7])</code></li>
-<li><code>max(dat[5, 3, 7])</code> {: .challenge}</li>
+<li><code>max(dat[5, 3, 7])</code></li>
 </ol>
 </blockquote>
 <blockquote>
@@ -220,15 +211,6 @@ animal[<span class="dv">1</span>:<span class="dv">3</span>]</code></pre></div>
 <li>Create a new data frame with in which you halve the first five days’ values in only those patients</li>
 <li>Print out the corrected data frame to check that your code has fixed the problem</li>
 </ol>
-<blockquote>
-<h2 id="solution">Solution</h2>
-<pre><code>whichPatients &lt;- seq(2,40,2)
-whichDays &lt;- c(1:5)
-dat2 &lt;- dat
-dat2[whichPatients,whichDays] &lt;- dat2[whichPatients,whichDays]/2
-(dat2)</code></pre>
-<p>{: .r} {: .solution} {: .challenge}</p>
-</blockquote>
 </blockquote>
 <blockquote>
 <h2 id="using-the-apply-function-on-patient-data">Using the Apply Function on Patient Data</h2>
@@ -240,18 +222,6 @@ dat2[whichPatients,whichDays] &lt;- dat2[whichPatients,whichDays]/2
 <li>calculate the mean inflammation for every second day (across all patients).</li>
 </ol>
 <p>Think about the number of rows and columns you would expect as the result before each apply call and check your intuition by applying the mean function.</p>
-</blockquote>
-<blockquote>
-<blockquote>
-<h2 id="solution-1">Solution</h2>
-<pre><code># 1.
-apply(dat[1:5, ], 1, mean)
-# 2.
-apply(dat[, 1:10], 2, mean)
-# 3.
-apply(dat[, seq(1,40, by=2)], 2, mean)</code></pre>
-<p>{: .r} {: .solution} {: .challenge}</p>
-</blockquote>
 </blockquote>
 <h3 id="plotting">Plotting</h3>
 <p>The mathematician Richard Hamming once said, “The purpose of computing is insight, not numbers,” and the best way to develop insight is often to visualize data. Visualization deserves an entire lecture (or course) of its own, but we can explore a few of R’s plotting features.</p>
@@ -265,7 +235,7 @@ apply(dat[, seq(1,40, by=2)], 2, mean)</code></pre>
 <p>The maximum value rises and falls perfectly smoothly, while the minimum seems to be a step function. Neither result seems particularly likely, so either there’s a mistake in our calculations or something is wrong with our data.</p>
 <blockquote>
 <h2 id="plotting-data">Plotting Data</h2>
-<p>Create a plot showing the standard deviation of the inflammation data for each day across all patients. {: .challenge}</p>
+<p>Create a plot showing the standard deviation of the inflammation data for each day across all patients.</p>
 </blockquote>
         </div>
       </div>

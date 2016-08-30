@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="pandoc">
+    <title>Introduction to Data Science using R</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <link rel="alternate" type="application/rss+xml" title="Software Carpentry Blog" href="http://software-carpentry.org/feed.xml"/>
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      <div class="banner">
+        <a href="http://citi.clemson.edu" title="Software Carpentry">
+          <img alt="Software Carpentry banner" src="img/paw.gif" width="100px" height="auto" />
+        </a>
+      </div>
+      <article>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+                    <a href="index.html"><h1 class="title">Introduction to Data Science using R</h1></a>
+          <h2 class="subtitle">Addressing Data</h2>
+          <section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="learning-objectives"><span class="glyphicon glyphicon-certificate"></span>Learning objectives</h2>
+</div>
+<div class="panel-body">
+<ul>
+<li>Understand the three different ways R can address data inside a data frame</li>
+<li>Combine different methods for addressing data with the assignment operator to update subsets of data</li>
+</ul>
+</div>
+</section>
+<p>R is a powerful language for data manipulation. There are three main ways for addressing data inside R objects.</p>
+<ul>
+<li>By index (slicing)</li>
+<li>By logical vector</li>
+<li>By name (columns only)</li>
+</ul>
+<p>Lets start by loading some sample data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&quot;/home/lngo/intro-data-science/&quot;</span>)
+dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&#39;data/sample.csv&#39;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<blockquote>
+<h2 id="interpreting-rows-as-headers">Interpreting Rows as Headers</h2>
+<p>The first row of this csv file is a list of column names. We used the <em>header=TRUE</em> argument to <code>read.csv</code> so that R can interpret the file correctly. We are using the <em>stringsAsFactors=FALSE</em> argument to override the default behaviour for R. Using factors in R is covered in a separate lesson.</p>
+</blockquote>
+<p>Lets take a look at this data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(dat)</code></pre></div>
+<p>‘data.frame’</p>
+<p>R has loaded the contents of the .csv file into a variable called <code>dat</code> which is a <code>data frame</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(dat)</code></pre></div>
+<ol class="list-inline">
+<pre><code>&lt;li&gt;100&lt;/li&gt;
+&lt;li&gt;9&lt;/li&gt;</code></pre>
+</ol>
+<p>The data has 100 rows and 9 columns.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(dat)</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>
+</th>
+<th scope="col">
+ID
+</th>
+<th scope="col">
+Gender
+</th>
+<th scope="col">
+Group
+</th>
+<th scope="col">
+BloodPressure
+</th>
+<th scope="col">
+Age
+</th>
+<th scope="col">
+Aneurisms_q1
+</th>
+<th scope="col">
+Aneurisms_q2
+</th>
+<th scope="col">
+Aneurisms_q3
+</th>
+<th scope="col">
+Aneurisms_q4
+</th>
+</tr>
+</thead>
+<tbody>
+<pre><code>&lt;tr&gt;&lt;th scope=row&gt;1&lt;/th&gt;&lt;td&gt;Sub001&lt;/td&gt;&lt;td&gt;m&lt;/td&gt;&lt;td&gt;Control&lt;/td&gt;&lt;td&gt;132&lt;/td&gt;&lt;td&gt;16&lt;/td&gt;&lt;td&gt;114&lt;/td&gt;&lt;td&gt;140&lt;/td&gt;&lt;td&gt;202&lt;/td&gt;&lt;td&gt;237&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;2&lt;/th&gt;&lt;td&gt;Sub002&lt;/td&gt;&lt;td&gt;m&lt;/td&gt;&lt;td&gt;Treatment2&lt;/td&gt;&lt;td&gt;139&lt;/td&gt;&lt;td&gt;17.2&lt;/td&gt;&lt;td&gt;148&lt;/td&gt;&lt;td&gt;209&lt;/td&gt;&lt;td&gt;248&lt;/td&gt;&lt;td&gt;248&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;3&lt;/th&gt;&lt;td&gt;Sub003&lt;/td&gt;&lt;td&gt;m&lt;/td&gt;&lt;td&gt;Treatment2&lt;/td&gt;&lt;td&gt;130&lt;/td&gt;&lt;td&gt;19.5&lt;/td&gt;&lt;td&gt;196&lt;/td&gt;&lt;td&gt;251&lt;/td&gt;&lt;td&gt;122&lt;/td&gt;&lt;td&gt;177&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;4&lt;/th&gt;&lt;td&gt;Sub004&lt;/td&gt;&lt;td&gt;f&lt;/td&gt;&lt;td&gt;Treatment1&lt;/td&gt;&lt;td&gt;105&lt;/td&gt;&lt;td&gt;15.7&lt;/td&gt;&lt;td&gt;199&lt;/td&gt;&lt;td&gt;140&lt;/td&gt;&lt;td&gt;233&lt;/td&gt;&lt;td&gt;220&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;5&lt;/th&gt;&lt;td&gt;Sub005&lt;/td&gt;&lt;td&gt;m&lt;/td&gt;&lt;td&gt;Treatment1&lt;/td&gt;&lt;td&gt;125&lt;/td&gt;&lt;td&gt;19.9&lt;/td&gt;&lt;td&gt;188&lt;/td&gt;&lt;td&gt;120&lt;/td&gt;&lt;td&gt;222&lt;/td&gt;&lt;td&gt;228&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;6&lt;/th&gt;&lt;td&gt;Sub006&lt;/td&gt;&lt;td&gt;M&lt;/td&gt;&lt;td&gt;Treatment2&lt;/td&gt;&lt;td&gt;112&lt;/td&gt;&lt;td&gt;14.3&lt;/td&gt;&lt;td&gt;260&lt;/td&gt;&lt;td&gt;266&lt;/td&gt;&lt;td&gt;320&lt;/td&gt;&lt;td&gt;294&lt;/td&gt;&lt;/tr&gt;</code></pre>
+</tbody>
+</table>
+<p>The data is the results of an (not real) experiment, looking at the number of aneurysms that formed in the eyes of patients who undertook 3 different treatments.</p>
+<h3 id="addressing-by-index">Addressing by Index</h3>
+<p>Data can be accessed by index. We have already seen how square brackets <code>[</code> can be used to subset (slice) data. The generic format is <code>dat[row_numbers,column_numbers]</code>.</p>
+<blockquote>
+<h2 id="selecting-values">Selecting Values</h2>
+<p>What will be returned by <code>dat[1,1]</code>?</p>
+</blockquote>
+<p>If we leave out a dimension R will interpret this as a request for all values in that dimension.</p>
+<blockquote>
+<h2 id="selecting-more-values">Selecting More Values</h2>
+<p>What will be returned by <code>dat[,2]</code>?</p>
+</blockquote>
+<p>The colon <code>:</code> can be used to create a sequence of integers.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">6</span>:<span class="dv">9</span></code></pre></div>
+<ol class="list-inline">
+<pre><code>&lt;li&gt;6&lt;/li&gt;
+&lt;li&gt;7&lt;/li&gt;
+&lt;li&gt;8&lt;/li&gt;
+&lt;li&gt;9&lt;/li&gt;</code></pre>
+</ol>
+<p>This creates a vector of numbers from 6 to 9.</p>
+<p>This can be very useful for addressing data.</p>
+<blockquote>
+<h2 id="subsetting-with-sequences">Subsetting with Sequences</h2>
+<p>Use the colon operator to index just the aneurism count data (columns 6 to 9).</p>
+</blockquote>
+<p>Finally we can use the <code>c()</code> (combine) function to address non-sequential rows and columns.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">9</span>), <span class="dv">1</span>:<span class="dv">5</span>]</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>
+</th>
+<th scope="col">
+ID
+</th>
+<th scope="col">
+Gender
+</th>
+<th scope="col">
+Group
+</th>
+<th scope="col">
+BloodPressure
+</th>
+<th scope="col">
+Age
+</th>
+</tr>
+</thead>
+<tbody>
+<pre><code>&lt;tr&gt;&lt;th scope=row&gt;1&lt;/th&gt;&lt;td&gt;Sub001&lt;/td&gt;&lt;td&gt;m&lt;/td&gt;&lt;td&gt;Control&lt;/td&gt;&lt;td&gt;132&lt;/td&gt;&lt;td&gt;16&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;5&lt;/th&gt;&lt;td&gt;Sub005&lt;/td&gt;&lt;td&gt;m&lt;/td&gt;&lt;td&gt;Treatment1&lt;/td&gt;&lt;td&gt;125&lt;/td&gt;&lt;td&gt;19.9&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;7&lt;/th&gt;&lt;td&gt;Sub007&lt;/td&gt;&lt;td&gt;f&lt;/td&gt;&lt;td&gt;Control&lt;/td&gt;&lt;td&gt;173&lt;/td&gt;&lt;td&gt;17.7&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;9&lt;/th&gt;&lt;td&gt;Sub009&lt;/td&gt;&lt;td&gt;m&lt;/td&gt;&lt;td&gt;Treatment2&lt;/td&gt;&lt;td&gt;131&lt;/td&gt;&lt;td&gt;19.4&lt;/td&gt;&lt;/tr&gt;</code></pre>
+</tbody>
+</table>
+<p>Returns the first 5 columns for patients in rows 1,5,7 &amp; 9</p>
+<blockquote>
+<h2 id="subsetting-non-sequential-data">Subsetting Non-Sequential Data</h2>
+<p>Return the age and gender values for the first 5 patients.</p>
+</blockquote>
+<h3 id="addressing-by-name">Addressing by Name</h3>
+<p>Columns in an R data frame are named.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(dat)</code></pre></div>
+<ol class="list-inline">
+<pre><code>&lt;li&gt;&#39;ID&#39;&lt;/li&gt;
+&lt;li&gt;&#39;Gender&#39;&lt;/li&gt;
+&lt;li&gt;&#39;Group&#39;&lt;/li&gt;
+&lt;li&gt;&#39;BloodPressure&#39;&lt;/li&gt;
+&lt;li&gt;&#39;Age&#39;&lt;/li&gt;
+&lt;li&gt;&#39;Aneurisms_q1&#39;&lt;/li&gt;
+&lt;li&gt;&#39;Aneurisms_q2&#39;&lt;/li&gt;
+&lt;li&gt;&#39;Aneurisms_q3&#39;&lt;/li&gt;
+&lt;li&gt;&#39;Aneurisms_q4&#39;&lt;/li&gt;</code></pre>
+</ol>
+<blockquote>
+<h2 id="default-names">Default Names</h2>
+<p>If names are not specified e.g. using <code>headers=FALSE</code> in a <code>read.csv()</code> function, R assigns default names <code>V1,V2,...,Vn</code></p>
+</blockquote>
+<p>We usually use the <code>$</code> operator to address a column by name</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat$Gender</code></pre></div>
+<ol class="list-inline">
+<pre><code>&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;M&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;F&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;M&#39;&lt;/li&gt;
+&lt;li&gt;&#39;M&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;M&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;M&#39;&lt;/li&gt;
+&lt;li&gt;&#39;M&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;M&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;M&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;F&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;M&#39;&lt;/li&gt;
+&lt;li&gt;&#39;M&#39;&lt;/li&gt;
+&lt;li&gt;&#39;M&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;M&#39;&lt;/li&gt;
+&lt;li&gt;&#39;M&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;F&#39;&lt;/li&gt;
+&lt;li&gt;&#39;f&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;F&#39;&lt;/li&gt;
+&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;M&#39;&lt;/li&gt;
+&lt;li&gt;&#39;M&#39;&lt;/li&gt;</code></pre>
+</ol>
+<p>Named addressing can also be used in square brackets.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(dat[,<span class="kw">c</span>(<span class="st">&#39;Age&#39;</span>, <span class="st">&#39;Gender&#39;</span>)])</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>
+</th>
+<th scope="col">
+Age
+</th>
+<th scope="col">
+Gender
+</th>
+</tr>
+</thead>
+<tbody>
+<pre><code>&lt;tr&gt;&lt;th scope=row&gt;1&lt;/th&gt;&lt;td&gt;16&lt;/td&gt;&lt;td&gt;m&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;2&lt;/th&gt;&lt;td&gt;17.2&lt;/td&gt;&lt;td&gt;m&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;3&lt;/th&gt;&lt;td&gt;19.5&lt;/td&gt;&lt;td&gt;m&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;4&lt;/th&gt;&lt;td&gt;15.7&lt;/td&gt;&lt;td&gt;f&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;5&lt;/th&gt;&lt;td&gt;19.9&lt;/td&gt;&lt;td&gt;m&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;6&lt;/th&gt;&lt;td&gt;14.3&lt;/td&gt;&lt;td&gt;M&lt;/td&gt;&lt;/tr&gt;</code></pre>
+</tbody>
+</table>
+<blockquote>
+<h2 id="best-practice">Best Practice</h2>
+<p>Best practice is to address columns by name, often you will create or delete columns and the column position will change.</p>
+</blockquote>
+<h3 id="logical-indexing">Logical Indexing</h3>
+<p>A logical vector contains only the special values <code>TRUE</code> &amp; <code>FALSE</code>.</p>
+<p>c(TRUE, TRUE, FALSE, FALSE, TRUE)</p>
+<blockquote>
+<h2 id="truth-and-its-opposite">Truth and Its Opposite</h2>
+<p>Note the values <code>TRUE</code> and <code>FALSE</code> are all capital letters and are not quoted. {: .callout}</p>
+</blockquote>
+<p>Logical vectors can be created using <code>relational operators</code> e.g. <code>&lt;, &gt;, ==, !=, %in%</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">13</span>)
+x &lt;<span class="st"> </span><span class="dv">10</span></code></pre></div>
+<ol class="list-inline">
+<pre><code>&lt;li&gt;TRUE&lt;/li&gt;
+&lt;li&gt;TRUE&lt;/li&gt;
+&lt;li&gt;TRUE&lt;/li&gt;
+&lt;li&gt;FALSE&lt;/li&gt;
+&lt;li&gt;FALSE&lt;/li&gt;
+&lt;li&gt;FALSE&lt;/li&gt;</code></pre>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x %in%<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span></code></pre></div>
+<ol class="list-inline">
+<pre><code>&lt;li&gt;TRUE&lt;/li&gt;
+&lt;li&gt;TRUE&lt;/li&gt;
+&lt;li&gt;TRUE&lt;/li&gt;
+&lt;li&gt;FALSE&lt;/li&gt;
+&lt;li&gt;FALSE&lt;/li&gt;
+&lt;li&gt;FALSE&lt;/li&gt;</code></pre>
+</ol>
+<p>We can use logical vectors to select data from a data frame.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">index &lt;-<span class="st"> </span>dat$Group ==<span class="st"> &#39;Control&#39;</span>
+dat[index,]$BloodPressure</code></pre></div>
+<ol class="list-inline">
+<pre><code>&lt;li&gt;132&lt;/li&gt;
+&lt;li&gt;173&lt;/li&gt;
+&lt;li&gt;129&lt;/li&gt;
+&lt;li&gt;77&lt;/li&gt;
+&lt;li&gt;158&lt;/li&gt;
+&lt;li&gt;81&lt;/li&gt;
+&lt;li&gt;137&lt;/li&gt;
+&lt;li&gt;111&lt;/li&gt;
+&lt;li&gt;135&lt;/li&gt;
+&lt;li&gt;108&lt;/li&gt;
+&lt;li&gt;133&lt;/li&gt;
+&lt;li&gt;139&lt;/li&gt;
+&lt;li&gt;126&lt;/li&gt;
+&lt;li&gt;125&lt;/li&gt;
+&lt;li&gt;99&lt;/li&gt;
+&lt;li&gt;122&lt;/li&gt;
+&lt;li&gt;155&lt;/li&gt;
+&lt;li&gt;133&lt;/li&gt;
+&lt;li&gt;94&lt;/li&gt;
+&lt;li&gt;98&lt;/li&gt;
+&lt;li&gt;74&lt;/li&gt;
+&lt;li&gt;116&lt;/li&gt;
+&lt;li&gt;97&lt;/li&gt;
+&lt;li&gt;104&lt;/li&gt;
+&lt;li&gt;117&lt;/li&gt;
+&lt;li&gt;90&lt;/li&gt;
+&lt;li&gt;150&lt;/li&gt;
+&lt;li&gt;116&lt;/li&gt;
+&lt;li&gt;108&lt;/li&gt;
+&lt;li&gt;102&lt;/li&gt;</code></pre>
+</ol>
+<p>Often this operation is written as one line of code:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(dat[dat$Group ==<span class="st"> &#39;Control&#39;</span>,]$BloodPressure)</code></pre></div>
+<blockquote>
+<h2 id="using-logical-indexes">Using Logical Indexes</h2>
+<ol style="list-style-type: decimal">
+<li>Create a scatterplot showing BloodPressure for subjects not in the control group.</li>
+<li>How many ways are there to index this set of subjects?</li>
+</ol>
+</blockquote>
+<h3 id="combining-indexing-and-assignment">Combining Indexing and Assignment</h3>
+<p>The assignment operator <code>&lt;-</code> can be combined with indexing.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">13</span>)
+x[x &lt;<span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="dv">0</span>
+x</code></pre></div>
+<blockquote>
+<h2 id="updating-a-subset-of-values">Updating a Subset of Values</h2>
+<p>In this dataset, values for Gender have been recorded as both uppercase <code>M, F</code> and lowercase <code>m,f</code>. Combine the indexing and assignment operations to convert all values to lowercase.</p>
+</blockquote>
+        </div>
+      </div>
+      </article>
+      <div class="footer">
+        <a class="label clemson-orange" href="http://citi.clemson.edu">CITI</a>
+        <a class="label clemson-orange" href="https://github.com/clemsoncoe/hpc-workshop">Source</a>
+        <a class="label clemson-orange" href="mailto:atrikut@clemson.edu">Contact</a>
+        <a class="label clemson-orange" href="LICENSE.html">License</a>
+      </div>
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+  </body>
+</html>
