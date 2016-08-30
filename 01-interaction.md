@@ -172,19 +172,6 @@ However, for large data sets it is convenient to use the function `head` to disp
 head(dat)
 ```
 
-> ## Assigning Values to Variables
->
-> Draw diagrams showing what variables refer to what values after each statement in the following program:
->
-> ~~~
-> mass <- 47.5
-> age <- 122
-> mass <- mass * 2.0
-> age <- age - 20
-> ~~~
-> {: .r}
-{: .challenge}
-
 ### Manipulating Data
 
 Now that our data is loaded in memory, we can start doing things with it.
@@ -386,7 +373,6 @@ animal[1:3]
 >    explain what `animal[-1:-4]` does.
 >
 > 3.  Use a slice of `animal` to create a new character vector that spells the word "eon", i.e. `c("e", "o", "n")`.
-{: .challenge}
 
 > ## Subsetting More Data
 >
@@ -398,7 +384,6 @@ animal[1:3]
 > 2. `max(dat[3:7, 5])`
 > 3. `max(dat[5, 3:7])`
 > 4. `max(dat[5, 3, 7])`
-{: .challenge}
 
 > ## Slicing and Re-Assignment
 >
@@ -408,19 +393,6 @@ animal[1:3]
 > 1. Write a vector containing each affected patient (hint: `? seq`)
 > 2. Create a new data frame with in which you halve the first five days' values in only those patients
 > 3. Print out the corrected data frame to check that your code has fixed the problem
->
-> > ## Solution
-> > ~~~
-> > whichPatients <- seq(2,40,2)
-> > whichDays <- c(1:5)
-> > dat2 <- dat
-> > dat2[whichPatients,whichDays] <- dat2[whichPatients,whichDays]/2
-> > (dat2)
-> > ~~~
-> > {: .r}
-> {: .solution}
-{: .challenge}
-
 
 > ## Using the Apply Function on Patient Data
 >
@@ -437,19 +409,6 @@ animal[1:3]
 >
 > Think about the number of rows and columns you would expect as the result before each
 > apply call and check your intuition by applying the mean function.
-
-> > ## Solution
-> > ~~~
-> > # 1.
-> > apply(dat[1:5, ], 1, mean)
-> > # 2.
-> > apply(dat[, 1:10], 2, mean)
-> > # 3.
-> > apply(dat[, seq(1,40, by=2)], 2, mean)
-> > ~~~
-> > {: .r}
-> {: .solution}
-{: .challenge}
 
 ### Plotting
 
@@ -487,4 +446,3 @@ The maximum value rises and falls perfectly smoothly, while the minimum seems to
 > ## Plotting Data
 >
 > Create a plot showing the standard deviation of the inflammation data for each day across all patients.
-{: .challenge}
