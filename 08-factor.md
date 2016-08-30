@@ -1,4 +1,234 @@
 
+---
+layout: lesson
+title: Introduction to Data Science using R
+subtitle: Understanding Factors
+minutes: 20
+---
+
+> ## Learning objectives {.objectives}
+> * Understand how to represent categorical data in R
+> * Know the difference between ordered and unordered factors
+> * Be aware of some of the problems encountered when using factors
+
+Factors are used to represent categorical data. Factors can be ordered or
+unordered and are an important class for statistical analysis and for plotting.
+
+Factors are stored as integers, and have labels associated with these unique
+integers. While factors look (and often behave) like character vectors, they are
+actually integers under the hood, and you need to be careful when treating them
+like strings.
+
+Once created, factors can only contain a pre-defined set values, known as
+*levels*. The `factor()` command is used to create and modify factors in R. 
+By default, R always sorts *levels* in alphabetical order. For
+instance, if you have a factor with 2 levels:
+
+
+```R
+sex <- factor(c("male", "female", "female", "male"))
+```
+
+R will assign `1` to the level `"female"` and `2` to the level `"male"` (because
+`f` comes before `m`, even though the first element in this vector is
+`"male"`). You can check this by using the function `levels()`, and check the
+number of levels using `nlevels()`:
+
+
+```R
+levels(sex)
+
+nlevels(sex)
+```
+
+Sometimes, the order of the factors does not matter, other times you might want
+to specify the order because it is meaningful (e.g., "low", "medium", "high") or
+it is required by particular type of analysis. Additionally, specifying the
+order of the levels allows us to compare levels:
+
+
+```R
+raw_food <- c("low", "high", "medium", "high", "low", "medium", "high")
+```
+
+
+```R
+food <- factor(raw_food)
+levels(food)
+```
+
+
+```R
+food <- factor(raw_food, levels = c("low", "medium", "high"))
+levels(food)
+```
+
+
+```R
+min(food) ## doesn't work
+```
+
+
+```R
+food <- factor(raw_food, levels = c("low", "medium", "high"), ordered=TRUE)
+levels(food)
+
+min(food) ## works!
+```
+
+In R's memory, these factors are represented by numbers (1, 2, 3). They are
+better than using simple integer labels because factors are self describing:
+`"low"`, `"medium"`, and `"high"`" is more descriptive than `1`, `2`, `3`. Which
+is low?  You wouldn't be able to tell with just integer data. Factors have this
+information built in. It is particularly helpful when there are many levels
+(like the subjects in our example data set).
+
+> ## Representing Data in R
+>
+> You have a vector representing levels of exercise undertaken by 5 subjects
+>
+> **"l","n","n","i","l"** ; n=none, l=light, i=intense
+>
+> What is the best way to represent this in R?
+>
+> a) exercise <- c("l", "n", "n", "i", "l")
+>
+> b) exercise <- factor(c("l", "n", "n", "i", "l"), ordered = TRUE)
+>
+> c) exercise < -factor(c("l", "n", "n", "i", "l"), levels = c("n", "l", "i"), ordered = FALSE)
+>
+> d) exercise <- factor(c("l", "n", "n", "i", "l"), levels = c("n", "l", "i"), ordered = TRUE)
+{: .challenge}
+
+###  Converting Factors
+
+Converting from a factor to a number can cause problems:
+
+
+```R
+f <- factor(c(3.4, 1.2, 5))
+as.numeric(f)
+```
+
+This does not behave as expected (and there is no warning).
+
+The recommended way is to use the integer vector to index the factor levels:
+
+
+```R
+levels(f)[f]
+```
+
+This returns a character vector, the `as.numeric()` function is still required to convert the values to the proper type (numeric).
+
+
+```R
+f <- levels(f)[f]
+f <- as.numeric(f)
+```
+
+### Using Factors
+
+Lets load our example data to see the use of factors:
+
+
+```R
+setwd("/home/lngo/intro-data-science/")
+dat <- read.csv(file = 'data/sample.csv', stringsAsFactors = TRUE)
+```
+
+> ## Default Behavior
+>
+> `stringsAsFactors=TRUE` is the default behavior for R.
+> We could leave this argument out.
+> It is included here for clarity.
+{: .callout}
+
+
+```R
+str(dat)
+```
+
+Notice the first 3 columns have been converted to factors. These values were text in the data file so R automatically interpreted them as categorical variables.
+
+
+```R
+summary(dat)
+```
+
+Notice the `summary()` function handles factors differently to numbers (and strings), the occurrence counts for each value is often more useful information.
+
+> ## The `summary()` Function
+>
+> The `summary()` function is a great way of spotting errors in your data (look at the *dat$Gender* column).
+> It's also a great way for spotting missing data.
+
+> ## Reordering Factors
+>
+> The function `table()` tabulates observations and can be used to create bar plots quickly. For instance:
+
+
+```R
+table(dat$Group)
+```
+
+
+```R
+barplot(table(dat$Group))
+```
+
+> Use the `factor()` command to modify the column dat$Group so that the *control* group is plotted last
+
+### Removing Levels from a Factor
+
+Some of the Gender values in our dataset have been coded incorrectly.
+Let's remove factors.
+
+
+```R
+barplot(table(dat$Gender))
+```
+
+Values should have been recorded as lowercase 'm' & 'f'. We should correct this.
+
+
+```R
+dat$Gender[dat$Gender == 'M'] <- 'm'
+```
+
+> ## Updating Factors
+>
+
+
+```R
+plot(x = dat$Gender, y = dat$BloodPressure)
+```
+
+>
+> Why does this plot show 4 levels?
+>
+> *Hint* how many levels does dat$Gender have?
+
+
+We need to tell R that "M" is no longer a valid value for this column.
+We use the `droplevels()` function to remove extra levels.
+
+
+```R
+dat$Gender <- droplevels(dat$Gender)
+plot(x = dat$Gender, y = dat$BloodPressure)
+```
+
+> ## Adjusting Factor Levels
+>
+> Adjusting the `levels()` of a factor provides a useful shortcut for reassigning values in this case.
+
+
+```R
+levels(dat$Gender)[2] <- 'f'
+plot(x = dat$Gender, y = dat$BloodPressure)
+```
+
 
 ```R
 
