@@ -1,30 +1,32 @@
 ---
 layout: page
-title: Introduction to Hadoop
+title: Introduction to Data Science using R
 ---
 
 > ## Learning objectives {.objectives}
 >
 > By the end of this workshop, you will be able to
 >
-> 1. Create, manage and navigate files and directories on
->    the Hadoop Distributed File System (HDFS).
-> 2. Understand the concept of data locality in distributed system.
-> 3. Understand how big data files are distributed across HDFS and manipulated by MapReduce programming paradigm to facilitate data locality.
-> 4. Write Streaming MapReduce Python programs to analyze a large data set.
-> 5. Integrate Streaming MapReduce processing with standard Python programs to facilitate complex analysis.
+> 1. Perform exploratory analysis on multiple data sets using a combination 
+> of the R programming language and the Jupyter notebook running on 
+> the Palmetto Supercomputer at Clemson University,
+> 2. Be able to install additional R libraries into your account on Palmetto,
+> enabling additional data analytic tools, 
+> 3. Be able to utilize *dplyr* to manipulate data,
+> 4. Be able to utilize *ggplot* to visualize data,
+> 5. Be able to optimize repetitive operations through function creations
+> and loop enhancement, and
+> 6. Understand and be able to follow best practices in writing R codes.
 
 > ## Prerequesites {.prereq}
-> This workshop requires prerequisites knowledges that are equivalent to the following COE workshops:
 >
-> 1. Introduction to research computing on the Palmetto Cluster.
-> 2. Introduction to Linux.
-> 3. Introduction to Python.
+> This workshop requires attendees to have an active account on the Palmetto Supercomputer
+>
 
 ## Contributing
 
 These lessons are modeled after the structure of
-[Data Carpentry][dc-lessons] lesson materials,
+[Data Carpentry][dc-lessons] and [Software Carpentry][sw-lessons] lesson materials,
 an open source project.
 Like Data Carpentry, we welcome contributions
 of all kinds:
@@ -36,16 +38,23 @@ and reviews of proposed changes are all equally welcome.
 Please see our page on [Contributing][contributing]
 to get started.
 
-## Introduction to Hadoop
+## Schedule
 
-1. [Introduction to the Hadoop Distributed File System (HDFS)](00-intro.html)
-2. [Interaction with the Hadoop cluster](01-interaction.html)
-3. [Files and Directories](02-filedir.html)
-4. [MapReduce Programming Paradigm](03-mapreduce.html)
-5. [Running a Streaming MapReduce program](04-streaming-mapreduce.html)
-6. [Creating a Mapper](05-mapper.html)
-7. [Creating a Reducer](06-reducer.html)
-8. [Integrating MapReduce](07-integrating-mapreduce.html)
+1. [Introduction to the R programming language](00-intro.html)
+2. [Interacting with Data](01-interaction.html)
+3. [Creating Functions](02-functions.html)
+4. [Analyzing Multiple Data Sets](03-multiple.html)
+5. [Making Choices](04-choice.html)
+6. [Addressing Data](05-slice.html)
+7. [Reading and Writing CSV Files](06-read-write-csv.html)
+8. [Best Practices for Writing R](07-best-practice.html)
+9. [Understanding Factors](08-factor.html)
+10. [Data Types and Structures](09-data-structures.html)
+11. [Installing R Community Packages](10-install-packages.html)
+12. [Manipulating Data with *dplyr*](11-dplyr.html)
+13. [Visualizing Data with *ggplot*](12-ggplot.html)
+14. [Improving Loop Performance](13-fast-loop.html)
 
 [dc-lessons]: https://datacarpentry.org/lessons/
+[sw-lessions]: https://software-carpentry.org/lessons/
 [contributing]: https://github.com/shwina/hpc-novice/blob/gh-pages/CONTRIBUTING.md
