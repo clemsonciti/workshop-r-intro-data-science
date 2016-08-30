@@ -39,78 +39,6 @@ The data files are located in the directory **data** inside the working director
 read.csv(file="data/inflammation-01.csv", header=FALSE)
 ```
 
-
-
-
-<table>
-<thead><tr><th></th><th scope=col>V1</th><th scope=col>V2</th><th scope=col>V3</th><th scope=col>V4</th><th scope=col>V5</th><th scope=col>V6</th><th scope=col>V7</th><th scope=col>V8</th><th scope=col>V9</th><th scope=col>V10</th><th scope=col>ellip.h</th><th scope=col>V31</th><th scope=col>V32</th><th scope=col>V33</th><th scope=col>V34</th><th scope=col>V35</th><th scope=col>V36</th><th scope=col>V37</th><th scope=col>V38</th><th scope=col>V39</th><th scope=col>V40</th></tr></thead>
-<tbody>
-	<tr><th scope=row>1</th><td>0</td><td>0</td><td>1</td><td>3</td><td>1</td><td>2</td><td>4</td><td>7</td><td>8</td><td>3</td><td>⋯</td><td>4</td><td>4</td><td>5</td><td>7</td><td>3</td><td>4</td><td>2</td><td>3</td><td>0</td><td>0</td></tr>
-	<tr><th scope=row>2</th><td>0</td><td>1</td><td>2</td><td>1</td><td>2</td><td>1</td><td>3</td><td>2</td><td>2</td><td>6</td><td>⋯</td><td>3</td><td>5</td><td>4</td><td>4</td><td>5</td><td>5</td><td>1</td><td>1</td><td>0</td><td>1</td></tr>
-	<tr><th scope=row>3</th><td>0</td><td>1</td><td>1</td><td>3</td><td>3</td><td>2</td><td>6</td><td>2</td><td>5</td><td>9</td><td>⋯</td><td>10</td><td>5</td><td>4</td><td>2</td><td>2</td><td>3</td><td>2</td><td>2</td><td>1</td><td>1</td></tr>
-	<tr><th scope=row>4</th><td>0</td><td>0</td><td>2</td><td>0</td><td>4</td><td>2</td><td>2</td><td>1</td><td>6</td><td>7</td><td>⋯</td><td>3</td><td>5</td><td>6</td><td>3</td><td>3</td><td>4</td><td>2</td><td>3</td><td>2</td><td>1</td></tr>
-	<tr><th scope=row>5</th><td>0</td><td>1</td><td>1</td><td>3</td><td>3</td><td>1</td><td>3</td><td>5</td><td>2</td><td>4</td><td>⋯</td><td>9</td><td>6</td><td>3</td><td>2</td><td>2</td><td>4</td><td>2</td><td>0</td><td>1</td><td>1</td></tr>
-	<tr><th scope=row>6</th><td>0</td><td>0</td><td>1</td><td>2</td><td>2</td><td>4</td><td>2</td><td>1</td><td>6</td><td>4</td><td>⋯</td><td>8</td><td>4</td><td>7</td><td>3</td><td>5</td><td>4</td><td>4</td><td>3</td><td>2</td><td>1</td></tr>
-	<tr><th scope=row>7</th><td>0</td><td>0</td><td>2</td><td>2</td><td>4</td><td>2</td><td>2</td><td>5</td><td>5</td><td>8</td><td>⋯</td><td>8</td><td>8</td><td>4</td><td>2</td><td>3</td><td>5</td><td>4</td><td>1</td><td>1</td><td>1</td></tr>
-	<tr><th scope=row>8</th><td>0</td><td>0</td><td>1</td><td>2</td><td>3</td><td>1</td><td>2</td><td>3</td><td>5</td><td>3</td><td>⋯</td><td>4</td><td>9</td><td>3</td><td>5</td><td>2</td><td>5</td><td>3</td><td>2</td><td>2</td><td>1</td></tr>
-	<tr><th scope=row>9</th><td>0</td><td>0</td><td>0</td><td>3</td><td>1</td><td>5</td><td>6</td><td>5</td><td>5</td><td>8</td><td>⋯</td><td>4</td><td>6</td><td>4</td><td>7</td><td>6</td><td>3</td><td>2</td><td>1</td><td>0</td><td>0</td></tr>
-	<tr><th scope=row>10</th><td>0</td><td>1</td><td>1</td><td>2</td><td>1</td><td>3</td><td>5</td><td>3</td><td>5</td><td>8</td><td>⋯</td><td>2</td><td>5</td><td>4</td><td>5</td><td>1</td><td>4</td><td>1</td><td>2</td><td>0</td><td>0</td></tr>
-	<tr><th scope=row>11</th><td>0</td><td>1</td><td>0</td><td>0</td><td>4</td><td>3</td><td>3</td><td>5</td><td>5</td><td>4</td><td>⋯</td><td>4</td><td>3</td><td>4</td><td>5</td><td>5</td><td>3</td><td>3</td><td>2</td><td>2</td><td>1</td></tr>
-	<tr><th scope=row>12</th><td>0</td><td>1</td><td>0</td><td>0</td><td>3</td><td>4</td><td>2</td><td>7</td><td>8</td><td>5</td><td>⋯</td><td>8</td><td>3</td><td>5</td><td>4</td><td>5</td><td>5</td><td>4</td><td>0</td><td>1</td><td>1</td></tr>
-	<tr><th scope=row>13</th><td>0</td><td>0</td><td>2</td><td>1</td><td>4</td><td>3</td><td>6</td><td>4</td><td>6</td><td>7</td><td>⋯</td><td>5</td><td>4</td><td>7</td><td>3</td><td>5</td><td>4</td><td>2</td><td>3</td><td>0</td><td>1</td></tr>
-	<tr><th scope=row>14</th><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>3</td><td>1</td><td>6</td><td>6</td><td>5</td><td>⋯</td><td>5</td><td>8</td><td>7</td><td>4</td><td>6</td><td>4</td><td>1</td><td>3</td><td>0</td><td>0</td></tr>
-	<tr><th scope=row>15</th><td>0</td><td>1</td><td>2</td><td>1</td><td>1</td><td>1</td><td>4</td><td>1</td><td>5</td><td>2</td><td>⋯</td><td>8</td><td>2</td><td>5</td><td>1</td><td>3</td><td>4</td><td>2</td><td>0</td><td>2</td><td>0</td></tr>
-	<tr><th scope=row>16</th><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>2</td><td>4</td><td>3</td><td>6</td><td>4</td><td>⋯</td><td>10</td><td>9</td><td>5</td><td>6</td><td>5</td><td>3</td><td>4</td><td>2</td><td>2</td><td>0</td></tr>
-	<tr><th scope=row>17</th><td>0</td><td>0</td><td>0</td><td>0</td><td>2</td><td>3</td><td>6</td><td>5</td><td>7</td><td>4</td><td>⋯</td><td>9</td><td>8</td><td>7</td><td>5</td><td>3</td><td>1</td><td>4</td><td>0</td><td>2</td><td>1</td></tr>
-	<tr><th scope=row>18</th><td>0</td><td>0</td><td>0</td><td>1</td><td>2</td><td>1</td><td>4</td><td>3</td><td>6</td><td>7</td><td>⋯</td><td>2</td><td>3</td><td>6</td><td>5</td><td>4</td><td>2</td><td>3</td><td>0</td><td>1</td><td>0</td></tr>
-	<tr><th scope=row>19</th><td>0</td><td>0</td><td>2</td><td>1</td><td>2</td><td>5</td><td>4</td><td>2</td><td>7</td><td>8</td><td>⋯</td><td>6</td><td>9</td><td>2</td><td>1</td><td>1</td><td>2</td><td>2</td><td>0</td><td>1</td><td>0</td></tr>
-	<tr><th scope=row>20</th><td>0</td><td>1</td><td>2</td><td>0</td><td>1</td><td>4</td><td>3</td><td>2</td><td>2</td><td>7</td><td>⋯</td><td>6</td><td>6</td><td>6</td><td>1</td><td>1</td><td>2</td><td>4</td><td>3</td><td>1</td><td>1</td></tr>
-	<tr><th scope=row>21</th><td>0</td><td>1</td><td>1</td><td>3</td><td>1</td><td>4</td><td>4</td><td>1</td><td>8</td><td>2</td><td>⋯</td><td>3</td><td>2</td><td>4</td><td>3</td><td>1</td><td>5</td><td>4</td><td>2</td><td>2</td><td>0</td></tr>
-	<tr><th scope=row>22</th><td>0</td><td>0</td><td>2</td><td>3</td><td>2</td><td>3</td><td>2</td><td>6</td><td>3</td><td>8</td><td>⋯</td><td>8</td><td>5</td><td>6</td><td>6</td><td>1</td><td>4</td><td>3</td><td>0</td><td>2</td><td>0</td></tr>
-	<tr><th scope=row>23</th><td>0</td><td>0</td><td>0</td><td>3</td><td>4</td><td>5</td><td>1</td><td>7</td><td>7</td><td>8</td><td>⋯</td><td>4</td><td>4</td><td>8</td><td>2</td><td>6</td><td>5</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
-	<tr><th scope=row>24</th><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>3</td><td>3</td><td>2</td><td>6</td><td>3</td><td>⋯</td><td>5</td><td>3</td><td>5</td><td>1</td><td>1</td><td>4</td><td>4</td><td>1</td><td>2</td><td>0</td></tr>
-	<tr><th scope=row>25</th><td>0</td><td>1</td><td>1</td><td>1</td><td>2</td><td>3</td><td>5</td><td>3</td><td>6</td><td>3</td><td>⋯</td><td>5</td><td>5</td><td>6</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>2</td><td>1</td></tr>
-	<tr><th scope=row>26</th><td>0</td><td>0</td><td>2</td><td>1</td><td>3</td><td>3</td><td>2</td><td>7</td><td>4</td><td>4</td><td>⋯</td><td>8</td><td>5</td><td>7</td><td>2</td><td>2</td><td>4</td><td>1</td><td>1</td><td>1</td><td>0</td></tr>
-	<tr><th scope=row>27</th><td>0</td><td>0</td><td>1</td><td>2</td><td>4</td><td>2</td><td>2</td><td>3</td><td>5</td><td>7</td><td>⋯</td><td>7</td><td>4</td><td>8</td><td>2</td><td>2</td><td>1</td><td>3</td><td>0</td><td>1</td><td>1</td></tr>
-	<tr><th scope=row>28</th><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>5</td><td>1</td><td>5</td><td>2</td><td>2</td><td>⋯</td><td>9</td><td>4</td><td>5</td><td>3</td><td>2</td><td>5</td><td>4</td><td>3</td><td>2</td><td>1</td></tr>
-	<tr><th scope=row>29</th><td>0</td><td>0</td><td>2</td><td>2</td><td>3</td><td>4</td><td>6</td><td>3</td><td>7</td><td>6</td><td>⋯</td><td>7</td><td>7</td><td>8</td><td>3</td><td>5</td><td>4</td><td>1</td><td>3</td><td>1</td><td>0</td></tr>
-	<tr><th scope=row>30</th><td>0</td><td>0</td><td>0</td><td>1</td><td>4</td><td>4</td><td>6</td><td>3</td><td>8</td><td>6</td><td>⋯</td><td>6</td><td>9</td><td>5</td><td>5</td><td>2</td><td>5</td><td>2</td><td>1</td><td>0</td><td>1</td></tr>
-	<tr><th scope=row>31</th><td>0</td><td>1</td><td>1</td><td>0</td><td>3</td><td>2</td><td>4</td><td>6</td><td>8</td><td>6</td><td>⋯</td><td>10</td><td>4</td><td>2</td><td>6</td><td>5</td><td>5</td><td>2</td><td>3</td><td>2</td><td>1</td></tr>
-	<tr><th scope=row>32</th><td>0</td><td>0</td><td>2</td><td>3</td><td>3</td><td>4</td><td>5</td><td>3</td><td>6</td><td>7</td><td>⋯</td><td>3</td><td>6</td><td>6</td><td>4</td><td>5</td><td>2</td><td>2</td><td>3</td><td>0</td><td>0</td></tr>
-	<tr><th scope=row>33</th><td>0</td><td>1</td><td>2</td><td>2</td><td>2</td><td>3</td><td>6</td><td>6</td><td>6</td><td>7</td><td>⋯</td><td>5</td><td>8</td><td>5</td><td>2</td><td>5</td><td>5</td><td>2</td><td>0</td><td>2</td><td>1</td></tr>
-	<tr><th scope=row>34</th><td>0</td><td>0</td><td>2</td><td>1</td><td>3</td><td>5</td><td>6</td><td>7</td><td>5</td><td>8</td><td>⋯</td><td>2</td><td>9</td><td>7</td><td>2</td><td>4</td><td>2</td><td>1</td><td>2</td><td>1</td><td>1</td></tr>
-	<tr><th scope=row>35</th><td>0</td><td>0</td><td>1</td><td>2</td><td>4</td><td>1</td><td>5</td><td>5</td><td>2</td><td>3</td><td>⋯</td><td>5</td><td>6</td><td>6</td><td>2</td><td>3</td><td>5</td><td>2</td><td>1</td><td>1</td><td>1</td></tr>
-	<tr><th scope=row>36</th><td>0</td><td>0</td><td>0</td><td>3</td><td>1</td><td>3</td><td>6</td><td>4</td><td>3</td><td>4</td><td>⋯</td><td>3</td><td>9</td><td>5</td><td>1</td><td>6</td><td>5</td><td>4</td><td>2</td><td>2</td><td>0</td></tr>
-	<tr><th scope=row>37</th><td>0</td><td>1</td><td>2</td><td>2</td><td>2</td><td>5</td><td>5</td><td>1</td><td>4</td><td>6</td><td>⋯</td><td>6</td><td>4</td><td>5</td><td>4</td><td>6</td><td>3</td><td>4</td><td>3</td><td>2</td><td>1</td></tr>
-	<tr><th scope=row>38</th><td>0</td><td>1</td><td>1</td><td>2</td><td>3</td><td>1</td><td>5</td><td>1</td><td>2</td><td>2</td><td>⋯</td><td>9</td><td>9</td><td>5</td><td>4</td><td>4</td><td>2</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
-	<tr><th scope=row>39</th><td>0</td><td>1</td><td>0</td><td>3</td><td>2</td><td>4</td><td>1</td><td>1</td><td>5</td><td>9</td><td>⋯</td><td>5</td><td>5</td><td>2</td><td>1</td><td>1</td><td>1</td><td>1</td><td>3</td><td>0</td><td>1</td></tr>
-	<tr><th scope=row>40</th><td>0</td><td>1</td><td>1</td><td>3</td><td>1</td><td>1</td><td>5</td><td>5</td><td>3</td><td>7</td><td>⋯</td><td>2</td><td>3</td><td>6</td><td>3</td><td>3</td><td>5</td><td>4</td><td>3</td><td>2</td><td>1</td></tr>
-	<tr><th scope=row>41</th><td>0</td><td>0</td><td>0</td><td>2</td><td>2</td><td>1</td><td>3</td><td>4</td><td>5</td><td>5</td><td>⋯</td><td>2</td><td>9</td><td>6</td><td>2</td><td>2</td><td>5</td><td>3</td><td>0</td><td>0</td><td>1</td></tr>
-	<tr><th scope=row>42</th><td>0</td><td>0</td><td>1</td><td>3</td><td>3</td><td>1</td><td>2</td><td>1</td><td>8</td><td>9</td><td>⋯</td><td>4</td><td>8</td><td>2</td><td>6</td><td>6</td><td>4</td><td>2</td><td>2</td><td>0</td><td>0</td></tr>
-	<tr><th scope=row>43</th><td>0</td><td>1</td><td>1</td><td>3</td><td>4</td><td>5</td><td>2</td><td>1</td><td>3</td><td>7</td><td>⋯</td><td>5</td><td>8</td><td>5</td><td>5</td><td>6</td><td>1</td><td>2</td><td>1</td><td>2</td><td>0</td></tr>
-	<tr><th scope=row>44</th><td>0</td><td>0</td><td>1</td><td>3</td><td>1</td><td>4</td><td>3</td><td>6</td><td>7</td><td>8</td><td>⋯</td><td>10</td><td>2</td><td>5</td><td>1</td><td>5</td><td>4</td><td>2</td><td>1</td><td>0</td><td>1</td></tr>
-	<tr><th scope=row>45</th><td>0</td><td>1</td><td>1</td><td>3</td><td>3</td><td>4</td><td>4</td><td>6</td><td>3</td><td>4</td><td>⋯</td><td>10</td><td>6</td><td>8</td><td>7</td><td>2</td><td>5</td><td>4</td><td>3</td><td>1</td><td>1</td></tr>
-	<tr><th scope=row>46</th><td>0</td><td>1</td><td>2</td><td>2</td><td>4</td><td>3</td><td>1</td><td>4</td><td>8</td><td>9</td><td>⋯</td><td>5</td><td>8</td><td>4</td><td>4</td><td>5</td><td>2</td><td>4</td><td>1</td><td>1</td><td>0</td></tr>
-	<tr><th scope=row>47</th><td>0</td><td>0</td><td>2</td><td>3</td><td>4</td><td>5</td><td>4</td><td>6</td><td>2</td><td>9</td><td>⋯</td><td>6</td><td>7</td><td>6</td><td>5</td><td>1</td><td>3</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
-	<tr><th scope=row>48</th><td>0</td><td>1</td><td>1</td><td>3</td><td>1</td><td>4</td><td>6</td><td>2</td><td>8</td><td>2</td><td>⋯</td><td>6</td><td>9</td><td>5</td><td>6</td><td>1</td><td>1</td><td>2</td><td>1</td><td>2</td><td>1</td></tr>
-	<tr><th scope=row>49</th><td>0</td><td>0</td><td>1</td><td>3</td><td>2</td><td>5</td><td>1</td><td>2</td><td>7</td><td>6</td><td>⋯</td><td>10</td><td>7</td><td>6</td><td>3</td><td>1</td><td>5</td><td>4</td><td>3</td><td>0</td><td>0</td></tr>
-	<tr><th scope=row>50</th><td>0</td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>7</td><td>5</td><td>4</td><td>⋯</td><td>4</td><td>6</td><td>2</td><td>4</td><td>1</td><td>4</td><td>2</td><td>2</td><td>2</td><td>1</td></tr>
-	<tr><th scope=row>51</th><td>0</td><td>1</td><td>2</td><td>1</td><td>1</td><td>3</td><td>5</td><td>3</td><td>6</td><td>3</td><td>⋯</td><td>7</td><td>9</td><td>3</td><td>3</td><td>6</td><td>3</td><td>4</td><td>1</td><td>2</td><td>0</td></tr>
-	<tr><th scope=row>52</th><td>0</td><td>1</td><td>2</td><td>2</td><td>3</td><td>5</td><td>2</td><td>4</td><td>5</td><td>6</td><td>⋯</td><td>8</td><td>5</td><td>4</td><td>1</td><td>3</td><td>2</td><td>1</td><td>3</td><td>1</td><td>0</td></tr>
-	<tr><th scope=row>53</th><td>0</td><td>0</td><td>0</td><td>2</td><td>4</td><td>4</td><td>5</td><td>3</td><td>3</td><td>3</td><td>⋯</td><td>10</td><td>8</td><td>7</td><td>5</td><td>2</td><td>2</td><td>4</td><td>1</td><td>2</td><td>1</td></tr>
-	<tr><th scope=row>54</th><td>0</td><td>0</td><td>2</td><td>1</td><td>1</td><td>4</td><td>4</td><td>7</td><td>2</td><td>9</td><td>⋯</td><td>7</td><td>6</td><td>5</td><td>4</td><td>1</td><td>4</td><td>2</td><td>2</td><td>2</td><td>1</td></tr>
-	<tr><th scope=row>55</th><td>0</td><td>1</td><td>2</td><td>1</td><td>1</td><td>4</td><td>5</td><td>4</td><td>4</td><td>5</td><td>⋯</td><td>4</td><td>5</td><td>5</td><td>2</td><td>2</td><td>5</td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
-	<tr><th scope=row>56</th><td>0</td><td>0</td><td>1</td><td>3</td><td>2</td><td>3</td><td>6</td><td>4</td><td>5</td><td>7</td><td>⋯</td><td>3</td><td>5</td><td>3</td><td>5</td><td>4</td><td>5</td><td>3</td><td>3</td><td>0</td><td>1</td></tr>
-	<tr><th scope=row>57</th><td>0</td><td>1</td><td>1</td><td>2</td><td>2</td><td>5</td><td>1</td><td>7</td><td>4</td><td>2</td><td>⋯</td><td>7</td><td>7</td><td>5</td><td>6</td><td>3</td><td>4</td><td>2</td><td>2</td><td>1</td><td>1</td></tr>
-	<tr><th scope=row>58</th><td>0</td><td>1</td><td>1</td><td>1</td><td>4</td><td>1</td><td>6</td><td>4</td><td>6</td><td>3</td><td>⋯</td><td>8</td><td>6</td><td>6</td><td>4</td><td>3</td><td>5</td><td>2</td><td>1</td><td>1</td><td>1</td></tr>
-	<tr><th scope=row>59</th><td>0</td><td>0</td><td>0</td><td>1</td><td>4</td><td>5</td><td>6</td><td>3</td><td>8</td><td>7</td><td>⋯</td><td>10</td><td>8</td><td>8</td><td>6</td><td>5</td><td>5</td><td>2</td><td>0</td><td>2</td><td>0</td></tr>
-	<tr><th scope=row>60</th><td>0</td><td>0</td><td>1</td><td>0</td><td>3</td><td>2</td><td>5</td><td>4</td><td>8</td><td>2</td><td>⋯</td><td>8</td><td>5</td><td>3</td><td>5</td><td>4</td><td>1</td><td>3</td><td>1</td><td>1</td><td>0</td></tr>
-</tbody>
-</table>
-
-
-
-
 The expression `read.csv(...)` is a function call that asks R to run the function `read.csv`.
 
 `read.csv` has two arguments: 
@@ -165,13 +93,6 @@ In general, R will print to the console any object returned by a function or ope
 weight_kg
 ```
 
-
-
-
-55
-
-
-
 We can do arithmetic with the variable:
 
 
@@ -179,13 +100,6 @@ We can do arithmetic with the variable:
 # weight in pounds:
 2.2 * weight_kg
 ```
-
-
-
-
-121
-
-
 
 > ## Commenting
 >
@@ -203,13 +117,6 @@ weight_kg <- 57.5
 weight_kg
 ```
 
-
-
-
-57.5
-
-
-
 If we imagine the variable as a sticky note with a name written on it,
 assignment is like putting the sticky note on a particular value. 
 
@@ -226,20 +133,6 @@ weight_kg
 weight_lb
 ```
 
-
-
-
-57.5
-
-
-
-
-
-
-126.5
-
-
-
 and then change `weight_kg`:
 
 
@@ -251,20 +144,6 @@ weight_kg
 # ...and weight in pounds still
 weight_lb
 ```
-
-
-
-
-100
-
-
-
-
-
-
-126.5
-
-
 
 Since `weight_lb` doesn't "remember" where its value came from, it isn't automatically updated when `weight_kg` changes.
 This is different from the way spreadsheets work.
@@ -293,24 +172,6 @@ However, for large data sets it is convenient to use the function `head` to disp
 head(dat)
 ```
 
-
-
-
-<table>
-<thead><tr><th></th><th scope=col>V1</th><th scope=col>V2</th><th scope=col>V3</th><th scope=col>V4</th><th scope=col>V5</th><th scope=col>V6</th><th scope=col>V7</th><th scope=col>V8</th><th scope=col>V9</th><th scope=col>V10</th><th scope=col>ellip.h</th><th scope=col>V31</th><th scope=col>V32</th><th scope=col>V33</th><th scope=col>V34</th><th scope=col>V35</th><th scope=col>V36</th><th scope=col>V37</th><th scope=col>V38</th><th scope=col>V39</th><th scope=col>V40</th></tr></thead>
-<tbody>
-	<tr><th scope=row>1</th><td>0</td><td>0</td><td>1</td><td>3</td><td>1</td><td>2</td><td>4</td><td>7</td><td>8</td><td>3</td><td>⋯</td><td>4</td><td>4</td><td>5</td><td>7</td><td>3</td><td>4</td><td>2</td><td>3</td><td>0</td><td>0</td></tr>
-	<tr><th scope=row>2</th><td>0</td><td>1</td><td>2</td><td>1</td><td>2</td><td>1</td><td>3</td><td>2</td><td>2</td><td>6</td><td>⋯</td><td>3</td><td>5</td><td>4</td><td>4</td><td>5</td><td>5</td><td>1</td><td>1</td><td>0</td><td>1</td></tr>
-	<tr><th scope=row>3</th><td>0</td><td>1</td><td>1</td><td>3</td><td>3</td><td>2</td><td>6</td><td>2</td><td>5</td><td>9</td><td>⋯</td><td>10</td><td>5</td><td>4</td><td>2</td><td>2</td><td>3</td><td>2</td><td>2</td><td>1</td><td>1</td></tr>
-	<tr><th scope=row>4</th><td>0</td><td>0</td><td>2</td><td>0</td><td>4</td><td>2</td><td>2</td><td>1</td><td>6</td><td>7</td><td>⋯</td><td>3</td><td>5</td><td>6</td><td>3</td><td>3</td><td>4</td><td>2</td><td>3</td><td>2</td><td>1</td></tr>
-	<tr><th scope=row>5</th><td>0</td><td>1</td><td>1</td><td>3</td><td>3</td><td>1</td><td>3</td><td>5</td><td>2</td><td>4</td><td>⋯</td><td>9</td><td>6</td><td>3</td><td>2</td><td>2</td><td>4</td><td>2</td><td>0</td><td>1</td><td>1</td></tr>
-	<tr><th scope=row>6</th><td>0</td><td>0</td><td>1</td><td>2</td><td>2</td><td>4</td><td>2</td><td>1</td><td>6</td><td>4</td><td>⋯</td><td>8</td><td>4</td><td>7</td><td>3</td><td>5</td><td>4</td><td>4</td><td>3</td><td>2</td><td>1</td></tr>
-</tbody>
-</table>
-
-
-
-
 > ## Assigning Values to Variables
 >
 > Draw diagrams showing what variables refer to what values after each statement in the following program:
@@ -334,13 +195,6 @@ First, let's ask what type of thing `dat` is:
 class(dat)
 ```
 
-
-
-
-'data.frame'
-
-
-
 The output tells us that is a data frame. Think of this structure as a spreadsheet in MS Excel that many of us are familiar with.
 Data frames are very useful for storing data and you will find them elsewhere when programming in R. A typical data frame of experimental data contains individual observations in rows and variables in columns.
 
@@ -350,17 +204,6 @@ We can see the shape, or dimensions, of the data frame with the function `dim`:
 ```R
 dim(dat)
 ```
-
-
-
-
-<ol class=list-inline>
-	<li>60</li>
-	<li>40</li>
-</ol>
-
-
-
 
 This tells us that our data frame, `dat`, has 60 rows and 40 columns.
 
@@ -373,24 +216,10 @@ dat[1, 1]
 ```
 
 
-
-
-0
-
-
-
-
 ```R
 # middle value in dat
 dat[30, 20]
 ```
-
-
-
-
-16
-
-
 
 An index like `[30, 20]` selects a single element of a data frame, but we can select whole sections as well.
 For example, we can select the first ten days (columns) of values for the first four patients (rows) like this:
@@ -399,22 +228,6 @@ For example, we can select the first ten days (columns) of values for the first 
 ```R
 dat[1:4, 1:10]
 ```
-
-
-
-
-<table>
-<thead><tr><th></th><th scope=col>V1</th><th scope=col>V2</th><th scope=col>V3</th><th scope=col>V4</th><th scope=col>V5</th><th scope=col>V6</th><th scope=col>V7</th><th scope=col>V8</th><th scope=col>V9</th><th scope=col>V10</th></tr></thead>
-<tbody>
-	<tr><th scope=row>1</th><td>0</td><td>0</td><td>1</td><td>3</td><td>1</td><td>2</td><td>4</td><td>7</td><td>8</td><td>3</td></tr>
-	<tr><th scope=row>2</th><td>0</td><td>1</td><td>2</td><td>1</td><td>2</td><td>1</td><td>3</td><td>2</td><td>2</td><td>6</td></tr>
-	<tr><th scope=row>3</th><td>0</td><td>1</td><td>1</td><td>3</td><td>3</td><td>2</td><td>6</td><td>2</td><td>5</td><td>9</td></tr>
-	<tr><th scope=row>4</th><td>0</td><td>0</td><td>2</td><td>0</td><td>4</td><td>2</td><td>2</td><td>1</td><td>6</td><td>7</td></tr>
-</tbody>
-</table>
-
-
-
 
 The slice`1:4` means, "Start at index 1 and go to index 4."
 
@@ -425,46 +238,12 @@ The slice does not need to start at 1, e.g. the line below selects rows 5 throug
 dat[5:10, 1:10]
 ```
 
-
-
-
-<table>
-<thead><tr><th></th><th scope=col>V1</th><th scope=col>V2</th><th scope=col>V3</th><th scope=col>V4</th><th scope=col>V5</th><th scope=col>V6</th><th scope=col>V7</th><th scope=col>V8</th><th scope=col>V9</th><th scope=col>V10</th></tr></thead>
-<tbody>
-	<tr><th scope=row>5</th><td>0</td><td>1</td><td>1</td><td>3</td><td>3</td><td>1</td><td>3</td><td>5</td><td>2</td><td>4</td></tr>
-	<tr><th scope=row>6</th><td>0</td><td>0</td><td>1</td><td>2</td><td>2</td><td>4</td><td>2</td><td>1</td><td>6</td><td>4</td></tr>
-	<tr><th scope=row>7</th><td>0</td><td>0</td><td>2</td><td>2</td><td>4</td><td>2</td><td>2</td><td>5</td><td>5</td><td>8</td></tr>
-	<tr><th scope=row>8</th><td>0</td><td>0</td><td>1</td><td>2</td><td>3</td><td>1</td><td>2</td><td>3</td><td>5</td><td>3</td></tr>
-	<tr><th scope=row>9</th><td>0</td><td>0</td><td>0</td><td>3</td><td>1</td><td>5</td><td>6</td><td>5</td><td>5</td><td>8</td></tr>
-	<tr><th scope=row>10</th><td>0</td><td>1</td><td>1</td><td>2</td><td>1</td><td>3</td><td>5</td><td>3</td><td>5</td><td>8</td></tr>
-</tbody>
-</table>
-
-
-
-
 We can use the function `c`, which stands for **c**ombine, to select non-contiguous values:
 
 
 ```R
 dat[c(3, 8, 37, 56), c(10, 14, 29)]
 ```
-
-
-
-
-<table>
-<thead><tr><th></th><th scope=col>V10</th><th scope=col>V14</th><th scope=col>V29</th></tr></thead>
-<tbody>
-	<tr><th scope=row>3</th><td>9</td><td>5</td><td>4</td></tr>
-	<tr><th scope=row>8</th><td>3</td><td>5</td><td>6</td></tr>
-	<tr><th scope=row>37</th><td>6</td><td>9</td><td>10</td></tr>
-	<tr><th scope=row>56</th><td>7</td><td>11</td><td>9</td></tr>
-</tbody>
-</table>
-
-
-
 
 We also don't have to provide a slice for either the rows or the columns.
 If we don't include a slice for the rows, R returns all the rows; if we don't include a slice for the columns, R returns all the columns.
@@ -477,92 +256,10 @@ dat[5, ]
 ```
 
 
-
-
-<table>
-<thead><tr><th></th><th scope=col>V1</th><th scope=col>V2</th><th scope=col>V3</th><th scope=col>V4</th><th scope=col>V5</th><th scope=col>V6</th><th scope=col>V7</th><th scope=col>V8</th><th scope=col>V9</th><th scope=col>V10</th><th scope=col>ellip.h</th><th scope=col>V31</th><th scope=col>V32</th><th scope=col>V33</th><th scope=col>V34</th><th scope=col>V35</th><th scope=col>V36</th><th scope=col>V37</th><th scope=col>V38</th><th scope=col>V39</th><th scope=col>V40</th></tr></thead>
-<tbody>
-	<tr><th scope=row>5</th><td>0</td><td>1</td><td>1</td><td>3</td><td>3</td><td>1</td><td>3</td><td>5</td><td>2</td><td>4</td><td>⋯</td><td>9</td><td>6</td><td>3</td><td>2</td><td>2</td><td>4</td><td>2</td><td>0</td><td>1</td><td>1</td></tr>
-</tbody>
-</table>
-
-
-
-
-
 ```R
 # All rows from column 16
 dat[, 16]
 ```
-
-
-
-
-<ol class=list-inline>
-	<li>4</li>
-	<li>4</li>
-	<li>15</li>
-	<li>8</li>
-	<li>10</li>
-	<li>15</li>
-	<li>13</li>
-	<li>9</li>
-	<li>11</li>
-	<li>6</li>
-	<li>3</li>
-	<li>8</li>
-	<li>12</li>
-	<li>3</li>
-	<li>5</li>
-	<li>10</li>
-	<li>11</li>
-	<li>4</li>
-	<li>11</li>
-	<li>13</li>
-	<li>15</li>
-	<li>5</li>
-	<li>14</li>
-	<li>13</li>
-	<li>4</li>
-	<li>9</li>
-	<li>13</li>
-	<li>6</li>
-	<li>7</li>
-	<li>6</li>
-	<li>14</li>
-	<li>3</li>
-	<li>15</li>
-	<li>4</li>
-	<li>15</li>
-	<li>11</li>
-	<li>7</li>
-	<li>10</li>
-	<li>15</li>
-	<li>6</li>
-	<li>5</li>
-	<li>6</li>
-	<li>15</li>
-	<li>11</li>
-	<li>15</li>
-	<li>6</li>
-	<li>11</li>
-	<li>15</li>
-	<li>14</li>
-	<li>4</li>
-	<li>10</li>
-	<li>15</li>
-	<li>11</li>
-	<li>6</li>
-	<li>13</li>
-	<li>8</li>
-	<li>4</li>
-	<li>13</li>
-	<li>12</li>
-	<li>9</li>
-</ol>
-
-
-
 
 Now let's perform some common mathematical operations to learn about our inflammation data.
 When analyzing data we often want to look at partial statistics, such as the maximum value per patient or the average value per day.
@@ -575,13 +272,6 @@ patient_1 <- dat[1, ]
 # max inflammation for patient 1
 max(patient_1)
 ```
-
-
-
-
-18
-
-
 
 > ## Forcing Conversion
 >
@@ -610,13 +300,6 @@ Instead, we can combine the selection and the function call:
 max(dat[2, ])
 ```
 
-
-
-
-18
-
-
-
 R also has functions for other common calculations, e.g. finding the minimum, mean, median, and standard deviation of the data:
 
 
@@ -632,37 +315,16 @@ mean(dat[, 7])
 ```
 
 
-
-
-3.8
-
-
-
-
 ```R
 # median inflammation on day 7
 median(dat[, 7])
 ```
 
 
-
-
-4
-
-
-
-
 ```R
 # standard deviation of inflammation on day 7
 sd(dat[, 7])
 ```
-
-
-
-
-1.72518729025016
-
-
 
 What if we need the maximum inflammation for all patients, or the average for each day?
 As the diagram below shows, we want to perform the operation across a margin of the data frame:
@@ -711,34 +373,10 @@ animal[1:3]
 ```
 
 
-
-
-<ol class=list-inline>
-	<li>'m'</li>
-	<li>'o'</li>
-	<li>'n'</li>
-</ol>
-
-
-
-
-
 ```R
  # last three characters
  animal[4:6]
 ```
-
-
-
-
-<ol class=list-inline>
-	<li>'k'</li>
-	<li>'e'</li>
-	<li>'y'</li>
-</ol>
-
-
-
 
 > 1.  If the first four characters are selected using the slice `animal[1:4]`, how can we obtain the first four characters in reverse order?
 >
@@ -827,10 +465,6 @@ Plotting the values is done with the function `plot`.
 plot(avg_day_inflammation)
 ```
 
-
-![svg](01-interaction_files/01-interaction_63_0.svg)
-
-
 Above, we gave the function `plot` a vector of numbers corresponding to the average inflammation per day across all patients.
 `plot` created a scatter plot where the y-axis is the average inflammation level and the x-axis is the order, or index, of the values in the vector, which in this case correspond to the 40 days of treatment.
 The result is roughly a linear rise and fall, which is suspicious: based on other studies, we expect a sharper rise and slower fall.
@@ -843,18 +477,10 @@ plot(max_day_inflammation)
 ```
 
 
-![svg](01-interaction_files/01-interaction_65_0.svg)
-
-
-
 ```R
 min_day_inflammation <- apply(dat, 2, min)
 plot(min_day_inflammation)
 ```
-
-
-![svg](01-interaction_files/01-interaction_66_0.svg)
-
 
 The maximum value rises and falls perfectly smoothly, while the minimum seems to be a step function. Neither result seems particularly likely, so either there's a mistake in our calculations or something is wrong with our data.
 

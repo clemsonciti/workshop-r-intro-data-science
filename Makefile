@@ -76,3 +76,9 @@ settings :
 unittest: tools/check.py tools/validation_helpers.py tools/test_check.py
 	cd tools/ && python2 test_check.py
 	cd tools/ && python3 test_check.py
+
+## markdown : convert all ipynb notebooks to markdown form.
+markdown :
+
+	@jupyter nbconvert --to markdown *.ipynb
+
