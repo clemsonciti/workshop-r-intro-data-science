@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="generator" content="pandoc">
-    <title></title>
+    <title>Introduction to Data Science using R</title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
@@ -26,8 +26,36 @@
       <article>
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
-                    <h1 class="title"></h1>
-          <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"></code></pre></div>
+                    <a href="index.html"><h1 class="title">Introduction to Data Science using R</h1></a>
+          <h2 class="subtitle">Installing Packages</h2>
+          <section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="learning-objectives"><span class="glyphicon glyphicon-certificate"></span>Learning objectives</h2>
+</div>
+<div class="panel-body">
+<ul>
+<li>Be able to find supporting packages</li>
+<li>Be able to install most of the packages for the Jupyter interface as a Palmetto user</li>
+<li>Know where to find help</li>
+</ul>
+</div>
+</section>
+<p>A significant advantage of R is the collection of community contributed packages that have been vetted through <a href="https://cran.r-project.org/web/packages/">CRAN (the Comprehensive R Archive Network)</a>.</p>
+<p>R automate the downloading and installing of CRAN packages through the <code>install.packages</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?install.packages</code></pre></div>
+<p>By default, <code>install.packages</code> will be writing into locations that typically require administrative priviledge. This is not the case of Palmetto. It is important that you know how to set up your own customized library as a user on Palmetto. We will practice this by installing the <em>ggplo2</em> package in preparation for the next lesson.</p>
+<p>The process is as followed:</p>
+<ol style="list-style-type: decimal">
+<li><p>In your home directory, create a directory that is specific to storing the installed R packages.</p></li>
+<li><p>Run the <code>install.packages</code> command in a cell (you only need to do this once) with the following format: ``` install.packages(<string vector containing list of libraries to be installed>, lib=<location of the previously created directory for R packages>, repos=‘http://cran.us.r-project.org’, verbose=TRUE)</p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>, 
+                 <span class="dt">lib=</span><span class="st">&quot;/home/lngo/R_libs&quot;</span>, 
+                 <span class="dt">repos=</span><span class="st">&#39;http://cran.us.r-project.org&#39;</span>,
+                 <span class="dt">verbose=</span><span class="ot">TRUE</span>)</code></pre></div>
+<p>To load a customized package, you need to also specify the location of the package directory:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2,<span class="dt">lib=</span><span class="st">&quot;/home/lngo/R_libs&quot;</span>)</code></pre></div>
+<p>There are packages that require additional supporting software. For example, the parallel <code>rjacgs</code> library requires JAGS (Just Another Gigg Sampler) to be installed and made available via system path. If you need help installing such packages, please do not hesitate to come talk to us at ithelp@clemson.edu</p>
         </div>
       </div>
       </article>

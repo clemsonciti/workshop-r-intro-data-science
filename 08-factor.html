@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="generator" content="pandoc">
-    <title></title>
+    <title>Introduction to Data Science using R</title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
@@ -26,8 +26,110 @@
       <article>
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
-                    <h1 class="title"></h1>
-          <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"></code></pre></div>
+                    <a href="index.html"><h1 class="title">Introduction to Data Science using R</h1></a>
+          <h2 class="subtitle">Understanding Factors</h2>
+          <section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="learning-objectives"><span class="glyphicon glyphicon-certificate"></span>Learning objectives</h2>
+</div>
+<div class="panel-body">
+<ul>
+<li>Understand how to represent categorical data in R</li>
+<li>Know the difference between ordered and unordered factors</li>
+<li>Be aware of some of the problems encountered when using factors</li>
+</ul>
+</div>
+</section>
+<p>Factors are used to represent categorical data. Factors can be ordered or unordered and are an important class for statistical analysis and for plotting.</p>
+<p>Factors are stored as integers, and have labels associated with these unique integers. While factors look (and often behave) like character vectors, they are actually integers under the hood, and you need to be careful when treating them like strings.</p>
+<p>Once created, factors can only contain a pre-defined set values, known as <em>levels</em>. The <code>factor()</code> command is used to create and modify factors in R. By default, R always sorts <em>levels</em> in alphabetical order. For instance, if you have a factor with 2 levels:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sex &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>))</code></pre></div>
+<p>R will assign <code>1</code> to the level <code>&quot;female&quot;</code> and <code>2</code> to the level <code>&quot;male&quot;</code> (because <code>f</code> comes before <code>m</code>, even though the first element in this vector is <code>&quot;male&quot;</code>). You can check this by using the function <code>levels()</code>, and check the number of levels using <code>nlevels()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(sex)
+
+<span class="kw">nlevels</span>(sex)</code></pre></div>
+<p>Sometimes, the order of the factors does not matter, other times you might want to specify the order because it is meaningful (e.g., “low”, “medium”, “high”) or it is required by particular type of analysis. Additionally, specifying the order of the levels allows us to compare levels:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">raw_food &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;low&quot;</span>, <span class="st">&quot;high&quot;</span>, <span class="st">&quot;medium&quot;</span>, <span class="st">&quot;high&quot;</span>, <span class="st">&quot;low&quot;</span>, <span class="st">&quot;medium&quot;</span>, <span class="st">&quot;high&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">food &lt;-<span class="st"> </span><span class="kw">factor</span>(raw_food)
+<span class="kw">levels</span>(food)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">food &lt;-<span class="st"> </span><span class="kw">factor</span>(raw_food, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;low&quot;</span>, <span class="st">&quot;medium&quot;</span>, <span class="st">&quot;high&quot;</span>))
+<span class="kw">levels</span>(food)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">min</span>(food) ## doesn&#39;t work</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">food &lt;-<span class="st"> </span><span class="kw">factor</span>(raw_food, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;low&quot;</span>, <span class="st">&quot;medium&quot;</span>, <span class="st">&quot;high&quot;</span>), <span class="dt">ordered=</span><span class="ot">TRUE</span>)
+<span class="kw">levels</span>(food)
+
+<span class="kw">min</span>(food) ## works!</code></pre></div>
+<p>In R’s memory, these factors are represented by numbers (1, 2, 3). They are better than using simple integer labels because factors are self describing: <code>&quot;low&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;high&quot;</code>&quot; is more descriptive than <code>1</code>, <code>2</code>, <code>3</code>. Which is low? You wouldn’t be able to tell with just integer data. Factors have this information built in. It is particularly helpful when there are many levels (like the subjects in our example data set).</p>
+<blockquote>
+<h2 id="representing-data-in-r">Representing Data in R</h2>
+<p>You have a vector representing levels of exercise undertaken by 5 subjects</p>
+<p><strong>“l”,“n”,“n”,“i”,“l”</strong> ; n=none, l=light, i=intense</p>
+<p>What is the best way to represent this in R?</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>exercise &lt;- c(“l”, “n”, “n”, “i”, “l”)</p></li>
+<li><p>exercise &lt;- factor(c(“l”, “n”, “n”, “i”, “l”), ordered = TRUE)</p></li>
+<li><p>exercise &lt; -factor(c(“l”, “n”, “n”, “i”, “l”), levels = c(“n”, “l”, “i”), ordered = FALSE)</p></li>
+<li><p>exercise &lt;- factor(c(“l”, “n”, “n”, “i”, “l”), levels = c(“n”, “l”, “i”), ordered = TRUE) {: .challenge}</p></li>
+</ol>
+</blockquote>
+<h3 id="converting-factors">Converting Factors</h3>
+<p>Converting from a factor to a number can cause problems:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="fl">3.4</span>, <span class="fl">1.2</span>, <span class="dv">5</span>))
+<span class="kw">as.numeric</span>(f)</code></pre></div>
+<p>This does not behave as expected (and there is no warning).</p>
+<p>The recommended way is to use the integer vector to index the factor levels:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(f)[f]</code></pre></div>
+<p>This returns a character vector, the <code>as.numeric()</code> function is still required to convert the values to the proper type (numeric).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="kw">levels</span>(f)[f]
+f &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(f)</code></pre></div>
+<h3 id="using-factors">Using Factors</h3>
+<p>Lets load our example data to see the use of factors:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&quot;/home/lngo/intro-data-science/&quot;</span>)
+dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&#39;data/sample.csv&#39;</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<blockquote>
+<h2 id="default-behavior">Default Behavior</h2>
+<p><code>stringsAsFactors=TRUE</code> is the default behavior for R. We could leave this argument out. It is included here for clarity. {: .callout}</p>
+</blockquote>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(dat)</code></pre></div>
+<p>Notice the first 3 columns have been converted to factors. These values were text in the data file so R automatically interpreted them as categorical variables.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(dat)</code></pre></div>
+<p>Notice the <code>summary()</code> function handles factors differently to numbers (and strings), the occurrence counts for each value is often more useful information.</p>
+<blockquote>
+<h2 id="the-summary-function">The <code>summary()</code> Function</h2>
+<p>The <code>summary()</code> function is a great way of spotting errors in your data (look at the <em>dat$Gender</em> column). It’s also a great way for spotting missing data.</p>
+</blockquote>
+<blockquote>
+<h2 id="reordering-factors">Reordering Factors</h2>
+<p>The function <code>table()</code> tabulates observations and can be used to create bar plots quickly. For instance:</p>
+</blockquote>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(dat$Group)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">barplot</span>(<span class="kw">table</span>(dat$Group))</code></pre></div>
+<blockquote>
+<p>Use the <code>factor()</code> command to modify the column dat$Group so that the <em>control</em> group is plotted last</p>
+</blockquote>
+<h3 id="removing-levels-from-a-factor">Removing Levels from a Factor</h3>
+<p>Some of the Gender values in our dataset have been coded incorrectly. Let’s remove factors.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">barplot</span>(<span class="kw">table</span>(dat$Gender))</code></pre></div>
+<p>Values should have been recorded as lowercase ‘m’ &amp; ‘f’. We should correct this.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat$Gender[dat$Gender ==<span class="st"> &#39;M&#39;</span>] &lt;-<span class="st"> &#39;m&#39;</span></code></pre></div>
+<blockquote>
+<h2 id="updating-factors">Updating Factors</h2>
+</blockquote>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dt">x =</span> dat$Gender, <span class="dt">y =</span> dat$BloodPressure)</code></pre></div>
+<blockquote>
+<p>Why does this plot show 4 levels?</p>
+<p><em>Hint</em> how many levels does dat$Gender have?</p>
+</blockquote>
+<p>We need to tell R that “M” is no longer a valid value for this column. We use the <code>droplevels()</code> function to remove extra levels.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat$Gender &lt;-<span class="st"> </span><span class="kw">droplevels</span>(dat$Gender)
+<span class="kw">plot</span>(<span class="dt">x =</span> dat$Gender, <span class="dt">y =</span> dat$BloodPressure)</code></pre></div>
+<blockquote>
+<h2 id="adjusting-factor-levels">Adjusting Factor Levels</h2>
+<p>Adjusting the <code>levels()</code> of a factor provides a useful shortcut for reassigning values in this case.</p>
+</blockquote>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(dat$Gender)[<span class="dv">2</span>] &lt;-<span class="st"> &#39;f&#39;</span>
+<span class="kw">plot</span>(<span class="dt">x =</span> dat$Gender, <span class="dt">y =</span> dat$BloodPressure)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"></code></pre></div>
         </div>
       </div>
       </article>
