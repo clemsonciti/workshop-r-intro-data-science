@@ -56,5 +56,5 @@ to get started.
 14. [Improving Loop Performance](13-fast-loop.html)
 
 [dc-lessons]: https://datacarpentry.org/lessons/
-[sw-lessions]: https://software-carpentry.org/lessons/
+[sw-lessons]: https://software-carpentry.org/lessons/
 [contributing]: https://github.com/shwina/hpc-novice/blob/gh-pages/CONTRIBUTING.md
