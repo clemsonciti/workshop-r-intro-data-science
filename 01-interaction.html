@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="pandoc">
+    <title>Introduction to Data Science using R</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <link rel="alternate" type="application/rss+xml" title="Software Carpentry Blog" href="http://software-carpentry.org/feed.xml"/>
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      <div class="banner">
+        <a href="http://citi.clemson.edu" title="Software Carpentry">
+          <img alt="Software Carpentry banner" src="img/paw.gif" width="100px" height="auto" />
+        </a>
+      </div>
+      <article>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+                    <a href="index.html"><h1 class="title">Introduction to Data Science using R</h1></a>
+          <h2 class="subtitle">Interacting with Data</h2>
+          <section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="learning-objectives"><span class="glyphicon glyphicon-certificate"></span>Learning objectives</h2>
+</div>
+<div class="panel-body">
+<ul>
+<li>Read tabular data from a file into a program</li>
+<li>Assign values to variables</li>
+<li>Select individual values and subsections from data</li>
+<li>Perform operations on a dat frame of data</li>
+<li>Display simple graphs</li>
+</ul>
+</div>
+</section>
+<h2 id="data-preparation">Data Preparation</h2>
+<p>As we are using the Palmetto Supercomputer, we need to get the data, and upload the data onto the Supercomputer before R can read the data. This is done via the following steps:</p>
+<ul>
+<li>Open a web browse, and download the data from https://github.com/clemsonciti/data-science-r-01/raw/gh-pages/r-novice-inflammation-data.zip to your computer and unzip this file</li>
+<li>Create a directory named <strong>intro-data-science</strong> in your Palmetto home directory</li>
+<li>Create a directory named <strong>data</strong> inside <strong>intro-data-science</strong></li>
+<li>Upload the files from the unzipped <strong>r-novice-inflammation-data</strong> directory on your computer onto the <strong>data</strong> directory</li>
+</ul>
+<h2 id="loading-data">Loading Data</h2>
+<p>To load our inflammation data, first we need to tell our computer where is the file that contains the values. We have been told its name is inflammation-01.csv. This is very important in R, if we forget this step we’ll get an error message when trying to read the file. We can change the current working directory using the function setwd. For this example, we change the path to the directory we just created:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&quot;/home/lngo/intro-data-science/&quot;</span>)</code></pre></div>
+<p>The data files are located in the directory <strong>data</strong> inside the working directory. Now we can load the data into R using read.csv:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read.csv</span>(<span class="dt">file=</span><span class="st">&quot;data/inflammation-01.csv&quot;</span>, <span class="dt">header=</span><span class="ot">FALSE</span>)</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>
+</th>
+<th scope="col">
+V1
+</th>
+<th scope="col">
+V2
+</th>
+<th scope="col">
+V3
+</th>
+<th scope="col">
+V4
+</th>
+<th scope="col">
+V5
+</th>
+<th scope="col">
+V6
+</th>
+<th scope="col">
+V7
+</th>
+<th scope="col">
+V8
+</th>
+<th scope="col">
+V9
+</th>
+<th scope="col">
+V10
+</th>
+<th scope="col">
+ellip.h
+</th>
+<th scope="col">
+V31
+</th>
+<th scope="col">
+V32
+</th>
+<th scope="col">
+V33
+</th>
+<th scope="col">
+V34
+</th>
+<th scope="col">
+V35
+</th>
+<th scope="col">
+V36
+</th>
+<th scope="col">
+V37
+</th>
+<th scope="col">
+V38
+</th>
+<th scope="col">
+V39
+</th>
+<th scope="col">
+V40
+</th>
+</tr>
+</thead>
+<tbody>
+<pre><code>&lt;tr&gt;&lt;th scope=row&gt;1&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;2&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;3&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;10&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;4&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;5&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;6&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;7&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;8&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;9&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;10&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;11&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;12&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;13&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;14&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;15&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;16&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;10&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;17&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;18&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;19&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;20&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;21&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;22&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;23&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;24&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;25&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;26&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;27&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;28&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;29&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;30&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;31&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;10&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;32&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;33&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;34&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;35&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;36&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;37&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;38&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;39&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;40&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;41&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;42&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;43&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;44&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;10&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;45&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;10&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;46&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;47&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;48&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;49&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;10&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;50&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;51&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;52&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;53&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;10&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;54&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;55&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;56&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;57&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;58&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;59&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;10&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;60&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;</code></pre>
+</tbody>
+</table>
+<p>The expression <code>read.csv(...)</code> is a function call that asks R to run the function <code>read.csv</code>.</p>
+<p><code>read.csv</code> has two arguments: - the name of the file we want to read, and - whether the first line of the file contains names for the columns of data.</p>
+<p>The filename needs to be a character string, so we put it in quotes. Assigning the second argument, <code>header</code>, to be <code>FALSE</code> indicates that the data file does not have column headers. We’ll talk more about the value <code>FALSE</code>, and its converse <code>TRUE</code>, in later lessons.</p>
+<blockquote>
+<h2 id="other-options-for-reading-csv-files">Other Options for Reading CSV Files</h2>
+<p><code>read.csv</code> actually has many more arguments that you may find useful when importing your own data in the future. We will cover these arguments in later lessons.</p>
+</blockquote>
+<blockquote>
+<h2 id="loading-data-with-headers">Loading Data with Headers</h2>
+<p>What happens if you forget to put <code>header = FALSE</code>? The default value is <code>header = TRUE</code>, which you can check with <code>?read.csv</code> or <code>help(read.csv)</code>. What do you expect will happen if you leave the default value? Before you run any code, think about what will happen to the first few rows of your data frame, and its overall size. Then run the following code and see if your expectations agree:</p>
+<pre><code>read.csv(file = &quot;data/inflammation-01.csv&quot;)</code></pre>
+</blockquote>
+<blockquote>
+<p>{: .r} {: .challenge}</p>
+</blockquote>
+<blockquote>
+<h2 id="reading-different-decimal-point-formats">Reading Different Decimal Point Formats</h2>
+<p>Depending on the country you live in, your standard can use the dot or the comma as decimal mark. Also, different devices or software can generate data with different decimal points. Take a look at <code>?read.csv</code> and write the code to load a file called <code>commadec.txt</code> that has numeric values with commas as decimal mark, separated by semicolons. {: .challenge}</p>
+</blockquote>
+<p>The utility of a function is that it will perform its given action on whatever value is passed to the named argument(s). For example, in this case if we provided the name of a different file to the argument <code>file</code>, <code>read.csv</code> would read it instead. We’ll learn more of the details about functions and their arguments in the next lesson.</p>
+<p>Since we didn’t tell it to do anything else with the function’s output, the console will display the full contents of the file <code>inflammation-01.csv</code>. Try it out.</p>
+<p><code>read.csv</code> read the file, but we can’t use data unless we assign it to a variable. A variable is just a name for a value, such as <code>x</code>, <code>current_temperature</code>, or <code>subject_id</code>. We can create a new variable simply by assigning a value to it using <code>&lt;-</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">weight_kg &lt;-<span class="st"> </span><span class="dv">55</span></code></pre></div>
+<p>Once a variable has a value, we can print it by typing the name of the variable and hitting <code>Enter</code> (or <code>return</code>). In general, R will print to the console any object returned by a function or operation <em>unless</em> we assign it to a variable.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">weight_kg</code></pre></div>
+<p>55</p>
+<p>We can do arithmetic with the variable:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># weight in pounds:</span>
+<span class="fl">2.2</span> *<span class="st"> </span>weight_kg</code></pre></div>
+<p>121</p>
+<blockquote>
+<h2 id="commenting">Commenting</h2>
+<p>We can add comments to our code using the <code>#</code> character. It is useful to document our code in this way so that others (and us the next time we read it) have an easier time following what the code is doing. {: .callout}</p>
+</blockquote>
+<p>We can also change an object’s value by assigning it a new value:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">weight_kg &lt;-<span class="st"> </span><span class="fl">57.5</span>
+<span class="co"># weight in kilograms is now</span>
+weight_kg</code></pre></div>
+<p>57.5</p>
+<p>If we imagine the variable as a sticky note with a name written on it, assignment is like putting the sticky note on a particular value.</p>
+<p>This means that assigning a value to one object does not change the values of other variables. For example, let’s store the subject’s weight in pounds in a variable:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">weight_lb &lt;-<span class="st"> </span><span class="fl">2.2</span> *<span class="st"> </span>weight_kg
+<span class="co"># weight in kg...</span>
+weight_kg
+
+<span class="co"># ...and in pounds</span>
+weight_lb</code></pre></div>
+<p>57.5</p>
+<p>126.5</p>
+<p>and then change <code>weight_kg</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">weight_kg &lt;-<span class="st"> </span><span class="fl">100.0</span>
+<span class="co"># weight in kg now...</span>
+weight_kg
+
+<span class="co"># ...and weight in pounds still</span>
+weight_lb</code></pre></div>
+<p>100</p>
+<p>126.5</p>
+<p>Since <code>weight_lb</code> doesn’t “remember” where its value came from, it isn’t automatically updated when <code>weight_kg</code> changes. This is different from the way spreadsheets work.</p>
+<blockquote>
+<h2 id="printing-with-parentheses">Printing with Parentheses</h2>
+<p>An alternative way to print the value of a variable is to use () around the assignment statement. As an example: <code>(total_weight &lt;- weight_kg + weight_lb)</code> adds the values of <code>weight_kg</code> and <code>weight_lb</code>, assigns the result to the <code>total_weight</code>, and finally prints the assigned value of the variable <code>total_weight</code>.</p>
+</blockquote>
+<p>Now that we know how to assign things to variables, let’s re-run <code>read.csv</code> and save its result:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;data/inflammation-01.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>This statement doesn’t produce any output because assignment doesn’t display anything. If we want to check that our data has been loaded, we can print the variable’s value. However, for large data sets it is convenient to use the function <code>head</code> to display only the first few rows of data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(dat)</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>
+</th>
+<th scope="col">
+V1
+</th>
+<th scope="col">
+V2
+</th>
+<th scope="col">
+V3
+</th>
+<th scope="col">
+V4
+</th>
+<th scope="col">
+V5
+</th>
+<th scope="col">
+V6
+</th>
+<th scope="col">
+V7
+</th>
+<th scope="col">
+V8
+</th>
+<th scope="col">
+V9
+</th>
+<th scope="col">
+V10
+</th>
+<th scope="col">
+ellip.h
+</th>
+<th scope="col">
+V31
+</th>
+<th scope="col">
+V32
+</th>
+<th scope="col">
+V33
+</th>
+<th scope="col">
+V34
+</th>
+<th scope="col">
+V35
+</th>
+<th scope="col">
+V36
+</th>
+<th scope="col">
+V37
+</th>
+<th scope="col">
+V38
+</th>
+<th scope="col">
+V39
+</th>
+<th scope="col">
+V40
+</th>
+</tr>
+</thead>
+<tbody>
+<pre><code>&lt;tr&gt;&lt;th scope=row&gt;1&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;2&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;3&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;10&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;4&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;5&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;6&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;</code></pre>
+</tbody>
+</table>
+<blockquote>
+<h2 id="assigning-values-to-variables">Assigning Values to Variables</h2>
+<p>Draw diagrams showing what variables refer to what values after each statement in the following program:</p>
+<pre><code>mass &lt;- 47.5
+age &lt;- 122
+mass &lt;- mass * 2.0
+age &lt;- age - 20</code></pre>
+<p>{: .r} {: .challenge}</p>
+</blockquote>
+<h3 id="manipulating-data">Manipulating Data</h3>
+<p>Now that our data is loaded in memory, we can start doing things with it. First, let’s ask what type of thing <code>dat</code> is:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(dat)</code></pre></div>
+<p>‘data.frame’</p>
+<p>The output tells us that is a data frame. Think of this structure as a spreadsheet in MS Excel that many of us are familiar with. Data frames are very useful for storing data and you will find them elsewhere when programming in R. A typical data frame of experimental data contains individual observations in rows and variables in columns.</p>
+<p>We can see the shape, or dimensions, of the data frame with the function <code>dim</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(dat)</code></pre></div>
+<ol class="list-inline">
+<pre><code>&lt;li&gt;60&lt;/li&gt;
+&lt;li&gt;40&lt;/li&gt;</code></pre>
+</ol>
+<p>This tells us that our data frame, <code>dat</code>, has 60 rows and 40 columns.</p>
+<p>If we want to get a single value from the data frame, we can provide an index in square brackets, just as we do in math:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># first value in dat</span>
+dat[<span class="dv">1</span>, <span class="dv">1</span>]</code></pre></div>
+<p>0</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># middle value in dat</span>
+dat[<span class="dv">30</span>, <span class="dv">20</span>]</code></pre></div>
+<p>16</p>
+<p>An index like <code>[30, 20]</code> selects a single element of a data frame, but we can select whole sections as well. For example, we can select the first ten days (columns) of values for the first four patients (rows) like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat[<span class="dv">1</span>:<span class="dv">4</span>, <span class="dv">1</span>:<span class="dv">10</span>]</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>
+</th>
+<th scope="col">
+V1
+</th>
+<th scope="col">
+V2
+</th>
+<th scope="col">
+V3
+</th>
+<th scope="col">
+V4
+</th>
+<th scope="col">
+V5
+</th>
+<th scope="col">
+V6
+</th>
+<th scope="col">
+V7
+</th>
+<th scope="col">
+V8
+</th>
+<th scope="col">
+V9
+</th>
+<th scope="col">
+V10
+</th>
+</tr>
+</thead>
+<tbody>
+<pre><code>&lt;tr&gt;&lt;th scope=row&gt;1&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;2&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;3&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;4&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;/tr&gt;</code></pre>
+</tbody>
+</table>
+<p>The slice<code>1:4</code> means, “Start at index 1 and go to index 4.”</p>
+<p>The slice does not need to start at 1, e.g. the line below selects rows 5 through 10:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat[<span class="dv">5</span>:<span class="dv">10</span>, <span class="dv">1</span>:<span class="dv">10</span>]</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>
+</th>
+<th scope="col">
+V1
+</th>
+<th scope="col">
+V2
+</th>
+<th scope="col">
+V3
+</th>
+<th scope="col">
+V4
+</th>
+<th scope="col">
+V5
+</th>
+<th scope="col">
+V6
+</th>
+<th scope="col">
+V7
+</th>
+<th scope="col">
+V8
+</th>
+<th scope="col">
+V9
+</th>
+<th scope="col">
+V10
+</th>
+</tr>
+</thead>
+<tbody>
+<pre><code>&lt;tr&gt;&lt;th scope=row&gt;5&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;6&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;7&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;8&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;9&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;10&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;/tr&gt;</code></pre>
+</tbody>
+</table>
+<p>We can use the function <code>c</code>, which stands for <strong>c</strong>ombine, to select non-contiguous values:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat[<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">37</span>, <span class="dv">56</span>), <span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">14</span>, <span class="dv">29</span>)]</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>
+</th>
+<th scope="col">
+V10
+</th>
+<th scope="col">
+V14
+</th>
+<th scope="col">
+V29
+</th>
+</tr>
+</thead>
+<tbody>
+<pre><code>&lt;tr&gt;&lt;th scope=row&gt;3&lt;/th&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;8&lt;/th&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;37&lt;/th&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;10&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th scope=row&gt;56&lt;/th&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;11&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;/tr&gt;</code></pre>
+</tbody>
+</table>
+<p>We also don’t have to provide a slice for either the rows or the columns. If we don’t include a slice for the rows, R returns all the rows; if we don’t include a slice for the columns, R returns all the columns. If we don’t provide a slice for either rows or columns, e.g. <code>dat[, ]</code>, R returns the full data frame.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># All columns from row 5</span>
+dat[<span class="dv">5</span>, ]</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>
+</th>
+<th scope="col">
+V1
+</th>
+<th scope="col">
+V2
+</th>
+<th scope="col">
+V3
+</th>
+<th scope="col">
+V4
+</th>
+<th scope="col">
+V5
+</th>
+<th scope="col">
+V6
+</th>
+<th scope="col">
+V7
+</th>
+<th scope="col">
+V8
+</th>
+<th scope="col">
+V9
+</th>
+<th scope="col">
+V10
+</th>
+<th scope="col">
+ellip.h
+</th>
+<th scope="col">
+V31
+</th>
+<th scope="col">
+V32
+</th>
+<th scope="col">
+V33
+</th>
+<th scope="col">
+V34
+</th>
+<th scope="col">
+V35
+</th>
+<th scope="col">
+V36
+</th>
+<th scope="col">
+V37
+</th>
+<th scope="col">
+V38
+</th>
+<th scope="col">
+V39
+</th>
+<th scope="col">
+V40
+</th>
+</tr>
+</thead>
+<tbody>
+<pre><code>&lt;tr&gt;&lt;th scope=row&gt;5&lt;/th&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;⋯&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;</code></pre>
+</tbody>
+</table>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># All rows from column 16</span>
+dat[, <span class="dv">16</span>]</code></pre></div>
+<ol class="list-inline">
+<pre><code>&lt;li&gt;4&lt;/li&gt;
+&lt;li&gt;4&lt;/li&gt;
+&lt;li&gt;15&lt;/li&gt;
+&lt;li&gt;8&lt;/li&gt;
+&lt;li&gt;10&lt;/li&gt;
+&lt;li&gt;15&lt;/li&gt;
+&lt;li&gt;13&lt;/li&gt;
+&lt;li&gt;9&lt;/li&gt;
+&lt;li&gt;11&lt;/li&gt;
+&lt;li&gt;6&lt;/li&gt;
+&lt;li&gt;3&lt;/li&gt;
+&lt;li&gt;8&lt;/li&gt;
+&lt;li&gt;12&lt;/li&gt;
+&lt;li&gt;3&lt;/li&gt;
+&lt;li&gt;5&lt;/li&gt;
+&lt;li&gt;10&lt;/li&gt;
+&lt;li&gt;11&lt;/li&gt;
+&lt;li&gt;4&lt;/li&gt;
+&lt;li&gt;11&lt;/li&gt;
+&lt;li&gt;13&lt;/li&gt;
+&lt;li&gt;15&lt;/li&gt;
+&lt;li&gt;5&lt;/li&gt;
+&lt;li&gt;14&lt;/li&gt;
+&lt;li&gt;13&lt;/li&gt;
+&lt;li&gt;4&lt;/li&gt;
+&lt;li&gt;9&lt;/li&gt;
+&lt;li&gt;13&lt;/li&gt;
+&lt;li&gt;6&lt;/li&gt;
+&lt;li&gt;7&lt;/li&gt;
+&lt;li&gt;6&lt;/li&gt;
+&lt;li&gt;14&lt;/li&gt;
+&lt;li&gt;3&lt;/li&gt;
+&lt;li&gt;15&lt;/li&gt;
+&lt;li&gt;4&lt;/li&gt;
+&lt;li&gt;15&lt;/li&gt;
+&lt;li&gt;11&lt;/li&gt;
+&lt;li&gt;7&lt;/li&gt;
+&lt;li&gt;10&lt;/li&gt;
+&lt;li&gt;15&lt;/li&gt;
+&lt;li&gt;6&lt;/li&gt;
+&lt;li&gt;5&lt;/li&gt;
+&lt;li&gt;6&lt;/li&gt;
+&lt;li&gt;15&lt;/li&gt;
+&lt;li&gt;11&lt;/li&gt;
+&lt;li&gt;15&lt;/li&gt;
+&lt;li&gt;6&lt;/li&gt;
+&lt;li&gt;11&lt;/li&gt;
+&lt;li&gt;15&lt;/li&gt;
+&lt;li&gt;14&lt;/li&gt;
+&lt;li&gt;4&lt;/li&gt;
+&lt;li&gt;10&lt;/li&gt;
+&lt;li&gt;15&lt;/li&gt;
+&lt;li&gt;11&lt;/li&gt;
+&lt;li&gt;6&lt;/li&gt;
+&lt;li&gt;13&lt;/li&gt;
+&lt;li&gt;8&lt;/li&gt;
+&lt;li&gt;4&lt;/li&gt;
+&lt;li&gt;13&lt;/li&gt;
+&lt;li&gt;12&lt;/li&gt;
+&lt;li&gt;9&lt;/li&gt;</code></pre>
+</ol>
+<p>Now let’s perform some common mathematical operations to learn about our inflammation data. When analyzing data we often want to look at partial statistics, such as the maximum value per patient or the average value per day. One way to do this is to select the data we want to create a new temporary data frame, and then perform the calculation on this subset:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># first row, all of the columns</span>
+patient_1 &lt;-<span class="st"> </span>dat[<span class="dv">1</span>, ]
+<span class="co"># max inflammation for patient 1</span>
+<span class="kw">max</span>(patient_1)</code></pre></div>
+<p>18</p>
+<blockquote>
+<h2 id="forcing-conversion">Forcing Conversion</h2>
+<p>The code above may give you an error in some R installations, since R does not automatically convert a sliced row of a <code>data.frame</code> to a vector. (Confusingly, sliced columns are automatically converted.) If this happens, you can use the <code>as.numeric</code> command to convert the row of data to a numeric vector:</p>
+<p><code>patient_1 &lt;- as.numeric(dat[1, ])</code></p>
+<p><code>max(patient_1)</code></p>
+<p>You can also check the <code>class</code> of each object:</p>
+<p><code>class(dat[1, ])</code></p>
+<p><code>class(as.numeric(dat[1, ]))</code> {: .callout}</p>
+</blockquote>
+<p>We don’t actually need to store the row in a variable of its own. Instead, we can combine the selection and the function call:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># max inflammation for patient 2</span>
+<span class="kw">max</span>(dat[<span class="dv">2</span>, ])</code></pre></div>
+<p>18</p>
+<p>R also has functions for other common calculations, e.g. finding the minimum, mean, median, and standard deviation of the data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># minimum inflammation on day 7</span>
+<span class="kw">min</span>(dat[, <span class="dv">7</span>])</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># mean inflammation on day 7</span>
+<span class="kw">mean</span>(dat[, <span class="dv">7</span>])</code></pre></div>
+<p>3.8</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># median inflammation on day 7</span>
+<span class="kw">median</span>(dat[, <span class="dv">7</span>])</code></pre></div>
+<p>4</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># standard deviation of inflammation on day 7</span>
+<span class="kw">sd</span>(dat[, <span class="dv">7</span>])</code></pre></div>
+<p>1.72518729025016</p>
+<p>What if we need the maximum inflammation for all patients, or the average for each day? As the diagram below shows, we want to perform the operation across a margin of the data frame:</p>
+<p><img src="../fig/r-operations-across-axes.png" alt="Operations Across Axes" /></p>
+<p>To support this, we can use the <code>apply</code> function.</p>
+<blockquote>
+<h2 id="getting-help">Getting Help</h2>
+<p>To learn about a function in R, e.g. <code>apply</code>, we can read its help documention by running <code>help(apply)</code> or <code>?apply</code>. {: .callout}</p>
+</blockquote>
+<p><code>apply</code> allows us to repeat a function on all of the rows (<code>MARGIN = 1</code>) or columns (<code>MARGIN = 2</code>) of a data frame.</p>
+<p>Thus, to obtain the average inflammation of each patient we will need to calculate the mean of all of the rows (<code>MARGIN = 1</code>) of the data frame.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">avg_patient_inflammation &lt;-<span class="st"> </span><span class="kw">apply</span>(dat, <span class="dv">1</span>, mean)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">avg_day_inflammation &lt;-<span class="st"> </span><span class="kw">apply</span>(dat, <span class="dv">2</span>, mean)</code></pre></div>
+<p>Since the second argument to <code>apply</code> is <code>MARGIN</code>, the above command is equivalent to <code>apply(dat, MARGIN = 2, mean)</code>. We’ll learn why this is so in the next lesson.</p>
+<blockquote>
+<h2 id="slicing-subsetting-data">Slicing (Subsetting) Data</h2>
+<p>A subsection of a data frame is called a <a href="%7B%7B%20site.github.url%20%7D%7D/reference/#slice">slice</a>. We can take slices of character vectors as well:</p>
+</blockquote>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">animal &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;m&quot;</span>, <span class="st">&quot;o&quot;</span>, <span class="st">&quot;n&quot;</span>, <span class="st">&quot;k&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;y&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># first three characters</span>
+animal[<span class="dv">1</span>:<span class="dv">3</span>]</code></pre></div>
+<ol class="list-inline">
+<pre><code>&lt;li&gt;&#39;m&#39;&lt;/li&gt;
+&lt;li&gt;&#39;o&#39;&lt;/li&gt;
+&lt;li&gt;&#39;n&#39;&lt;/li&gt;</code></pre>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> <span class="co"># last three characters</span>
+ animal[<span class="dv">4</span>:<span class="dv">6</span>]</code></pre></div>
+<ol class="list-inline">
+<pre><code>&lt;li&gt;&#39;k&#39;&lt;/li&gt;
+&lt;li&gt;&#39;e&#39;&lt;/li&gt;
+&lt;li&gt;&#39;y&#39;&lt;/li&gt;</code></pre>
+</ol>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li><p>If the first four characters are selected using the slice <code>animal[1:4]</code>, how can we obtain the first four characters in reverse order?</p></li>
+<li><p>What is <code>animal[-1]</code>? What is <code>animal[-4]</code>? Given those answers, explain what <code>animal[-1:-4]</code> does.</p></li>
+<li><p>Use a slice of <code>animal</code> to create a new character vector that spells the word “eon”, i.e. <code>c(&quot;e&quot;, &quot;o&quot;, &quot;n&quot;)</code>. {: .challenge}</p></li>
+</ol>
+</blockquote>
+<blockquote>
+<h2 id="subsetting-more-data">Subsetting More Data</h2>
+<p>Suppose you want to determine the maximum inflammation for patient 5 across days three to seven. To do this you would extract the relevant slice from the data frame and calculate the maximum value. Which of the following lines of R code gives the correct answer?</p>
+<ol style="list-style-type: decimal">
+<li><code>max(dat[5, ])</code></li>
+<li><code>max(dat[3:7, 5])</code></li>
+<li><code>max(dat[5, 3:7])</code></li>
+<li><code>max(dat[5, 3, 7])</code> {: .challenge}</li>
+</ol>
+</blockquote>
+<blockquote>
+<h2 id="slicing-and-re-assignment">Slicing and Re-Assignment</h2>
+<p>Using the inflammation data frame <code>dat</code> from above: Let’s pretend there was something wrong with the instrument on the first five days for every second patient (#2, 4, 6, etc.), which resulted in the measurements being twice as large as they should be.</p>
+<ol style="list-style-type: decimal">
+<li>Write a vector containing each affected patient (hint: <code>? seq</code>)</li>
+<li>Create a new data frame with in which you halve the first five days’ values in only those patients</li>
+<li>Print out the corrected data frame to check that your code has fixed the problem</li>
+</ol>
+<blockquote>
+<h2 id="solution">Solution</h2>
+<pre><code>whichPatients &lt;- seq(2,40,2)
+whichDays &lt;- c(1:5)
+dat2 &lt;- dat
+dat2[whichPatients,whichDays] &lt;- dat2[whichPatients,whichDays]/2
+(dat2)</code></pre>
+<p>{: .r} {: .solution} {: .challenge}</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="using-the-apply-function-on-patient-data">Using the Apply Function on Patient Data</h2>
+<p>Challenge: the apply function can be used to summarize datasets and subsets of data across rows and columns using the MARGIN argument. Suppose you want to calculate the mean inflammation for specific days and patients in the patient dataset (i.e. 60 patients across 40 days).</p>
+<p>Please use a combination of the apply function and indexing to:</p>
+<ol style="list-style-type: decimal">
+<li>calculate the mean inflammation for patients 1 to 5 over the whole 40 days</li>
+<li>calculate the mean inflammation for days 1 to 10 (across all patients).</li>
+<li>calculate the mean inflammation for every second day (across all patients).</li>
+</ol>
+<p>Think about the number of rows and columns you would expect as the result before each apply call and check your intuition by applying the mean function.</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<h2 id="solution-1">Solution</h2>
+<pre><code># 1.
+apply(dat[1:5, ], 1, mean)
+# 2.
+apply(dat[, 1:10], 2, mean)
+# 3.
+apply(dat[, seq(1,40, by=2)], 2, mean)</code></pre>
+<p>{: .r} {: .solution} {: .challenge}</p>
+</blockquote>
+</blockquote>
+<h3 id="plotting">Plotting</h3>
+<p>The mathematician Richard Hamming once said, “The purpose of computing is insight, not numbers,” and the best way to develop insight is often to visualize data. Visualization deserves an entire lecture (or course) of its own, but we can explore a few of R’s plotting features.</p>
+<p>Let’s take a look at the average inflammation over time. Recall that we already calculated these values above using <code>apply(dat, 2, mean)</code> and saved them in the variable <code>avg_day_inflammation</code>. Plotting the values is done with the function <code>plot</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(avg_day_inflammation)</code></pre></div>
+<div class="figure">
+<img src="01-interaction_files/01-interaction_63_0.svg" alt="svg" />
+<p class="caption">svg</p>
+</div>
+<p>Above, we gave the function <code>plot</code> a vector of numbers corresponding to the average inflammation per day across all patients. <code>plot</code> created a scatter plot where the y-axis is the average inflammation level and the x-axis is the order, or index, of the values in the vector, which in this case correspond to the 40 days of treatment. The result is roughly a linear rise and fall, which is suspicious: based on other studies, we expect a sharper rise and slower fall. Let’s have a look at two other statistics: the maximum and minimum inflammation per day.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">max_day_inflammation &lt;-<span class="st"> </span><span class="kw">apply</span>(dat, <span class="dv">2</span>, max)
+<span class="kw">plot</span>(max_day_inflammation)</code></pre></div>
+<div class="figure">
+<img src="01-interaction_files/01-interaction_65_0.svg" alt="svg" />
+<p class="caption">svg</p>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">min_day_inflammation &lt;-<span class="st"> </span><span class="kw">apply</span>(dat, <span class="dv">2</span>, min)
+<span class="kw">plot</span>(min_day_inflammation)</code></pre></div>
+<div class="figure">
+<img src="01-interaction_files/01-interaction_66_0.svg" alt="svg" />
+<p class="caption">svg</p>
+</div>
+<p>The maximum value rises and falls perfectly smoothly, while the minimum seems to be a step function. Neither result seems particularly likely, so either there’s a mistake in our calculations or something is wrong with our data.</p>
+<blockquote>
+<h2 id="plotting-data">Plotting Data</h2>
+<p>Create a plot showing the standard deviation of the inflammation data for each day across all patients. {: .challenge}</p>
+</blockquote>
+        </div>
+      </div>
+      </article>
+      <div class="footer">
+        <a class="label clemson-orange" href="http://citi.clemson.edu">CITI</a>
+        <a class="label clemson-orange" href="https://github.com/clemsoncoe/hpc-workshop">Source</a>
+        <a class="label clemson-orange" href="mailto:atrikut@clemson.edu">Contact</a>
+        <a class="label clemson-orange" href="LICENSE.html">License</a>
+      </div>
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+  </body>
+</html>
