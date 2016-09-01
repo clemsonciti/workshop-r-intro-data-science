@@ -32,24 +32,6 @@ carSpeeds <- read.csv(file='data/car-speeds.csv')
 head(carSpeeds)
 ```
 
-
-
-
-<table>
-<thead><tr><th></th><th scope=col>Color</th><th scope=col>Speed</th><th scope=col>State</th></tr></thead>
-<tbody>
-	<tr><th scope=row>1</th><td>Blue</td><td>32</td><td>NewMexico</td></tr>
-	<tr><th scope=row>2</th><td> Red</td><td>45</td><td>Arizona</td></tr>
-	<tr><th scope=row>3</th><td>Blue</td><td>35</td><td>Colorado</td></tr>
-	<tr><th scope=row>4</th><td>White</td><td>34</td><td>Arizona</td></tr>
-	<tr><th scope=row>5</th><td>Red</td><td>25</td><td>Arizona</td></tr>
-	<tr><th scope=row>6</th><td>Blue</td><td>41</td><td>Arizona</td></tr>
-</tbody>
-</table>
-
-
-
-
 > ## Changing Delimiters
 >
 > The default delimiter of the `read.csv()` function is a comma, but you can
@@ -149,20 +131,6 @@ Here, the data recorder added a space before the color of the car in one of the 
 unique(carSpeeds$Color)
 ```
 
-
-
-
-<ol class=list-inline>
-	<li>Blue</li>
-	<li> Red</li>
-	<li>White</li>
-	<li>Red</li>
-	<li>Black</li>
-</ol>
-
-
-
-
 Oops, we see two values for red cars.
 
 Let's try again, this time importing the data using the `strip.white` argument. NOTE - this argument must be accompanied by the `sep` argument, by which we indicate the type of delimiter in the file (the comma for most .csv files)
@@ -173,19 +141,6 @@ carSpeeds<-read.csv(file='data/car-speeds.csv',stringsAsFactors=FALSE,strip.whit
 
 unique(carSpeeds$Color)
 ```
-
-
-
-
-<ol class=list-inline>
-	<li>'Blue'</li>
-	<li>'Red'</li>
-	<li>'White'</li>
-	<li>'Black'</li>
-</ol>
-
-
-
 
 That's better!
 

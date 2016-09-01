@@ -63,14 +63,6 @@ print_words <- function(sentence) {
 print_words(best_practice)
 ```
 
-    [1] "Let"
-    [1] "the"
-    [1] "computer"
-    [1] "do"
-    [1] "the"
-    [1] "work"
-
-
 but that's a bad approach for two reasons:
 
  1. It doesn't scale: if we want to print the elements in a vector that's hundreds long, we'd be better off just typing them in.
@@ -83,31 +75,9 @@ best_practice[-6]
 ```
 
 
-
-
-<ol class=list-inline>
-	<li>'Let'</li>
-	<li>'the'</li>
-	<li>'computer'</li>
-	<li>'do'</li>
-	<li>'the'</li>
-</ol>
-
-
-
-
-
 ```R
 print_words(best_practice[-6])
 ```
-
-    [1] "Let"
-    [1] "the"
-    [1] "computer"
-    [1] "do"
-    [1] "the"
-    [1] NA
-
 
 > ## Not Available
 >

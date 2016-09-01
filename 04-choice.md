@@ -328,26 +328,12 @@ f <- "inflammation-01.csv"
 sub("csv", "pdf", f)
 ```
 
-
-
-
-'inflammation-01.pdf'
-
-
-
 To add the "data" directory to the filename use the function `file.path`,
 
 
 ```R
 file.path("results", sub("csv", "pdf", f))
 ```
-
-
-
-
-'results/inflammation-01.pdf'
-
-
 
 Now let's update `analyze_all`:
 

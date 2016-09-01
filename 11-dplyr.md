@@ -25,17 +25,16 @@ Packages in R are basically sets of additional functions that let you do more
 stuff. The functions we've been using so far, like `str()` or `data.frame()`,
 come built into R; packages give you access to more of them. Before you use a
 package for the first time you need to install it on your machine, and then you
-should import it in every subsequent R session when you need it.
+should import it in every subsequent R session when you need it. **As part of 
+the R Jupyter environment, dplyr is already installed.**
 
-```{r, eval = FALSE, purl = FALSE}
+
+```R
 install.packages("dplyr")
 ```
 
-You might get asked to choose a CRAN mirror -- this is basically asking you to
-choose a site to download the package from. The choice doesn't matter too much;
-we recommend the RStudio mirror.
 
-```{r, message = FALSE, purl = FALSE}
+```R
 library("dplyr")    ## load the package
 ```
 
@@ -60,6 +59,11 @@ To learn more about `dplyr` after the workshop, you may want to check out this
 [handy dplyr cheatsheet](http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf).
 
 
+```R
+setwd("/home/lngo/intro-data-science/")
+surveys = read.csv(file="data/sample.csv", header=TRUE)
+```
+
 ## Selecting columns and filtering rows
 
 We're going to learn some of the most common `dplyr` functions: `select()`,
@@ -67,14 +71,16 @@ We're going to learn some of the most common `dplyr` functions: `select()`,
 data frame, use `select()`. The first argument to this function is the data
 frame (`surveys`), and the subsequent arguments are the columns to keep.
 
-```{r, results = 'hide', purl = FALSE}
-select(surveys, plot_id, species_id, weight)
+
+```R
+select(surveys, Group, BloodPressure, Age)
 ```
 
 To choose rows, use `filter()`:
 
-```{r, purl = FALSE}
-filter(surveys, year == 1995)
+
+```R
+filter(surveys, BloodPressure > 100)
 ```
 
 ## Pipes
@@ -91,26 +97,31 @@ directly to the next, which is useful when you need to do many things to the sam
 data set.  Pipes in R look like `%>%` and are made available via the `magrittr`
 package installed as part of `dplyr`.
 
-```{r, purl = FALSE}
+
+```R
 surveys %>%
-  filter(weight < 5) %>%
-  select(species_id, sex, weight)
+  filter(BloodPressure > 100) %>%
+  select(Gender, Age)
 ```
 
 In the above we use the pipe to send the `surveys` data set first through
-`filter`, to keep rows where `weight` was less than 5, and then through `select`
-to keep the `species` and `sex` columns. When the data frame is being passed to
+`filter`, to keep rows where `BloodPressure` was greayer than 5, and then through `select`
+to keep the `Gender` and `Age` columns. When the data frame is being passed to
 the `filter()` and `select()` functions through a pipe, we don't need to include
 it as an argument to these functions anymore.
 
 If we wanted to create a new object with this smaller version of the data we
 could do so by assigning it a new name:
 
-```{r, purl = FALSE}
-surveys_sml <- surveys %>%
-  filter(weight < 5) %>%
-  select(species_id, sex, weight)
 
+```R
+surveys_sml <- surveys %>%
+  filter(BloodPressure > 100) %>%
+  select(Gender, Age)
+```
+
+
+```R
 surveys_sml
 ```
 
@@ -118,75 +129,42 @@ Note that the final data frame is the leftmost part of this expression.
 
 > ### Challenge {.challenge}
 >
->  Using pipes, subset the data to include individuals collected before 1995,
->  and retain the columns `year`, `sex`, and `weight.`
-
-<!---
-```{r, eval=FALSE, purl=FALSE}
-## Answer
-surveys %>%
-    filter(year < 1995) %>%
-    select(year, sex, weight)
-```
---->
-
+>  Using pipes, subset the data to include individuals from the `Control` group,
+>  and retain the columns `Gender`, `BloodPressure`, and `Age`
 
 ### Mutate
 
 Frequently you'll want to create new columns based on the values in existing
-columns, for example to do unit conversions, or find the ratio of values in two
-columns. For this we'll use `mutate()`.
+columns, for example to do correct the capitalization of the gender. For this 
+we'll use `mutate()`.
 
-To create a new column of weight in kg:
+To create a new column of correct gender spelling:
 
-```{r, purl = FALSE}
+
+```R
 surveys %>%
-  mutate(weight_kg = weight / 1000)
+  mutate(gender_capitalized = toupper(Gender))
 ```
 
 If this runs off your screen and you just want to see the first few rows, you
 can use a pipe to view the `head()` of the data (pipes work with non-dplyr
 functions too, as long as the `dplyr` or `magrittr` packages are loaded).
 
-```{r, purl = FALSE}
+
+```R
 surveys %>%
-  mutate(weight_kg = weight / 1000) %>%
+  mutate(gender_capitalized = toupper(Gender)) %>%
   head
 ```
-
-The first few rows are full of NAs, so if we wanted to remove those we could
-insert a `filter()` in this chain:
-
-```{r, purl = FALSE}
-surveys %>%
-  filter(!is.na(weight)) %>%
-  mutate(weight_kg = weight / 1000) %>%
-  head
-```
-
-`is.na()` is a function that determines whether something is or is not an `NA`.
-The `!` symbol negates it, so we're asking for everything that is not an `NA`.
 
 > ### Challenge {.challenge}
 >
 >  Create a new dataframe from the survey data that meets the following
->  criteria: contains only the `species_id` column and a column that contains
->  values that are half the `hindfoot_length` values (e.g. a new column
->  `hindfoot_half`). In this `hindfoot_half` column, there are no NA values
->  and all values are < 30.
+>  criteria: contains only the `Age` column and a column `Aneurisms_avg` that 
+>  contains values that are averaged of the Aneurisms colum . In this 
+>  `Aneurisms_avg` column, only retain values that are greater than 150.
 >
 >  **Hint**: think about how the commands should be ordered to produce this data frame!
-
-<!---
-```{r, eval=FALSE, purl=FALSE}
-## Answer
-surveys_hindfoot_half <- surveys %>%
-    filter(!is.na(hindfoot_length)) %>%
-    mutate(hindfoot_half = hindfoot_length / 2) %>%
-    filter(hindfoot_half < 30) %>%
-    select(species_id, hindfoot_half)
-```
---->
 
 ### Split-apply-combine data analysis and the summarize() function
 
@@ -195,44 +173,32 @@ paradigm: split the data into groups, apply some analysis to each group, and
 then combine the results. `dplyr` makes this very easy through the use of the
 `group_by()` function.
 
-
 #### The `summarize()` function
 
 `group_by()` is often used together with `summarize()` which collapses each
 group into a single-row summary of that group.  `group_by()` takes as argument
 the column names that contain the **categorical** variables for which you want
-to calculate the summary statistics. So to view mean the `weight` by sex:
+to calculate the summary statistics. So to view mean the `Age` by sex:
 
-```{r, purl = FALSE}
+
+```R
 surveys %>%
-  group_by(sex) %>%
-  summarize(mean_weight = mean(weight, na.rm = TRUE))
+  mutate(gender_capitalized = toupper(Gender)) %>%
+  group_by(gender_capitalized) %>%
+  summarize(mean_age = mean(Age, na.rm = TRUE))
 ```
 
 You can group by multiple columns too:
 
-```{r, purl = FALSE}
+
+```R
 surveys %>%
-  group_by(sex, species_id) %>%
-  summarize(mean_weight = mean(weight, na.rm = TRUE))
+  mutate(gender_capitalized = toupper(Gender)) %>%
+  group_by(gender_capitalized, Group) %>%
+  summarize(mean_age = mean(Age, na.rm = TRUE))
 ```
 
-When grouping both by "sex" and "species_id", the first rows are for individuals
-that escaped before their sex could be determined and weighted. You may notice
-that the last column does not contain `NA` but `NaN` (which refers to "Not a
-Number"). To avoid this, we can remove the missing values for weight before we
-attempt to calculate the summary statistics on weight. Because the missing
-values are removed, we can omit `na.rm=TRUE` when computing the mean:
-
-```{r, purl = FALSE}
-surveys %>%
-  filter(!is.na(weight)) %>%
-  group_by(sex, species_id) %>%
-  summarize(mean_weight = mean(weight))
-```
-
-You may also have noticed, that the output from these calls don't run off the
-screen anymore. That's because `dplyr` has changed our `data.frame` to a
+In this case, `dplyr` has changed our `data.frame` to a
 `tbl_df`. This is a data structure that's very similar to a data frame; for our
 purposes the only difference is that it won't automatically show tons of data
 going off the screen, while displaying the data type for each column under its
@@ -241,38 +207,39 @@ function at the end with the argument `n` specifying the number of rows to
 display:
 
 
-```{r, purl = FALSE}
+```R
 surveys %>%
-  filter(!is.na(weight)) %>%
-  group_by(sex, species_id) %>%
-  summarize(mean_weight = mean(weight)) %>%
-  print(n=15)
+  mutate(gender_capitalized = toupper(Gender)) %>%
+  group_by() %>%
+  group_by(gender_capitalized, Group) %>%
+  summarize(mean_age = mean(Age, na.rm = TRUE)) %>%
+  print(n=6)
 ```
 
 Once the data is grouped, you can also summarize multiple variables at the same
 time (and not necessarily on the same variable). For instance, we could add a
 column indicating the minimum weight for each species for each sex:
 
-```{r, purl = FALSE}
+
+```R
 surveys %>%
-  filter(!is.na(weight)) %>%
-  group_by(sex, species_id) %>%
-  summarize(mean_weight = mean(weight),
-            min_weight = min(weight))
+  mutate(gender_capitalized = toupper(Gender)) %>%
+  group_by(gender_capitalized, Group) %>%
+  summarize(max_age = max(Age),
+            min_age = min(Age))
 ```
-
-
 
 #### Tallying
 
 When working with data, it is also common to want to know the number of
 observations found for each factor or combination of factors. For this, `dplyr`
-provides `tally()`. For example, if we wanted to group by sex and find the
-number of rows of data for each sex, we would do:
+provides `tally()`. For example, if we wanted to group by the treatment methods and find the
+number of rows of data for each method, we would do:
 
-```{r, purl = FALSE}
+
+```R
 surveys %>%
-  group_by(sex) %>%
+  group_by(Group) %>%
   tally()
 ```
 
@@ -281,124 +248,10 @@ counts the total number of records for each category.
 
 > ### Challenge {.challenge}
 >
-> How many individuals were caught in each `plot_type` surveyed?
-
-<!---
-```{r, echo=FALSE, purl=FALSE}
-## Answer
-surveys %>%
-    group_by(plot_type) %>%
-    tally
-```
---->
+> How many males and females were surveyed?
 
 > ### Challenge {.challenge}
 >
-> Use `group_by()` and `summarize()` to find the mean, min, and max hindfoot
-> length for each species (using `species _id`).
-
-<!---
-```{r, echo=FALSE, purl=FALSE}
-## Answer
-surveys %>%
-    filter(!is.na(hindfoot_length)) %>%
-    group_by(species_id) %>%
-    summarize(
-        mean_hindfoot_length = mean(hindfoot_length),
-        min_hindfoot_length = min(hindfoot_length),
-        max_hindfoot_length = max(hindfoot_length)
-    )
-```
---->
-
-> ### Challenge {.challenge}
->
-> What was the heaviest animal measured in each year? Return the columns `year`,
-> `genus`, `species_id`, and `weight`.
-
-<!---
-## Answer
-```{r, echo=FALSE, purl=FALSE}
-res <- surveys %>%
-    filter(!is.na(weight)) %>%
-    group_by(year) %>%
-    filter(weight == max(weight)) %>%
-    select(year, genus, species, weight) %>%
-    arrange(year)
-```
---->
-
-# Exporting data
-
-Now that you have learned how to use `dplyr` to extract the information you need
-from the raw data, or to summarize your raw data, you may want to export these
-new datasets to share them with your collaborators or for archival.
-
-Similarly to the `read.csv()` function used to read in CSV into R, there is a
-`write.csv()` function that generates CSV files from data frames.
-
-Before using it, we are going to create a new folder, `data_output` in our
-working directory that will store this generated dataset. We don't want to write
-generated datasets in the same directory as our raw data. It's good practice to
-keep them separate. The `data` folder should only contain the raw, unaltered
-data, and should be left alone to make sure we don't delete or modify it; on the
-other end the content of `data_output` directory will be generated by our
-script, and we know that we can delete the files it contains because we have the
-script that can re-generate these files.
-
-In preparation for our next lesson on plotting, we are going to prepare a
-cleaned up version of the dataset that doesn't include any missing data.
-
-Let's start by removing observations for which the `species_id` is missing. In
-this dataset, the missing species are represented by an empty string and not an
-`NA`. Let's also remove observations for which `weight` and the
-`hindfoot_length` are missing. This dataset will also only contain observations
-of animals for which the sex has been determined:
-
-
-```{r, purl=FALSE}
-surveys_complete <- surveys %>%
-  filter(species_id != "",         # remove missing species_id
-         !is.na(weight),           # remove missing weight
-		 !is.na(hindfoot_length),  # remove missing hindfoot_length
-		 sex != "")                # remove missing sex
-```
-
-Because we are interested in plotting how species abundances have changed
-through time, we are also going to remove observations for rare species (i.e.,
-that have been observed less than 50 times). We will do this in two steps: first
-we are going to create a dataset that counts how often each species has been
-observed, and filter out the rare species; then, we will extract only the
-observations for these more common species:
-
-```{r, purl=FALSE}
-## Extract the most common species_id
-species_counts <- surveys_complete %>%
-                  group_by(species_id) %>%
-                  tally %>%
-				  filter(n >= 50) %>%
-				  select(species_id)
-
-## Only keep the most common species
-surveys_complete <- surveys_complete %>%
-                 filter(species_id %in% species_counts$species_id)
-```
-
-To make sure that everyone has the same dataset, check that
-`surveys_complete` has `r nrow(surveys_complete)` rows and `r ncol(surveys_complete)`
-columns by typing `dim(surveys_complete)`.
-
-Now that our dataset is ready, we can save it as a CSV file in our `data_output`
-folder. By default, `write.csv()` includes a column with row names (in our case
-the names are just the row numbers), so we need to add `row.names = FALSE` so
-they are not included:
-
-```{r, purl=FALSE, eval=FALSE}
-write.csv(surveys_complete, file="data_output/surveys_complete.csv",
-          row.names=FALSE)
-```
-
-```{r, purl=FALSE, eval=TRUE, echo=FALSE}
-if (!file.exists("data_output")) dir.create("data_output")
-write.csv(surveys_complete, file = "data_output/surveys_complete.csv")
-```
+> Use `group_by()` and `summarize()` to find the mean, min, and max aneurisms
+> measurement at each quarter (`Aneurisms_q1`,`Aneurisms_q2`,`Aneurisms_q3`,`Aneurisms_q4`) 
+> for each treatment group (using `Group`).

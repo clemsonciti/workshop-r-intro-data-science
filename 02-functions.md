@@ -194,32 +194,6 @@ z
 center(z, 3)
 ```
 
-
-
-
-<ol class=list-inline>
-	<li>0</li>
-	<li>0</li>
-	<li>0</li>
-	<li>0</li>
-</ol>
-
-
-
-
-
-
-
-<ol class=list-inline>
-	<li>3</li>
-	<li>3</li>
-	<li>3</li>
-	<li>3</li>
-</ol>
-
-
-
-
 That looks right, so let's try center on our real data. We'll center the inflammation data from day 4 around 0:
 
 
@@ -229,21 +203,6 @@ dat <- read.csv(file = "data/inflammation-01.csv", header = FALSE)
 centered <- center(dat[, 4], 0)
 head(centered)
 ```
-
-
-
-
-<ol class=list-inline>
-	<li>1.25</li>
-	<li>-0.75</li>
-	<li>1.25</li>
-	<li>-1.75</li>
-	<li>1.25</li>
-	<li>0.25</li>
-</ol>
-
-
-
 
 It's hard to tell from the default output whether the result is correct, but there are a few simple tests that will reassure us:
 
@@ -260,27 +219,6 @@ max(dat[, 4])
 ```
 
 
-
-
-0
-
-
-
-
-
-
-1.75
-
-
-
-
-
-
-3
-
-
-
-
 ```R
 # centered min
 min(centered)
@@ -291,27 +229,6 @@ mean(centered)
 # centered max
 max(centered)
 ```
-
-
-
-
--1.75
-
-
-
-
-
-
-0
-
-
-
-
-
-
-1.25
-
-
 
 That seems almost right: the original mean was about 1.75, so the lower bound from zero is now about -1.75.
 The mean of the centered data is 0.
@@ -326,20 +243,6 @@ sd(dat[, 4])
 sd(centered)
 ```
 
-
-
-
-1.06762845057378
-
-
-
-
-
-
-1.06762845057378
-
-
-
 Those values look the same, but we probably wouldn't notice if they were different in the sixth decimal place.
 Let's do this instead:
 
@@ -349,13 +252,6 @@ Let's do this instead:
 sd(dat[, 4]) - sd(centered)
 ```
 
-
-
-
-0
-
-
-
 Sometimes, a very small difference can be detected due to rounding at very low decimal places.
 R has a useful function for comparing two objects allowing for rounding errors, `all.equal`:
 
@@ -363,13 +259,6 @@ R has a useful function for comparing two objects allowing for rounding errors, 
 ```R
 all.equal(sd(dat[, 4]), sd(centered))
 ```
-
-
-
-
-TRUE
-
-
 
 It's still possible that our function is wrong, but it seems unlikely enough that we should probably get back to doing our analysis.
 We have one more task first, though: we should write some documentation for our function to remind ourselves later what it's for and how to use it.

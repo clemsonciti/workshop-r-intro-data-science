@@ -156,30 +156,6 @@ class(z)
 str(z)
 ```
 
-
-
-
-'character'
-
-
-
-
-
-
-3
-
-
-
-
-
-
-'character'
-
-
-
-     chr [1:3] "Sarah" "Tracy" "Jon"
-
-
 ### Adding Elements
 
 The function `c()` (for combine) can also be used to add elements to a vector.
@@ -239,26 +215,12 @@ anyNA(y)
 1/0
 ```
 
-
-
-
-Inf
-
-
-
 `NaN` means Not a Number. It's an undefined value.
 
 
 ```R
 0/0
 ```
-
-
-
-
-NaN
-
-
 
 ### What Happens When You Mix Types Inside a Vector?
 
@@ -277,39 +239,6 @@ xx
 xx <- c("a", TRUE)
 xx
 ```
-
-
-
-
-<ol class=list-inline>
-	<li>'1.7'</li>
-	<li>'a'</li>
-</ol>
-
-
-
-
-
-
-
-<ol class=list-inline>
-	<li>1</li>
-	<li>2</li>
-</ol>
-
-
-
-
-
-
-
-<ol class=list-inline>
-	<li>'a'</li>
-	<li>'TRUE'</li>
-</ol>
-
-
-
 
 You can also control how vectors are coerced explicitly using the
 `as.<class_name>()` functions:
@@ -338,20 +267,6 @@ vectors and lists) or number of characters (for character strings).
 length(1:10)
 nchar("Clemson Tigers")
 ```
-
-
-
-
-10
-
-
-
-
-
-
-14
-
-
 
 ### Matrix
 
@@ -396,34 +311,6 @@ cbind(x, y)
 rbind(x, y)
 ```
 
-
-
-
-<table>
-<thead><tr><th scope=col>x</th><th scope=col>y</th></tr></thead>
-<tbody>
-	<tr><td> 1</td><td>10</td></tr>
-	<tr><td> 2</td><td>11</td></tr>
-	<tr><td> 3</td><td>12</td></tr>
-</tbody>
-</table>
-
-
-
-
-
-
-
-<table>
-<tbody>
-	<tr><th scope=row>x</th><td>1</td><td>2</td><td>3</td></tr>
-	<tr><th scope=row>y</th><td>10</td><td>11</td><td>12</td></tr>
-</tbody>
-</table>
-
-
-
-
 You can also use the `byrow` argument to specify how the matrix is filled. From R's own documentation:
 
 
@@ -431,19 +318,6 @@ You can also use the `byrow` argument to specify how the matrix is filled. From 
 mdat <- matrix(c(1,2,3, 11,12,13), nrow = 2, ncol = 3, byrow = TRUE)
 mdat
 ```
-
-
-
-
-<table>
-<tbody>
-	<tr><td>1</td><td>2</td><td>3</td></tr>
-	<tr><td>11</td><td>12</td><td>13</td></tr>
-</tbody>
-</table>
-
-
-
 
 ### List
 
