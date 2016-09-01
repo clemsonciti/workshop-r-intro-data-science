@@ -73,32 +73,13 @@ print_words &lt;-<span class="st"> </span>function(sentence) {
 }
 
 <span class="kw">print_words</span>(best_practice)</code></pre></div>
-<pre><code>[1] &quot;Let&quot;
-[1] &quot;the&quot;
-[1] &quot;computer&quot;
-[1] &quot;do&quot;
-[1] &quot;the&quot;
-[1] &quot;work&quot;</code></pre>
 <p>but that’s a bad approach for two reasons:</p>
 <ol style="list-style-type: decimal">
 <li><p>It doesn’t scale: if we want to print the elements in a vector that’s hundreds long, we’d be better off just typing them in.</p></li>
 <li><p>It’s fragile: if we give it a longer vector, it only prints part of the data, and if we give it a shorter input, it returns <code>NA</code> values because we’re asking for elements that don’t exist!</p></li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">best_practice[-<span class="dv">6</span>]</code></pre></div>
-<ol class="list-inline">
-<pre><code>&lt;li&gt;&#39;Let&#39;&lt;/li&gt;
-&lt;li&gt;&#39;the&#39;&lt;/li&gt;
-&lt;li&gt;&#39;computer&#39;&lt;/li&gt;
-&lt;li&gt;&#39;do&#39;&lt;/li&gt;
-&lt;li&gt;&#39;the&#39;&lt;/li&gt;</code></pre>
-</ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print_words</span>(best_practice[-<span class="dv">6</span>])</code></pre></div>
-<pre><code>[1] &quot;Let&quot;
-[1] &quot;the&quot;
-[1] &quot;computer&quot;
-[1] &quot;do&quot;
-[1] &quot;the&quot;
-[1] NA</code></pre>
 <blockquote>
 <h2 id="not-available">Not Available</h2>
 <p>R has has a special variable, <code>NA</code>, for designating missing values that are <strong>N</strong>ot <strong>A</strong>vailable in a data set. See <code>?NA</code> and [An Introduction to R][na] for more details. [na]: http://cran.r-project.org/doc/manuals/r-release/R-intro.html#Missing-values</p>

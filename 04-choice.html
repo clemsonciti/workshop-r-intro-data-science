@@ -192,10 +192,8 @@ if (num &gt;<span class="st"> </span><span class="dv">100</span>) {
 <p>To change the extension to “pdf”, we will use the function <code>sub</code>,</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> &quot;inflammation-01.csv&quot;</span>
 <span class="kw">sub</span>(<span class="st">&quot;csv&quot;</span>, <span class="st">&quot;pdf&quot;</span>, f)</code></pre></div>
-<p>‘inflammation-01.pdf’</p>
 <p>To add the “data” directory to the filename use the function <code>file.path</code>,</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">file.path</span>(<span class="st">&quot;results&quot;</span>, <span class="kw">sub</span>(<span class="st">&quot;csv&quot;</span>, <span class="st">&quot;pdf&quot;</span>, f))</code></pre></div>
-<p>‘results/inflammation-01.pdf’</p>
 <p>Now let’s update <code>analyze_all</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">analyze_all &lt;-<span class="st"> </span>function(pattern) {
   <span class="co"># Directory name containing the data</span>

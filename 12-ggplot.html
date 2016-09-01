@@ -40,21 +40,13 @@
 </ul>
 </div>
 </section>
-<p><code>{r setup, echo=FALSE, purl=FALSE} source(&quot;setup.R&quot;) surveys_complete &lt;- read.csv(file = &quot;data_output/surveys_complete.csv&quot;)</code></p>
-<h4 id="disclaimer">Disclaimer</h4>
-<p>We will be using the functions in the ggplot2 package. R has powerful built-in plotting capabilities, but for this exercise, we will be using the ggplot2 package, which facilitates the creation of highly-informative plots of structured data.</p>
-<blockquote>
-<h3 id="learning-objectives-1">Learning Objectives</h3>
-<ul>
-<li></li>
-<li></li>
-<li>Load required packages</li>
-</ul>
-</blockquote>
-<pre class="{r}"><code># plotting package
-library(ggplot2)
-# modern data frame manipulations
-library(dplyr)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&quot;/home/lngo/intro-data-science/&quot;</span>)
+surveys =<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file=</span><span class="st">&quot;data/sample.csv&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)
+
+<span class="co"># plotting package</span>
+<span class="kw">library</span>(ggplot2)
+<span class="co"># modern data frame manipulations</span>
+<span class="kw">library</span>(dplyr)</code></pre></div>
 <h2 id="plotting-with-ggplot2">Plotting with ggplot2</h2>
 <p>We will make the same plot using the <code>ggplot2</code> package.</p>
 <p><code>ggplot2</code> is a plotting package that makes it simple to create complex plots from data in a dataframe. It uses default settings, which help creating publication quality plots with a minimal amount of settings and tweaking.</p>
@@ -63,19 +55,21 @@ library(dplyr)</code></pre>
 <ul>
 <li>bind the plot to a specific data frame using the <code>data</code> argument</li>
 </ul>
-<p><code>{r, eval=FALSE} ggplot(data = surveys_complete)</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> surveys)</code></pre></div>
 <ul>
 <li>define aesthetics (<code>aes</code>), that maps variables in the data to axes on the plot or to plotting size, shape color, etc.,</li>
 </ul>
-<p><code>{r, eval=FALSE} ggplot(data = surveys_complete, aes(x = weight, y = hindfoot_length))</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> surveys, <span class="kw">aes</span>(<span class="dt">x =</span> Age, <span class="dt">y =</span> BloodPressure))</code></pre></div>
 <ul>
 <li>add <code>geoms</code> – graphical representation of the data in the plot (points, lines, bars). To add a geom to the plot use <code>+</code> operator:</li>
 </ul>
-<p><code>{r first-ggplot} ggplot(data = surveys_complete, aes(x = weight, y = hindfoot_length)) +   geom_point()</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> surveys, <span class="kw">aes</span>(<span class="dt">x =</span> Age, <span class="dt">y =</span> BloodPressure)) +<span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
 <p>The <code>+</code> in the <code>ggplot2</code> package is particularly useful because it allows you to modify existing <code>ggplot</code> objects. This means you can easily set up plot “templates” and conveniently explore different types of plots, so the above plot can also be generated with code like this:</p>
-<p>```{r, first-ggplot-with-plus, eval=FALSE} # Create surveys_plot &lt;- ggplot(data = surveys_complete, aes(x = weight, y = hindfoot_length))</p>
-<h1 id="draw-the-plot">Draw the plot</h1>
-<p>surveys_plot + geom_point() ```</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create</span>
+surveys_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> surveys, <span class="kw">aes</span>(<span class="dt">x =</span> Age, <span class="dt">y =</span> BloodPressure))
+
+<span class="co"># Draw the plot</span>
+surveys_plot +<span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
 <p>Notes:</p>
 <ul>
 <li>Anything you put in the <code>ggplot()</code> function can be seen by any geom layers that you add. i.e. these are universal plot settings. This includes the x and y axis you set up in <code>aes()</code>.</li>
@@ -83,18 +77,25 @@ library(dplyr)</code></pre>
 </ul>
 <h2 id="building-your-plots-iteratively">Building your plots iteratively</h2>
 <p>Building plots with ggplot is typically an iterative process. We start by defining the dataset we’ll use, lay the axes, and choose a geom.</p>
-<p><code>{r create-ggplot-object} ggplot(data = surveys_complete, aes(x = weight, y = hindfoot_length)) +     geom_point()</code></p>
-<p>Then, we start modifying this plot to extract more infromation from it. For instance, we can add transparency (alpha) to avoid overplotting.</p>
-<p><code>{r adding-transparency} ggplot(data = surveys_complete, aes(x = weight, y = hindfoot_length)) +     geom_point(alpha = 0.1)</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> surveys, <span class="kw">aes</span>(<span class="dt">x =</span> Age, <span class="dt">y =</span> BloodPressure)) +
+<span class="st">    </span><span class="kw">geom_point</span>()</code></pre></div>
+<p>Then, we start modifying this plot to extract more information from it. For instance, we can add transparency (alpha) to avoid overplotting.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> surveys, <span class="kw">aes</span>(<span class="dt">x =</span> Age, <span class="dt">y =</span> BloodPressure))  +
+<span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>)</code></pre></div>
 <p>We can also add colors for all the points</p>
-<p><code>{r adding-colors} ggplot(data = surveys_complete, aes(x = weight, y = hindfoot_length)) +     geom_point(alpha = 0.1, color = &quot;blue&quot;)</code></p>
-<p>Or to color each species in the plot differently:</p>
-<p><code>{r color-by-species} ggplot(data = surveys_complete, aes(x = weight, y = hindfoot_length)) +     geom_point(alpha = 0.1, aes(color=species_id))</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> surveys, <span class="kw">aes</span>(<span class="dt">x =</span> Age, <span class="dt">y =</span> BloodPressure))  +
+<span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
+<p>Or to color each treatment group in the plot differently:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> surveys, <span class="kw">aes</span>(<span class="dt">x =</span> Age, <span class="dt">y =</span> BloodPressure))  +
+<span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="kw">aes</span>(<span class="dt">color=</span>Group))</code></pre></div>
 <h2 id="boxplot">Boxplot</h2>
-<p>Visualising the distribution of weight within each species.</p>
-<p><code>{r boxplot} ggplot(data = surveys_complete, aes(x = species_id, y = hindfoot_length)) +     geom_boxplot()</code></p>
+<p>Visualising the distribution of blood pressure within each treatment group.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> surveys, <span class="kw">aes</span>(<span class="dt">x =</span> Group, <span class="dt">y =</span> BloodPressure))  +
+<span class="st">    </span><span class="kw">geom_boxplot</span>()</code></pre></div>
 <p>By adding points to boxplot, we can have a better idea of the number of measurements and of their distribution:</p>
-<p><code>{r boxplot-with-points} ggplot(data = surveys_complete, aes(x = species_id, y = hindfoot_length)) +     geom_boxplot(alpha = 0) +     geom_jitter(alpha = 0.3, color = &quot;tomato&quot;)</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> surveys, <span class="kw">aes</span>(<span class="dt">x =</span> Group, <span class="dt">y =</span> BloodPressure))  +
+<span class="st">    </span><span class="kw">geom_boxplot</span>(<span class="dt">alpha =</span> <span class="dv">0</span>) +
+<span class="st">    </span><span class="kw">geom_jitter</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>, <span class="dt">color =</span> <span class="st">&quot;tomato&quot;</span>)</code></pre></div>
 <p>Notice how the boxplot layer is behind the jitter layer? What do you need to change in the code to put the boxplot in front of the points such that it’s not hidden.</p>
 <blockquote>
 <h3 id="challenges">Challenges</h3>
@@ -104,63 +105,106 @@ library(dplyr)</code></pre>
 </ul>
 <p>In many types of data, it is important to consider the <em>scale</em> of the observations. For example, it may be worth changing the scale of the axis to better distribute the observations in the space of the plot. Changing the scale of the axes is done similarly to adding/modifying other components (i.e., by incrementally adding commands).</p>
 <ul>
-<li><p>Represent weight on the log10 scale; see <code>scale_y_log10()</code></p></li>
-<li><p>Create boxplot for <code>hindfoot_length</code>.</p></li>
+<li><p>Represent blood pressure on the log10 scale; see <code>scale_y_log10()</code></p></li>
+<li><p>Create boxplot for <code>BloodPressure</code>.</p></li>
 </ul>
 </blockquote>
-<h2 id="plotting-time-series-data">Plotting time series data</h2>
-<p>Let’s calculate number of counts per year for each species. To do that we need to group data first and count records within each group.</p>
-<pre class="{r}"><code>yearly_counts &lt;- surveys_complete %&gt;%
-                 group_by(year, species_id) %&gt;%
-                 tally</code></pre>
-<p>Timelapse data can be visualised as a line plot with years on x axis and counts on y axis.</p>
-<p><code>{r first-time-series} ggplot(data = yearly_counts, aes(x = year, y = n)) +      geom_line()</code></p>
-<p>Unfortunately this does not work, because we plot data for all the species together. We need to tell ggplot to draw a line for each species by modifying the aesthetic function to include <code>group = species_id</code>.</p>
-<p><code>{r time-series-by-species} ggplot(data = yearly_counts, aes(x = year, y = n, group = species_id)) +     geom_line()</code></p>
+<h2 id="plotting-data-series">Plotting data series</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">survey_counts &lt;-<span class="st"> </span>surveys %&gt;%
+<span class="st">                  </span><span class="kw">mutate</span>(<span class="dt">gender_capitalized =</span> <span class="kw">toupper</span>(Gender)) %&gt;%
+<span class="st">                  </span><span class="kw">group_by</span>(gender_capitalized, Group) %&gt;%
+<span class="st">                  </span>tally</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">survey_counts</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> survey_counts, <span class="kw">aes</span>(<span class="dt">x =</span> Group, <span class="dt">y =</span> n)) +
+<span class="st">     </span><span class="kw">geom_line</span>()</code></pre></div>
+<p>Unfortunately this does not work, because we plot data for all the species together. We need to tell ggplot to draw a line for each species by modifying the aesthetic function to include <code>group = gender_capitalized</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> survey_counts, <span class="kw">aes</span>(<span class="dt">x =</span> Group, <span class="dt">y =</span> n, <span class="dt">group =</span> gender_capitalized)) +
+<span class="st">    </span><span class="kw">geom_line</span>()</code></pre></div>
 <p>We will be able to distinguish species in the plot if we add colors.</p>
-<p><code>{r time-series-with-colors} ggplot(data = yearly_counts, aes(x = year, y = n, group = species_id, colour = species_id)) +     geom_line()</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> survey_counts, <span class="kw">aes</span>(<span class="dt">x =</span> Group, <span class="dt">y =</span> n, <span class="dt">group =</span> gender_capitalized, <span class="dt">colour =</span> gender_capitalized)) +
+<span class="st">    </span><span class="kw">geom_line</span>()</code></pre></div>
 <h2 id="faceting">Faceting</h2>
 <p>ggplot has a special technique called <em>faceting</em> that allows to split one plot into multiple plots based on a factor included in the dataset. We will use it to make one plot for a time series for each species.</p>
-<p><code>{r first-facet} ggplot(data = yearly_counts, aes(x = year, y = n, group = species_id, colour = species_id)) +     geom_line() +     facet_wrap(~ species_id)</code></p>
-<p>Now we would like to split line in each plot by sex of each individual measured. To do that we need to make counts in data frame grouped by year, species_id, and sex:</p>
-<pre class="{r}"><code> yearly_sex_counts &lt;- surveys_complete %&gt;%
-                      group_by(year, species_id, sex) %&gt;%
-                      tally</code></pre>
-<p>We can now make the faceted plot splitting further by sex (within a single plot):</p>
-<p><code>{r facet-by-species-and-sex}  ggplot(data = yearly_sex_counts, aes(x = year, y = n, color = species_id, group = sex)) +      geom_line() +      facet_wrap(~ species_id)</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> survey_counts, <span class="kw">aes</span>(<span class="dt">x =</span> Group, <span class="dt">y =</span> n, <span class="dt">group =</span> gender_capitalized, <span class="dt">colour =</span> gender_capitalized)) +
+<span class="st">    </span><span class="kw">geom_line</span>() +
+<span class="st">    </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>gender_capitalized)</code></pre></div>
+<p>Now we would like to split line in each plot by the blood pressure of each individual, which to be converted into scales of low (0-90), medium (90-120), and high (&gt;120).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">survey_counts &lt;-<span class="st"> </span>surveys %&gt;%
+<span class="st">                  </span><span class="kw">mutate</span>(<span class="dt">gender_capitalized =</span> <span class="kw">toupper</span>(Gender)) %&gt;%
+<span class="st">                  </span><span class="kw">mutate</span>(<span class="dt">blood_pressure_rank =</span> <span class="kw">cut</span>(BloodPressure,
+                                                   <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">90</span>,<span class="dv">120</span>,<span class="dv">300</span>), 
+                                                   <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;low&quot;</span>,<span class="st">&quot;medium&quot;</span>,<span class="st">&quot;high&quot;</span>))) %&gt;%
+<span class="st">                  </span><span class="kw">group_by</span>(gender_capitalized, Group, blood_pressure_rank) %&gt;%
+<span class="st">                  </span>tally</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">survey_counts</code></pre></div>
+<p>We can now make the faceted plot splitting further by blood pressure rank (within a single plot):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> survey_counts, <span class="kw">aes</span>(<span class="dt">x =</span> Group, <span class="dt">y =</span> n, <span class="dt">color =</span> blood_pressure_rank, <span class="dt">group =</span> blood_pressure_rank)) +
+<span class="st">     </span><span class="kw">geom_line</span>() +
+<span class="st">     </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>gender_capitalized)</code></pre></div>
 <p>Usually plots with white background look more readable when printed. We can set the background to white using the function <code>theme_bw()</code>.</p>
-<p><code>{r facet-by-species-and-sex-white-bg}  ggplot(data = yearly_sex_counts, aes(x = year, y = n, color = species_id, group = sex)) +      geom_line() +      facet_wrap(~ species_id) +      theme_bw()</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> survey_counts, <span class="kw">aes</span>(<span class="dt">x =</span> Group, <span class="dt">y =</span> n, <span class="dt">color =</span> gender_capitalized, <span class="dt">group =</span> blood_pressure_rank)) +
+<span class="st">     </span><span class="kw">geom_line</span>() +
+<span class="st">     </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>gender_capitalized) +<span class="st"> </span>
+<span class="st">     </span><span class="kw">theme_bw</span>()</code></pre></div>
 <p>To make the plot easier to read, we can color by sex instead of species (species are already in separate plots, so we don’t need to distinguish them further).</p>
-<p><code>{r facet-by-species-and-sex-colored} ggplot(data = yearly_sex_counts, aes(x = year, y = n, color = sex, group = sex)) +     geom_line() +     facet_wrap(~ species_id) +     theme_bw()</code></p>
-<h2 id="challenge">Challenge</h2>
-<blockquote>
-<p>Use what you just learned to create a plot that depicts how the average weight of each species changes through the years.</p>
-</blockquote>
-<!-- Answer
-```{r average-weight-timeseries}
-yearly_weight <- surveys_complete %>%
-                 group_by(year, species_id) %>%
-                 summarise(avg_weight = mean(weight))
-ggplot(data = yearly_weight, aes(x=year, y=avg_weight, color = species_id, group = species_id)) +
-    geom_line() +
-    facet_wrap(~ species_id) +
-    theme_bw()
-```
--->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> survey_counts, <span class="kw">aes</span>(<span class="dt">x =</span> Group, <span class="dt">y =</span> n, <span class="dt">color =</span> blood_pressure_rank, <span class="dt">group =</span> blood_pressure_rank)) +
+<span class="st">     </span><span class="kw">geom_line</span>() +
+<span class="st">     </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>gender_capitalized) +<span class="st"> </span>
+<span class="st">     </span><span class="kw">theme_bw</span>()</code></pre></div>
 <p>The <code>facet_wrap</code> geometry extracts plots into an arbitrary number of dimensions to allow them to cleanly fit on one page. On the other hand, the <code>facet_grid</code> geometry allows you to explicitly specify how you want your plots to be arranged via formula notation (<code>rows ~ columns</code>; a <code>.</code> can be used as a placeholder that indicates only one row or column).</p>
 <p>Let’s modify the previous plot to compare how the weights of male and females has changed through time.</p>
-<p><code>{r average-weight-time-facet_sex_rows} ## One column, facet by rows yearly_sex_weight &lt;- surveys_complete %&gt;%     group_by(year, sex, species_id) %&gt;%     summarize(avg_weight = mean(weight)) ggplot(data = yearly_sex_weight, aes(x=year, y=avg_weight, color = species_id, group = species_id)) +     geom_line() +     facet_grid(sex ~ .)</code></p>
-<p><code>{r average-weight-time-facet_sex_columns} # One row, facet by column ggplot(data = yearly_sex_weight, aes(x=year, y=avg_weight, color = species_id, group = species_id)) +     geom_line() +     facet_grid(. ~ sex)</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">anm_avg &lt;-<span class="st"> </span>surveys %&gt;%
+<span class="st">                  </span><span class="kw">mutate</span>(<span class="dt">gender_capitalized =</span> <span class="kw">toupper</span>(Gender)) %&gt;%
+<span class="st">                  </span><span class="kw">mutate</span>(<span class="dt">blood_pressure_rank =</span> <span class="kw">cut</span>(BloodPressure,
+                                                   <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">90</span>,<span class="dv">120</span>,<span class="dv">300</span>), 
+                                                   <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;low&quot;</span>,<span class="st">&quot;medium&quot;</span>,<span class="st">&quot;high&quot;</span>))) %&gt;%
+<span class="st">                  </span><span class="kw">group_by</span>(gender_capitalized, Group, blood_pressure_rank) %&gt;%
+<span class="st">                  </span><span class="kw">summarize</span>(<span class="dt">avg_anm_q1 =</span> <span class="kw">mean</span>(Aneurisms_q1))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># one column, facet by row</span>
+<span class="kw">ggplot</span>(<span class="dt">data =</span> anm_avg, <span class="kw">aes</span>(<span class="dt">x =</span> Group, <span class="dt">y =</span> avg_anm_q1, <span class="dt">color =</span> blood_pressure_rank, <span class="dt">group =</span> blood_pressure_rank)) +
+<span class="st">     </span><span class="kw">geom_line</span>() +
+<span class="st">     </span><span class="kw">facet_grid</span>(gender_capitalized ~<span class="st"> </span>.) </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># one row, facet by column</span>
+<span class="kw">ggplot</span>(<span class="dt">data =</span> anm_avg, <span class="kw">aes</span>(<span class="dt">x =</span> Group, <span class="dt">y =</span> avg_anm_q1, <span class="dt">color =</span> blood_pressure_rank, <span class="dt">group =</span> blood_pressure_rank)) +
+<span class="st">     </span><span class="kw">geom_line</span>() +
+<span class="st">     </span><span class="kw">facet_grid</span>(. ~<span class="st"> </span>gender_capitalized) </code></pre></div>
 <h2 id="customization">Customization</h2>
-<p>Take a look at the ggplot2 cheat sheet (https://www.rstudio.com/wp-content/uploads/2015/08/ggplot2-cheatsheet.pdf), and think of ways to improve the plot. You can write down some of your ideas as comments in the Etherpad.</p>
+<p>Take a look at the ggplot2 cheat sheet (https://www.rstudio.com/wp-content/uploads/2015/08/ggplot2-cheatsheet.pdf), and think of ways to improve the plot.</p>
 <p>Now, let’s change names of axes to something more informative than ‘year’ and ‘n’ and add a title to this figure:</p>
-<p><code>{r number_species_year_with_right_labels} ggplot(data = yearly_sex_counts, aes(x = year, y = n, color = sex, group = sex)) +     geom_line() +     facet_wrap(~ species_id) +     labs(title = 'Observed species in time',          x = 'Year of observation',          y = 'Number of species') +     theme_bw()</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> survey_counts, <span class="kw">aes</span>(<span class="dt">x =</span> Group, <span class="dt">y =</span> n, <span class="dt">color =</span> blood_pressure_rank, <span class="dt">group =</span> blood_pressure_rank)) +
+<span class="st">     </span><span class="kw">geom_line</span>() +
+<span class="st">     </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>gender_capitalized) +<span class="st"> </span>
+<span class="st">     </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&#39;Patient Demographic&#39;</span> ,
+         <span class="dt">x =</span> <span class="st">&#39;Treatment Group&#39;</span>,
+         <span class="dt">y =</span> <span class="st">&#39;Count&#39;</span>) +
+<span class="st">     </span><span class="kw">theme_bw</span>()</code></pre></div>
 <p>The axes have more informative names, but their readibility can be improved by increasing the font size. While we are at it, we’ll also change the font family:</p>
-<p><code>{r number_species_year_with_right_labels_xfont_size} ggplot(data = yearly_sex_counts, aes(x = year, y = n, color = sex, group = sex)) +     geom_line() +     facet_wrap(~ species_id) +     labs(title = 'Observed species in time',         x = 'Year of observation',         y = 'Number of species') +     theme_bw() +     theme(text=element_text(size=16, family=&quot;Arial&quot;))</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> survey_counts, <span class="kw">aes</span>(<span class="dt">x =</span> Group, <span class="dt">y =</span> n, <span class="dt">color =</span> blood_pressure_rank, <span class="dt">group =</span> blood_pressure_rank)) +
+<span class="st">     </span><span class="kw">geom_line</span>() +
+<span class="st">     </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>gender_capitalized) +<span class="st"> </span>
+<span class="st">     </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&#39;Patient Demographic&#39;</span> ,
+         <span class="dt">x =</span> <span class="st">&#39;Treatment Group&#39;</span>,
+         <span class="dt">y =</span> <span class="st">&#39;Count&#39;</span>) +
+<span class="st">     </span><span class="kw">theme_bw</span>() +
+<span class="st">     </span><span class="kw">theme</span>(<span class="dt">text=</span><span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">16</span>, <span class="dt">family=</span><span class="st">&quot;Courier&quot;</span>))</code></pre></div>
 <p>After our manipulations we notice that the values on the x-axis are still not properly readable. Let’s change the orientation of the labels and adjust them vertically and horizontally so they don’t overlap. You can use a 90 degree angle, or experiment to find the appropriate angle for diagonally oriented labels.</p>
-<p><code>{r number_species_year_with_theme} ggplot(data = yearly_sex_counts, aes(x = year, y = n, color = sex, group = sex)) +     geom_line() +     facet_wrap(~ species_id) +     labs(title = 'Observed species in time',         x = 'Year of observation',         y = 'Number of species') +     theme_bw() +     theme(axis.text.x = element_text(colour=&quot;grey20&quot;, size=12, angle=90, hjust=.5, vjust=.5),                         axis.text.y = element_text(colour=&quot;grey20&quot;, size=12),           text=element_text(size=16, family=&quot;Arial&quot;))</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> survey_counts, <span class="kw">aes</span>(<span class="dt">x =</span> Group, <span class="dt">y =</span> n, <span class="dt">color =</span> blood_pressure_rank, <span class="dt">group =</span> blood_pressure_rank)) +
+<span class="st">     </span><span class="kw">geom_line</span>() +
+<span class="st">     </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>gender_capitalized) +<span class="st"> </span>
+<span class="st">     </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&#39;Patient Demographic&#39;</span> ,
+         <span class="dt">x =</span> <span class="st">&#39;Treatment Group&#39;</span>,
+         <span class="dt">y =</span> <span class="st">&#39;Count&#39;</span>) +
+<span class="st">     </span><span class="kw">theme_bw</span>() +
+<span class="st">     </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">colour=</span><span class="st">&quot;grey20&quot;</span>, <span class="dt">size=</span><span class="dv">12</span>, <span class="dt">angle=</span><span class="dv">90</span>, <span class="dt">hjust=</span>.<span class="dv">5</span>, <span class="dt">vjust=</span>.<span class="dv">5</span>),
+           <span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">colour=</span><span class="st">&quot;grey20&quot;</span>, <span class="dt">size=</span><span class="dv">12</span>),
+           <span class="dt">text=</span><span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">16</span>, <span class="dt">family=</span><span class="st">&quot;Courier&quot;</span>))</code></pre></div>
 <p>If you like the changes you created to the default theme, you can save them as an object to easily apply them to other plots you may create:</p>
-<p><code>{r number_species_year_with_right_labels_xfont_orientation} arial_grey_theme &lt;- theme(axis.text.x = element_text(colour=&quot;grey20&quot;, size=12, angle=90, hjust=.5, vjust=.5),                           axis.text.y = element_text(colour=&quot;grey20&quot;, size=12),                           text=element_text(size=16, family=&quot;Arial&quot;)) ggplot(surveys_complete, aes(x = species_id, y = hindfoot_length)) +     geom_boxplot() +     arial_grey_theme</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">courier_grey_theme &lt;-<span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">colour=</span><span class="st">&quot;grey20&quot;</span>, <span class="dt">size=</span><span class="dv">12</span>, <span class="dt">angle=</span><span class="dv">90</span>, <span class="dt">hjust=</span>.<span class="dv">5</span>, <span class="dt">vjust=</span>.<span class="dv">5</span>),
+                            <span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">colour=</span><span class="st">&quot;grey20&quot;</span>, <span class="dt">size=</span><span class="dv">12</span>),
+                            <span class="dt">text=</span><span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">16</span>, <span class="dt">family=</span><span class="st">&quot;Courier&quot;</span>))
+<span class="kw">ggplot</span>(<span class="dt">data =</span> surveys, <span class="kw">aes</span>(<span class="dt">x =</span> Group, <span class="dt">y =</span> BloodPressure))  +
+<span class="st">    </span><span class="kw">geom_boxplot</span>() +<span class="st"> </span>
+<span class="st">    </span>courier_grey_theme</code></pre></div>
 <p>With all of this information in hand, please take another five minutes to either improve one of the plots generated in this exercise or create a beautiful graph of your own. Use the RStudio ggplot2 cheat sheet, which we linked earlier for inspiration.</p>
 <p>Here are some ideas:</p>
 <ul>
@@ -169,7 +213,19 @@ ggplot(data = yearly_weight, aes(x=year, y=avg_weight, color = species_id, group
 <li>Use a different color palette (see http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/)</li>
 </ul>
 <p>After creating your plot, you can save it to a file in your favourite format. You can easily change the dimension (and its resolution) of your plot by adjusting the appropriate arguments (<code>width</code>, <code>height</code> and <code>dpi</code>):</p>
-<p><code>{r ggsave-example, eval=FALSE} my_plot &lt;- ggplot(data = yearly_sex_counts, aes(x = year, y = n, color = sex, group = sex)) +     geom_line() +     facet_wrap(~ species_id) +     labs(title = 'Observed species in time',         x = 'Year of observation',         y = 'Number of species') +     theme_bw() +     theme(axis.text.x = element_text(colour=&quot;grey20&quot;, size=12, angle=90, hjust=.5, vjust=.5),                         axis.text.y = element_text(colour=&quot;grey20&quot;, size=12),           text=element_text(size=16, family=&quot;Arial&quot;)) ggsave(&quot;name_of_file.png&quot;, my_plot, width=15, height=10)</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> survey_counts, 
+                  <span class="kw">aes</span>(<span class="dt">x =</span> Group, <span class="dt">y =</span> n, <span class="dt">color =</span> blood_pressure_rank, <span class="dt">group =</span> blood_pressure_rank)) +
+<span class="st">            </span><span class="kw">geom_line</span>() +
+<span class="st">            </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>gender_capitalized) +<span class="st"> </span>
+<span class="st">            </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&#39;Patient Demographic&#39;</span> ,
+                 <span class="dt">x =</span> <span class="st">&#39;Treatment Group&#39;</span>,
+                 <span class="dt">y =</span> <span class="st">&#39;Count&#39;</span>) +
+<span class="st">            </span><span class="kw">theme_bw</span>() +
+<span class="st">            </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">colour=</span><span class="st">&quot;grey20&quot;</span>, <span class="dt">size=</span><span class="dv">12</span>, <span class="dt">angle=</span><span class="dv">90</span>, <span class="dt">hjust=</span>.<span class="dv">5</span>, <span class="dt">vjust=</span>.<span class="dv">5</span>),
+                  <span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">colour=</span><span class="st">&quot;grey20&quot;</span>, <span class="dt">size=</span><span class="dv">12</span>),
+                  <span class="dt">text=</span><span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">16</span>, <span class="dt">family=</span><span class="st">&quot;Courier&quot;</span>))
+
+<span class="kw">ggsave</span>(<span class="st">&quot;name_of_file.png&quot;</span>, my_plot, <span class="dt">width=</span><span class="dv">15</span>, <span class="dt">height=</span><span class="dv">10</span>)</code></pre></div>
         </div>
       </div>
       </article>

@@ -129,31 +129,11 @@ mySum &lt;-<span class="st"> </span>function(input_1, <span class="dt">input_2 =
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)
 z</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">center</span>(z, <span class="dv">3</span>)</code></pre></div>
-<ol class="list-inline">
-<pre><code>&lt;li&gt;0&lt;/li&gt;
-&lt;li&gt;0&lt;/li&gt;
-&lt;li&gt;0&lt;/li&gt;
-&lt;li&gt;0&lt;/li&gt;</code></pre>
-</ol>
-<ol class="list-inline">
-<pre><code>&lt;li&gt;3&lt;/li&gt;
-&lt;li&gt;3&lt;/li&gt;
-&lt;li&gt;3&lt;/li&gt;
-&lt;li&gt;3&lt;/li&gt;</code></pre>
-</ol>
 <p>That looks right, so let’s try center on our real data. We’ll center the inflammation data from day 4 around 0:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&quot;/home/lngo/intro-data-science/&quot;</span>) <span class="co">#If this is the first time that you run this notebook</span>
 dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;data/inflammation-01.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">FALSE</span>)
 centered &lt;-<span class="st"> </span><span class="kw">center</span>(dat[, <span class="dv">4</span>], <span class="dv">0</span>)
 <span class="kw">head</span>(centered)</code></pre></div>
-<ol class="list-inline">
-<pre><code>&lt;li&gt;1.25&lt;/li&gt;
-&lt;li&gt;-0.75&lt;/li&gt;
-&lt;li&gt;1.25&lt;/li&gt;
-&lt;li&gt;-1.75&lt;/li&gt;
-&lt;li&gt;1.25&lt;/li&gt;
-&lt;li&gt;0.25&lt;/li&gt;</code></pre>
-</ol>
 <p>It’s hard to tell from the default output whether the result is correct, but there are a few simple tests that will reassure us:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># original min</span>
 <span class="kw">min</span>(dat[, <span class="dv">4</span>])
@@ -163,9 +143,6 @@ centered &lt;-<span class="st"> </span><span class="kw">center</span>(dat[, <spa
 
 <span class="co"># original max</span>
 <span class="kw">max</span>(dat[, <span class="dv">4</span>])</code></pre></div>
-<p>0</p>
-<p>1.75</p>
-<p>3</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># centered min</span>
 <span class="kw">min</span>(centered)
 
@@ -174,24 +151,17 @@ centered &lt;-<span class="st"> </span><span class="kw">center</span>(dat[, <spa
 
 <span class="co"># centered max</span>
 <span class="kw">max</span>(centered)</code></pre></div>
-<p>-1.75</p>
-<p>0</p>
-<p>1.25</p>
 <p>That seems almost right: the original mean was about 1.75, so the lower bound from zero is now about -1.75. The mean of the centered data is 0. We can even go further and check that the standard deviation hasn’t changed:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># original standard deviation</span>
 <span class="kw">sd</span>(dat[, <span class="dv">4</span>])
 
 <span class="co"># centered standard deviation</span>
 <span class="kw">sd</span>(centered)</code></pre></div>
-<p>1.06762845057378</p>
-<p>1.06762845057378</p>
 <p>Those values look the same, but we probably wouldn’t notice if they were different in the sixth decimal place. Let’s do this instead:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># difference in standard deviations before and after</span>
 <span class="kw">sd</span>(dat[, <span class="dv">4</span>]) -<span class="st"> </span><span class="kw">sd</span>(centered)</code></pre></div>
-<p>0</p>
 <p>Sometimes, a very small difference can be detected due to rounding at very low decimal places. R has a useful function for comparing two objects allowing for rounding errors, <code>all.equal</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all.equal</span>(<span class="kw">sd</span>(dat[, <span class="dv">4</span>]), <span class="kw">sd</span>(centered))</code></pre></div>
-<p>TRUE</p>
 <p>It’s still possible that our function is wrong, but it seems unlikely enough that we should probably get back to doing our analysis. We have one more task first, though: we should write some documentation for our function to remind ourselves later what it’s for and how to use it.</p>
 <p>A common way to put documentation in software is to add comments like this:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">center &lt;-<span class="st"> </span>function(data, desired) {
