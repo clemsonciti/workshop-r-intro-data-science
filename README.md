@@ -1,17 +1,17 @@
 # Introduction to Data Science using R
 
-## Access to computing resources:
+## I. Access to computing resources:
 
 This workshop will utilize both your personal computers and computing resources from Clemson University's Palmetto Supercomputer.
 
-**For personal computers, please make sure that:**
+** 1. For personal computers, please make sure that:**
 
 - You have R 3.4+ installed. The latest version of R can be found at https://www.r-project.org/
 - You have the latest version of RStudio Desktop installed. This can be found at https://www.rstudio.com/products/rstudio/download2/
 
 If you already have RStudio Desktop, please make sure that its version is 1.0 or higher
 
-**For Palmetto, please make sure that:**
+** 2. For Palmetto, please make sure that:**
 
 You have access to Palmetto. Access to Palmetto can be requested via the 
 following online form: https://citi.sites.clemson.edu/new-account/
@@ -25,7 +25,7 @@ You can access Palmetto via one of the following methods:
 For more details on how to access Palmetto, please visit https://www.palmetto.clemson.edu/palmetto/userguide_basic_usage.html
 
 
-## Workshop materials for local computers:
+## II. Workshop materials for local computers:
 
 All notebooks and data used in the workshop are available online 
 at https://github.com/clemsonciti/data-science-r-01/raw/master/intro-to-r-rstudio.zip. 
@@ -34,7 +34,7 @@ You can download the designated compressed file, unzip it using your computers' 
 and you will be able to view the files from inside RStudio Desktop. 
 
 
-## Workshop materials for Palmetto:
+## III. Workshop materials for Palmetto:
 We also have the same set of materials available in the form of Jupyter notebooks for Palmetto' JupyterHub interface.  
 They can be found at: https://github.com/clemsonciti/data-science-r-01/raw/master/intro-to-r.zip. To acquire and run these
 materials on Palmetto, please follow these steps:
