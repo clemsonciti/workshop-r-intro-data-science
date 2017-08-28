@@ -6,7 +6,7 @@ This workshop will utilize both your personal computers and computing resources 
 
 **For personal computers, please make sure that:**
 
-- You have R 3.3+ installed. The latest version of R can be found at https://www.r-project.org/
+- You have R 3.4+ installed. The latest version of R can be found at https://www.r-project.org/
 - You have the latest version of RStudio Desktop installed. This can be found at https://www.rstudio.com/products/rstudio/download2/
 
 If you already have RStudio Desktop, please make sure that its version is 1.0 or higher
@@ -25,7 +25,7 @@ You can access Palmetto via one of the following methods:
 For more details on how to access Palmetto, please visit https://www.palmetto.clemson.edu/palmetto/userguide_basic_usage.html
 
 
-## Workshop materials:
+## Workshop materials for local computers:
 
 All notebooks and data used in the workshop are available online 
 at https://github.com/clemsonciti/data-science-r-01/raw/master/intro-to-r-rstudio.zip. 
@@ -33,13 +33,15 @@ at https://github.com/clemsonciti/data-science-r-01/raw/master/intro-to-r-rstudi
 You can download the designated compressed file, unzip it using your computers' unzip capability, 
 and you will be able to view the files from inside RStudio Desktop. 
 
+
+## Workshop materials for Palmetto:
 We also have the same set of materials available in the form of Jupyter notebooks for Palmetto' JupyterHub interface.  
 They can be found at: https://github.com/clemsonciti/data-science-r-01/raw/master/intro-to-r.zip. To acquire and run these
 materials on Palmetto, please follow these steps:
 
 - You can download this compressed file from the above URL to your computer, and then upload the file to Palmetto using the **`Upload`** button located at the upper-right corner of the main JupyterHub home directory page. The file should be uploaded to your home directory. 
 
-- You can also download this file via a terminal. To gain access to Palmett's terminal in JupyterHub, click the **`New`** button located next to the **`Upload`** button and select **`Terminal`**. Inside the terminal, type the following and hit Enter:
+- You can also download this file via a terminal. To gain access to Palmetto's terminal in JupyterHub, click the **`New`** button located next to the **`Upload`** button and select **`Terminal`**. Inside the terminal, type the following and hit Enter:
 
 ```
   wget https://github.com/clemsonciti/data-science-r-01/raw/master/intro-to-r.zip
