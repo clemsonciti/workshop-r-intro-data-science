@@ -1,0 +1,336 @@
+---
+title: "Introduction to R Part 1"
+output: html_notebook
+---
+ 
+#### R in a nutshell
+
+- Statistical programming environments
+- Originally designed and implemented by statisticians
+- Widely popular due to its extensive collection of community-contributed packages
+- Quickly gaining places among traditional proprietary tools such as SAS and STATA for data analytics
+
+#### Learning Objectives
+
+- Understand basic programming concepts: variables, assignment, functions, loops, conditions
+- Understand core R concepts: data loading, data types, data access, libraries
+- Understand advanced R concepts: data manipulation, visualization
+- Understand HPC concepts: running R codes on the Palmetto supercomputer via batch submission scripts
+
+#### Materials on this notebook is based on two lessons by Software Carpentry and Data Carpentry:
+
+- Introduction to Programming using R
+- Data Analysis and Visualization in R for Ecology
+
+# Introduction to Programming using R
+
+## Where am I?
+
+```{r}
+getwd()
+```
+
+## Variables and assignment
+
+```{r}
+read.csv("data/combined.csv")
+```
+
+- *variable* : label, name, identifier ...
+- *value*    : the actual content represented by a *variable*
+- *assignment* : the act of assigning a value to a variable
+- R's assignment notation:  *variable* <- *value*
+
+
+```{r}
+x <- 2
+```
+
+```{r}
+x
+```
+
+```{r}
+weight_kg <- 97
+```
+
+```{r}
+weight_lb <- weight_kg * 2.2
+```
+
+```{r}
+weight_lb
+```
+
+```{r}
+weight_kg <- 90
+```
+
+```{r}
+weight_lb <- weight_kg * 2.2
+weight_lb
+```
+
+*Read data into a variable:*
+
+
+```{r}
+surveys <- read.csv("data/combined.csv", header = FALSE)
+```
+
+
+```{r}
+head(surveys)
+```
+
+*Header is TRUE or Header is FALSE, that is the question!*
+
+```{r}
+surveys <- read.csv("data/combined.csv", header = FALSE)
+head(surveys)
+```
+
+```{r}
+surveys <- read.csv("data/combined.csv", header = TRUE)
+head(surveys)
+```
+
+```{r}
+surveys <- read.csv("data/combined.csv")
+head(surveys)
+```
+
+*How to get help?*
+
+```{r}
+?read.csv
+```
+
+## Data Types
+
+- Data frames are the *de facto* data structure for R's tabular data, and conceptionally equivalent to an Excel spreadsheet (albeut much more powerful)
+- Matrices (multi-dimensional) and vectors (one dimension) are also available for computational purposes. 
+- Data frames represents a table whose columns are vectors with same length but possible different data types
+
+```{r}
+class(surveys)
+```
+
+*Structure of a data frame*
+
+```{r}
+str(surveys)
+```
+
+```{r}
+summary(surveys)
+```
+
+*Size of a data frame*
+
+```{r}
+dim(surveys)
+```
+
+```{r}
+nrow(surveys)
+```
+
+```{r}
+ncol(surveys)
+```
+
+*Content of a data frame*
+
+```{r}
+head(surveys)
+```
+
+```{r}
+head(surveys, n=10)
+```
+
+```{r}
+tail(surveys)
+```
+
+```{r}
+tail(surveys, n=10)
+```
+
+*Names*
+
+```{r}
+names(surveys)
+```
+
+```{r}
+surveys_colnames <- names(surveys)
+```
+
+```{r}
+surveys_colnames
+```
+
+```{r}
+surveys_rownames <- rownames(surveys)
+str(surveys_rownames)
+```
+
+## Data frames access: indexing and subsetting
+
+Similar to an Excel spreadsheet, we can extract specific data from a dataframe via 'coordinates': row/column combinations
+
+Accessing a single element
+
+```{r}
+surveys[1,1]
+```
+
+```{r}
+surveys[1,6]
+```
+
+Accessing a block of elements
+
+```{r}
+surveys[1:5,2]
+```
+
+```{r}
+surveys[2,3:7]
+```
+
+```{r}
+surveys[1:5,3:7]
+```
+
+Accessing scattered groups of elements
+
+```{r}
+?c
+```
+
+```{r}
+surveys[c(2:4,6:7),]
+```
+
+Excluding data with the `-` notation:
+
+```{r}
+surveys[1:5, -3]
+```
+
+Accessing columns by names:
+
+```{r}
+surveys[1:5,"species_id"]
+```
+
+```{r}
+surveys[["species_id"]][1:5]
+```
+
+
+```{r}
+surveys$species_id[1:5]
+```
+
+** Challenge: **
+
+- Create a data frame containing on observations from row 200 to the end of the `surveys` data set
+- Create a data frame containing the row that is in the middle of the data frame. Store the content in a variable named `surveys_middle`.
+- Combine `nrow` with the `-` notation to reproduce the behavior of `head(surveys)`
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+## Factors
+
+- Special class, representing categorical data
+- Can be ordered or unordered
+- Stored as integers with labels (text) associated with these unique integers
+- Looked and behave like character vectors but are integers under the hood
+- Once created, a `factor` object can only contain a pre-defined set of values, known as *levels*. 
+- *Levels* are sorted alphabetically by default. 
+
+```{r}
+str(surveys)
+```
+
+```{r}
+levels(surveys$sex)
+```
+
+```{r}
+nlevels(surveys$sex)
+```
+
+Converting factors:
+
+```{r}
+as.character(surveys$sex)
+```
+
+```{r}
+f <- factor(c(1990,1983,1977,1998,1990))
+```
+
+```{r}
+f
+```
+
+```{r}
+as.numeric(f) #incorrect
+```
+
+```{r}
+as.numeric(as.character(f)) #works
+```
+
+```{r}
+as.numeric(levels(f))[f] #recommended
+```
+
+Renaming factors:
+
+```{r}
+plot(surveys$sex)
+```
+
+```{r}
+sex <- surveys$sex
+```
+
+```{r}
+levels(sex)
+```
+
+```{r}
+levels(sex)[1] <- "missing"
+```
+
+```{r}
+plot(sex)
+```
+
+Using `stringsAsFactors=FALSE`
+
+```{r}
+surveys <- read.csv('data/combined.csv', stringsAsFactors = TRUE)
+str(surveys)
+```
+
+```{r}
+surveys <- read.csv('data/combined.csv', stringsAsFactors = FALSE)
+str(surveys)
+```

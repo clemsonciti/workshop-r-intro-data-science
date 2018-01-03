@@ -1,0 +1,275 @@
+---
+title: "Introduction to R Part 4"
+output: html_notebook
+---
+
+#### R in a nutshell
+
+- Statistical programming environments
+- Originally designed and implemented by statisticians
+- Widely popular due to its extensive collection of community-contributed packages
+- Quickly gaining places among traditional proprietary tools such as SAS and STATA for data analytics
+
+#### Learning Objectives
+
+- Understand basic programming concepts: variables, assignment, functions, loops, conditions
+- Understand core R concepts: data loading, data types, data access, libraries
+- Understand advanced R concepts: data manipulation, visualization
+- Understand HPC concepts: running R codes on the Palmetto supercomputer via batch submission scripts
+
+#### Materials on this notebook is based on two lessons by Software Carpentry and Data Carpentry:
+
+- Introduction to Programming using R
+- Data Analysis and Visualization in R for Ecology
+
+# Running R on a Supercomputer
+
+- Log into to Palmetto via JupyterHub interface: https://www.palmetto.clemson.edu/jupyter or MobaXterm
+- Request an allocation with the following parameter: 1 chunk, 8 cores, 8gb memory, no gpu, 1 hour
+- Create a directory called **intro-to-r**
+- Create a directory called **data** inside **intro-to-r**
+- Upload the .csv files from your machine into **data** on Palmetto using JupyterHub interface
+
+```{r}
+library(knitr)
+knit_hooks$set(write_chunk = function(before, options, envir) {
+    if (before) {
+      fileConn<-file(paste0(options$label,".R") )
+      writeLines(options$code, fileConn)
+      close(fileConn)
+    }
+})
+```
+
+- Create a new text file named **analyze-1.R** inside **intro-to-r**
+
+```{r analyze-1, write_chunk=TRUE}
+setwd("/home/lngo/intro-to-r/")
+surveys <- read.csv("data/combined.csv")
+
+library(dplyr)
+
+surveys_complete <- surveys %>%
+  filter(species_id != "",         # remove missing species_id
+         !is.na(weight),           # remove missing weight
+         !is.na(hindfoot_length),  # remove missing hindfoot_length
+         sex != "")                # remove missing sex
+    
+## Extract the most common species_id
+species_counts <- surveys_complete %>%
+  group_by(species_id) %>%
+  tally %>%
+  filter(n >= 50)
+    
+## Only keep the most common species
+surveys_complete <- surveys_complete %>%
+  filter(species_id %in% species_counts$species_id)
+
+yearly_sex_counts <- surveys_complete %>%
+  group_by(year, species_id, sex) %>%
+  tally
+    
+library(ggplot2)
+
+my_plot <- ggplot(data = yearly_sex_counts, aes(x = year, y = n, color = sex, group = sex)) +
+    geom_line() +
+    facet_wrap(~ species_id) +
+    labs(title = 'Observed species in time',
+        x = 'Year of observation',
+        y = 'Number of species') +
+    theme_bw() +
+    theme(axis.text.x = element_text(colour="grey20", size=12, angle=90, hjust=.5, vjust=.5),
+                        axis.text.y = element_text(colour="grey20", size=12),
+          text=element_text(size=16, family="Arial"))
+
+current_dir <- getwd()
+output_graph_dir <- 'output_graph'
+
+if (!file.exists(output_graph_dir)){
+    dir.create(file.path(current_dir, output_graph_dir))
+} else {
+    print ("Directory already exists")
+}
+
+ggsave(file.path(current_dir, output_graph_dir,"yearly_sex_counts_2.png"), 
+       my_plot, width=15, height=10)
+```
+
+- Upload **analyze-1.R** into **intro-to-r** on Palmetto
+- Test run **analyze-1.R**
+
+```{bash}
+$ /usr/local/share/jupyterhub/env/R/lib/R/bin/R CMD BATCH analyze-1.R
+```
+
+- Create a new text file named **analyze-2.R** inside **intro-to-r**
+
+```{r analyze-2, write_chunk=TRUE}
+args = commandArgs(trailingOnly=TRUE)
+
+print (args)
+
+setwd(args[1])
+surveys <- read.csv(args[2])
+
+library(dplyr)
+
+surveys_complete <- surveys %>%
+  filter(species_id != "",         # remove missing species_id
+         !is.na(weight),           # remove missing weight
+         !is.na(hindfoot_length),  # remove missing hindfoot_length
+         sex != "")                # remove missing sex
+    
+## Extract the most common species_id
+species_counts <- surveys_complete %>%
+  group_by(species_id) %>%
+  tally %>%
+  filter(n >= 50)
+    
+## Only keep the most common species
+surveys_complete <- surveys_complete %>%
+  filter(species_id %in% species_counts$species_id)
+
+yearly_sex_counts <- surveys_complete %>%
+  group_by(year, species_id, sex) %>%
+  tally
+    
+library(ggplot2)
+
+my_plot <- ggplot(data = yearly_sex_counts, aes(x = year, y = n, color = sex, group = sex)) +
+    geom_line() +
+    facet_wrap(~ species_id) +
+    labs(title = 'Observed species in time',
+        x = 'Year of observation',
+        y = 'Number of species') +
+    theme_bw() +
+    theme(axis.text.x = element_text(colour="grey20", size=12, angle=90, hjust=.5, vjust=.5),
+                        axis.text.y = element_text(colour="grey20", size=12),
+          text=element_text(size=16, family="Arial"))
+
+current_dir <- getwd()
+output_graph_dir <- 'output_graph'
+
+if (!file.exists(output_graph_dir)){
+    dir.create(file.path(current_dir, output_graph_dir))
+} else {
+    print ("Directory already exists")
+}
+
+ggsave(file.path(current_dir, output_graph_dir, args[3]), 
+       my_plot, width=15, height=10)
+```
+
+- Upload **analyze-2.R** into **intro-to-r** on Palmetto
+- Test run **analyze-2.R**
+
+```{bash}
+$ /usr/local/share/jupyterhub/env/R/lib/R/bin/Rscript analyze-2.R /home/lngo/intro-to-r/ data/combined.csv years_sex_counts-3.png
+```
+
+- Create a new text file named **analyze-3.R**
+
+```{r analyze-3, write_chunk=TRUE}
+#!/usr/bin/env /usr/local/share/jupyterhub/env/R/lib/R/bin/Rscript
+args = commandArgs(trailingOnly=TRUE)
+
+print (args)
+
+setwd(args[1])
+surveys <- read.csv(args[2])
+
+library(dplyr)
+
+surveys_complete <- surveys %>%
+  filter(species_id != "",         # remove missing species_id
+         !is.na(weight),           # remove missing weight
+         !is.na(hindfoot_length),  # remove missing hindfoot_length
+         sex != "")                # remove missing sex
+    
+## Extract the most common species_id
+species_counts <- surveys_complete %>%
+  group_by(species_id) %>%
+  tally %>%
+  filter(n >= 50)
+    
+## Only keep the most common species
+surveys_complete <- surveys_complete %>%
+  filter(species_id %in% species_counts$species_id)
+
+yearly_sex_counts <- surveys_complete %>%
+  group_by(year, species_id, sex) %>%
+  tally
+    
+library(ggplot2)
+
+my_plot <- ggplot(data = yearly_sex_counts, aes(x = year, y = n, color = sex, group = sex)) +
+    geom_line() +
+    facet_wrap(~ species_id) +
+    labs(title = 'Observed species in time',
+        x = 'Year of observation',
+        y = 'Number of species') +
+    theme_bw() +
+    theme(axis.text.x = element_text(colour="grey20", size=12, angle=90, hjust=.5, vjust=.5),
+                        axis.text.y = element_text(colour="grey20", size=12),
+          text=element_text(size=16, family="Arial"))
+
+current_dir <- getwd()
+output_graph_dir <- 'output_graph'
+
+if (!file.exists(output_graph_dir)){
+    dir.create(file.path(current_dir, output_graph_dir))
+} else {
+    print ("Directory already exists")
+}
+
+ggsave(file.path(current_dir, output_graph_dir, args[3]), 
+       my_plot, width=15, height=10)
+```
+
+- Upload **analyze-3.R** into **intro-to-r** on Palmetto
+- Test run **analyze-3.R**
+
+```{bash}
+$ chmod 755 /home/lngo/intro-to-r/analyze-3.R
+$ /home/lngo/intro-to-r/analyze-3.R /home/lngo/intro-to-r/ data/combined.csv years_sex_counts-4.png
+```
+
+- Create a submission script for Palmetto named **analyze.pbs** in **intro-to-r**:
+
+```{r}
+library(knitr)
+knit_hooks$set(write_script = function(before, options, envir) {
+    if (before) {
+      fileConn<-file(paste0(options$label,".pbs") )
+      writeLines(options$code, fileConn)
+      close(fileConn)
+    }
+})
+```
+
+```{r analyze, write_script=TRUE}
+#!/bin/bash
+
+#PBS -N surveys_data
+#PBS -l select=1:ncpus=8:mem=8gb
+#PBS -l walltime=00:05:00
+#PBS -j oe
+
+cd $PBS_O_WORKDIR
+
+rm output_graph/*
+./analyze-3.R /home/lngo/intro-to-r/ data/combined.csv years_sex_counts-pbs.png
+```
+
+- Upload **analyze.pbs** into **intro-to-r** on Palmetto
+- Open a terminal on JupyterHub interface
+- Login to the head node using the command *ssh login001*
+- Change directory to **intro-to-r**
+- Submit the **analyze.pbs** script
+- Observe the process
+
+```{bash}
+$ cd /home/lngo/intro-to-r
+$ qsub analyze.pbs
+$ qstat -anu lngo
+```
