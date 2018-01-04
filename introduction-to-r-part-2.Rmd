@@ -39,8 +39,12 @@ head(surveys)
 ## Data Frames Manipulation
 
 ```{r}
-# loading commmunity library in R:
-library('dplyr')
+if (!require('dplyr', character.only = TRUE)){
+  install.packages('dplyr', dep = TRUE)
+  if (!require('dplyr', character.only = TRUE)){
+    print ('Package not found')
+  }
+}
 ```
 
 ** Common `dplyr` functions: **

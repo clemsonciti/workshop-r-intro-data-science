@@ -75,7 +75,7 @@ weight_lb
 
 
 ```{r}
-surveys <- read.csv("data/combined.csv", header = FALSE)
+surveys <- read.csv("data/combined.csv")
 ```
 
 
@@ -87,11 +87,6 @@ head(surveys)
 
 ```{r}
 surveys <- read.csv("data/combined.csv", header = FALSE)
-head(surveys)
-```
-
-```{r}
-surveys <- read.csv("data/combined.csv", header = TRUE)
 head(surveys)
 ```
 
@@ -108,7 +103,7 @@ head(surveys)
 
 ## Data Types
 
-- Data frames are the *de facto* data structure for R's tabular data, and conceptionally equivalent to an Excel spreadsheet (albeut much more powerful)
+- Data frames are the *de facto* data structure for R's tabular data, and conceptionally equivalent to an Excel spreadsheet but is more powerful and versatile.
 - Matrices (multi-dimensional) and vectors (one dimension) are also available for computational purposes. 
 - Data frames represents a table whose columns are vectors with same length but possible different data types
 
@@ -188,7 +183,7 @@ surveys[1,1]
 ```
 
 ```{r}
-surveys[1,6]
+surveys[1,2]
 ```
 
 Accessing a block of elements
@@ -224,16 +219,16 @@ surveys[1:5, -3]
 Accessing columns by names:
 
 ```{r}
-surveys[1:5,"species_id"]
+surveys[1:5,"month"]
 ```
 
 ```{r}
-surveys[["species_id"]][1:5]
+surveys[["month"]][1:5]
 ```
 
 
 ```{r}
-surveys$species_id[1:5]
+surveys$month[1:5]
 ```
 
 ** Challenge: **

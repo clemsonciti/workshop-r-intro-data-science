@@ -31,41 +31,8 @@ getwd()
 ```
 
 ```{r}
-surveys <- read.csv("output_data/surveys_complete.csv")
-head(surveys)
-```
-
-Create a clean data set with missing observations removed
-
-```{r}
-library(dplyr)
-```
-
-```{r}
-surveys_complete <- surveys %>%
-  filter(species_id != "",         # remove missing species_id
-         !is.na(weight),           # remove missing weight
-         !is.na(hindfoot_length),  # remove missing hindfoot_length
-         sex != "")                # remove missing sex
-```
-
-Additional filters: Remove rare species (less than 50 observations)
-
-- Create index of rare species
-- Filter rare species from the cleaned data set
-
-```{r}
-## Extract the most common species_id
-species_counts <- surveys_complete %>%
-  group_by(species_id) %>%
-  tally %>%
-  filter(n >= 50)
-```
-
-```{r}
-## Only keep the most common species
-surveys_complete <- surveys_complete %>%
-  filter(species_id %in% species_counts$species_id)
+surveys_complete <- read.csv("output_data/surveys_complete.csv")
+head(surveys_complete)
 ```
 
 ## Data visualization
@@ -73,12 +40,21 @@ surveys_complete <- surveys_complete %>%
 ** Installation: **
 
 ```{r}
-install.packages('ggplot2')
+setupLibrary <- function(libraryName){
+  if (!require(libraryName, character.only = TRUE)){
+    install.packages(libraryName, dep = TRUE)
+    if (!require(libraryName, character.only = TRUE)){
+      print('Package not found')
+    }
+  } else {
+    print('Package is loaded')
+  }
+}
+
+setupLibrary('dplyr')
+setupLibrary('ggplot2')
 ```
 
-```{r}
-library(ggplot2)
-```
 
 ggplot: graphical presentations are described as a combination of elements and built by adding new elements
 
@@ -127,7 +103,11 @@ Scatter plots can be useful exploratory tools for small datasets. For data sets 
 install.packages("hexbin")
 ```
 
-Then use `geom_hex()` function from the ggplot2 package.
+Then use `geom_hex()` function from the ggplot2 package to visualize data
+
+```{r}
+
+```
 
 - What are the relative strengths and weaknesses of a hexagonal bin plot compared to a scatter plot? 
 - Examine the above scatter plot and compare it with the hexagonal bin plot that you created.
@@ -190,6 +170,10 @@ How can we show the box plot?
 Boxplots are useful summaries, but hide the shape of the distribution. For example, if there is a bimodal distribution, it would not be observed with a boxplot. An alternative to the boxplot is the violin plot (sometimes known as a beanplot), where the shape (of the density of points) is drawn.
 
 - Replace the box plot with a violin plot; see `geom_violin()`
+
+```{r}
+
+```
 
 In many types of data, it is important to consider the scale of the observations. For example, it may be worth changing the scale of the axis to better distribute the observations in the space of the plot. Changing the scale of the axes is done similarly to adding/modifying other components (i.e., by incrementally adding commands). Try making these modifications:
 
@@ -355,20 +339,6 @@ ggplot(data = yearly_sex_counts, aes(x = year, y = n, color = sex, group = sex))
     theme(axis.text.x = element_text(colour="grey20", size=12, angle=90, hjust=.5, vjust=.5),
                         axis.text.y = element_text(colour="grey20", size=12),
           text=element_text(size=16, family="Arial"))
-```
-
-Save customizations for reusability:
-
-```{r}
-arial_grey_theme <- theme(axis.text.x = element_text(colour="grey20", size=12, angle=90, hjust=.5, vjust=.5),
-                          axis.text.y = element_text(colour="grey20", size=12),
-                          text=element_text(size=16, family="Arial"))
-```
-
-```{r}
-ggplot(surveys_complete, aes(x = species_id, y = hindfoot_length)) +
-    geom_boxplot() +
-    arial_grey_theme
 ```
 
 ** Save plots to files: **

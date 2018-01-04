@@ -22,7 +22,7 @@ output: html_notebook
 - Introduction to Programming using R
 - Data Analysis and Visualization in R for Ecology
 
-# Running R on a Supercomputer
+# Running R on a Supercomputer (if not running RStudio from inside Palmetto)
 
 - Log into to Palmetto via JupyterHub interface: https://www.palmetto.clemson.edu/jupyter or MobaXterm
 - Request an allocation with the following parameter: 1 chunk, 8 cores, 8gb memory, no gpu, 1 hour
@@ -43,7 +43,7 @@ knit_hooks$set(write_chunk = function(before, options, envir) {
 
 - Create a new text file named **analyze-1.R** inside **intro-to-r**
 
-```{r analyze-1, write_chunk=TRUE}
+```{r analyze-1, eval=FALSE, include=FALSE, write_chunk=TRUE}
 setwd("/home/lngo/intro-to-r/")
 surveys <- read.csv("data/combined.csv")
 
@@ -99,12 +99,12 @@ ggsave(file.path(current_dir, output_graph_dir,"yearly_sex_counts_2.png"),
 - Test run **analyze-1.R**
 
 ```{bash}
-$ /usr/local/share/jupyterhub/env/R/lib/R/bin/R CMD BATCH analyze-1.R
+R CMD BATCH analyze-1.R
 ```
 
 - Create a new text file named **analyze-2.R** inside **intro-to-r**
 
-```{r analyze-2, write_chunk=TRUE}
+```{r analyze-2, eval=FALSE, include=FALSE, write_chunk=TRUE}
 args = commandArgs(trailingOnly=TRUE)
 
 print (args)
@@ -164,12 +164,12 @@ ggsave(file.path(current_dir, output_graph_dir, args[3]),
 - Test run **analyze-2.R**
 
 ```{bash}
-$ /usr/local/share/jupyterhub/env/R/lib/R/bin/Rscript analyze-2.R /home/lngo/intro-to-r/ data/combined.csv years_sex_counts-3.png
+Rscript analyze-2.R /home/$USER/workshop-r-intro-data-science/ data/combined.csv years_sex_counts-3.png
 ```
 
 - Create a new text file named **analyze-3.R**
 
-```{r analyze-3, write_chunk=TRUE}
+```{r analyze-3, eval=FALSE, include=FALSE, write_chunk=TRUE}
 #!/usr/bin/env /usr/local/share/jupyterhub/env/R/lib/R/bin/Rscript
 args = commandArgs(trailingOnly=TRUE)
 
@@ -247,7 +247,7 @@ knit_hooks$set(write_script = function(before, options, envir) {
 })
 ```
 
-```{r analyze, write_script=TRUE}
+```{r analyze, eval=FALSE, include=FALSE, write_script=TRUE}
 #!/bin/bash
 
 #PBS -N surveys_data
@@ -258,7 +258,7 @@ knit_hooks$set(write_script = function(before, options, envir) {
 cd $PBS_O_WORKDIR
 
 rm output_graph/*
-./analyze-3.R /home/lngo/intro-to-r/ data/combined.csv years_sex_counts-pbs.png
+./analyze-3.R $HOME/workshop-r-intro-data-science/data/combined.csv years_sex_counts-pbs.png
 ```
 
 - Upload **analyze.pbs** into **intro-to-r** on Palmetto
