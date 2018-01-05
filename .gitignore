@@ -2,3 +2,5 @@
 output_data
 output_graph
 *.Rout
+.ipynb_checkpoints
+.html
