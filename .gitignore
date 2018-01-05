@@ -4,3 +4,5 @@ output_graph
 *.Rout
 .ipynb_checkpoints
 .html
+*.R
+*.pbs
