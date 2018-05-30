@@ -109,8 +109,6 @@ Then use `geom_hex()` function from the ggplot2 package to visualize data
 
 ```
 
-- What are the relative strengths and weaknesses of a hexagonal bin plot compared to a scatter plot? 
-- Examine the above scatter plot and compare it with the hexagonal bin plot that you created.
 
 ** Building plots iteratively: **
 
@@ -177,8 +175,8 @@ Boxplots are useful summaries, but hide the shape of the distribution. For examp
 
 In many types of data, it is important to consider the scale of the observations. For example, it may be worth changing the scale of the axis to better distribute the observations in the space of the plot. Changing the scale of the axes is done similarly to adding/modifying other components (i.e., by incrementally adding commands). Try making these modifications:
 
+- Create boxplot for the weights.
 - Represent weight on the log10 scale; see `scale_y_log10()`
-- Create boxplot for the scaled weights.
 - Add color to the datapoints on your boxplot according to the species from which the sample was taken (species_id)
 
 ```{r}
@@ -275,26 +273,6 @@ Create a plot that shows how the average weight of each species changes over the
 
 ```{r}
 
-```
-
-- The `facet_wrap` geometry extracts plots into an arbitrary number of dimensions to allow them to cleanly fit on one page. 
-- The `facet_grid` geometry allows you to explicitly specify how you want your plots to be arranged via formula notation (rows ~ columns; a . can be used as a placeholder that indicates only one row or column).
-
-```{r}
-# One column, facet by rows
-yearly_sex_weight <- surveys_complete %>%
-    group_by(year, sex, species_id) %>%
-    summarize(avg_weight = mean(weight))
-ggplot(data = yearly_sex_weight, aes(x=year, y=avg_weight, color = species_id, group = species_id)) +
-    geom_line() +
-    facet_grid(sex ~ .)
-```
-
-```{r}
-# One row, facet by column
-ggplot(data = yearly_sex_weight, aes(x=year, y=avg_weight, color = species_id, group = species_id)) +
-    geom_line() +
-    facet_grid(. ~ sex)
 ```
 
 ** Customization: **

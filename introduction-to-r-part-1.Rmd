@@ -15,7 +15,6 @@ output: html_notebook
 - Understand basic programming concepts: variables, assignment, functions, loops, conditions
 - Understand core R concepts: data loading, data types, data access, libraries
 - Understand advanced R concepts: data manipulation, visualization
-- Understand HPC concepts: running R codes on the Palmetto supercomputer via batch submission scripts
 
 #### Materials on this notebook is based on two lessons by Software Carpentry and Data Carpentry:
 

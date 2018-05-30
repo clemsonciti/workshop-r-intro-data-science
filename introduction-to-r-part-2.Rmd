@@ -15,7 +15,6 @@ output: html_notebook
 - Understand basic programming concepts: variables, assignment, functions, loops, conditions
 - Understand core R concepts: data loading, data types, data access, libraries
 - Understand advanced R concepts: data manipulation, visualization
-- Understand HPC concepts: running R codes on the Palmetto supercomputer via batch submission scripts
 
 #### Materials on this notebook is based on two lessons by Software Carpentry and Data Carpentry:
 
@@ -160,8 +159,6 @@ x <- surveys %>%
        summarize(mean_weight = mean(weight))
 str(x)
 ```
-
-- The `tbl_data` structure is very similar to a data frame; for our purposes the only difference is that, in addition to displaying the data type of each column under its name, it only prints the first few rows of data and only as many columns as fit on one screen.
 
 - If you want to display more data, you use the `print()` function at the end of your chain with the argument `n` specifying the number of rows to display:
 
